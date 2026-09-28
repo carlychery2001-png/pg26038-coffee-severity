@@ -1,0 +1,3911 @@
+{
+ "meta": {
+  "unit": "leaf; rust = abaxial face of the 21 diseased test leaves; American leaf spot = mean of both faces of the 55 diseased test leaves",
+  "difference": "predicted - reference severity, percentage points (pp); A = mean of predicted and reference",
+  "severity_definition": "lesion px / leaf px in 1024 x 1024 letterbox space (reference and prediction each over its own leaf mask), as in the published evaluation",
+  "bootstrap": "10000 resamples of leaves, percentile 95% CIs, numpy default_rng(20260927); one index matrix per disease (rust drawn first), shared by the three models",
+  "regression_loa": "Bland & Altman (1999) section 3.2: D_hat = b0 + b1*A (OLS); |residual| = c0 + c1*A (OLS); SD(A) = sqrt(pi/2)*(c0 + c1*A); LoA(A) = D_hat(A) +/- 1.96*SD(A)",
+  "ccc": "Lin (1989), 1/n moments; CI: bootstrap percentile (primary) and Fisher-z with Lin's asymptotic variance (Lin 1989, corrected 2000); Cb = CCC / Pearson r",
+  "decomposition": "D = FP% - FN% + L; FP%, FN% = false-positive / false-negative lesion px as % of the reference leaf; L = 100*pred_lesion*(1/pred_leaf - 1/ref_leaf) (leaf-mask term); exact per face; FP split into spurious components (no overlap with any reference lesion), a 2-px boundary band around reference lesions, and extension beyond 2 px",
+  "boundary_f1": "lesion boundary = mask minus 3x3 erosion; tolerance Euclidean distance in 1024x1024 letterbox px; rust images 791x1024 (letterbox scale 1.0, 2 px = 2 native px); leaf-spot images 1583x2048 (scale 0.5, 2 px = 4 native px)",
+  "pooled_iou": "sum of lesion intersections / sum of lesion unions over all images in the leaf-level analysis (rust: 21 abaxial images; leaf spot: 110 images)",
+  "healthy_note": "Only 21 of the 54 healthy rust-test leaves reported in the paper are present locally; the healthy-leaf summary below covers those 21 (EARTH site) and does not replace the published 54-leaf specificity counts."
+ },
+ "reproduction": {
+  "rust/segformer": {
+   "published": {
+    "iou": 0.767,
+    "mae": 0.99,
+    "bias": 0.99,
+    "qwk": 0.88,
+    "loa": [
+     -1.68,
+     3.66
+    ]
+   },
+   "reproduced": {
+    "iou": 0.767,
+    "mae": 0.99,
+    "bias": 0.99,
+    "qwk": 0.88,
+    "loa": [
+     -1.68,
+     3.66
+    ]
+   },
+   "match": true
+  },
+  "rust/unetpp": {
+   "published": {
+    "iou": 0.647,
+    "mae": 1.77,
+    "bias": 1.75,
+    "qwk": 0.79,
+    "loa": [
+     -2.68,
+     6.17
+    ]
+   },
+   "reproduced": {
+    "iou": 0.647,
+    "mae": 1.77,
+    "bias": 1.75,
+    "qwk": 0.79,
+    "loa": [
+     -2.68,
+     6.17
+    ]
+   },
+   "match": true
+  },
+  "rust/deeplab": {
+   "published": {
+    "iou": 0.632,
+    "mae": 1.47,
+    "bias": 1.41,
+    "qwk": 0.88,
+    "loa": [
+     -3.07,
+     5.89
+    ]
+   },
+   "reproduced": {
+    "iou": 0.632,
+    "mae": 1.47,
+    "bias": 1.41,
+    "qwk": 0.88,
+    "loa": [
+     -3.07,
+     5.89
+    ]
+   },
+   "match": true
+  },
+  "leaf_spot/segformer": {
+   "published": {
+    "iou": 0.884,
+    "mae": 0.22,
+    "bias": 0.16,
+    "qwk": 0.82,
+    "loa": [
+     -0.47,
+     0.79
+    ]
+   },
+   "reproduced": {
+    "iou": 0.884,
+    "mae": 0.22,
+    "bias": 0.16,
+    "qwk": 0.82,
+    "loa": [
+     -0.47,
+     0.79
+    ]
+   },
+   "match": true
+  },
+  "leaf_spot/unetpp": {
+   "published": {
+    "iou": 0.853,
+    "mae": 0.15,
+    "bias": -0.03,
+    "qwk": 0.85,
+    "loa": [
+     -0.5,
+     0.44
+    ]
+   },
+   "reproduced": {
+    "iou": 0.853,
+    "mae": 0.15,
+    "bias": -0.03,
+    "qwk": 0.85,
+    "loa": [
+     -0.5,
+     0.44
+    ]
+   },
+   "match": true
+  },
+  "leaf_spot/deeplab": {
+   "published": {
+    "iou": 0.815,
+    "mae": 0.25,
+    "bias": 0.08,
+    "qwk": 0.84,
+    "loa": [
+     -0.66,
+     0.82
+    ]
+   },
+   "reproduced": {
+    "iou": 0.815,
+    "mae": 0.25,
+    "bias": 0.08,
+    "qwk": 0.84,
+    "loa": [
+     -0.66,
+     0.82
+    ]
+   },
+   "match": true
+  }
+ },
+ "models": {
+  "rust/segformer": {
+   "disease": "rust",
+   "model": "SegFormer-B5",
+   "n_leaves": 21,
+   "reference_severity": {
+    "mean": 5.474903,
+    "median": 3.827765,
+    "sd": 5.202595,
+    "min": 0.406204,
+    "max": 19.344143,
+    "q25": 1.89263,
+    "q75": 7.455066,
+    "n_above_10pct": 3,
+    "n_at_or_above_20pct": 0,
+    "grade_counts_reference": {
+     "G0": 1,
+     "G1": 11,
+     "G2": 9,
+     "G3": 0
+    },
+    "grade_source": "mask-derived (cut-points 0.5/5/20%)"
+   },
+   "predicted_severity": {
+    "mean": 6.464484,
+    "median": 4.084476,
+    "min": 0.483468,
+    "max": 23.730264
+   },
+   "mean_of_A": {
+    "min": 0.444836,
+    "max": 21.537204,
+    "n_A_above_15": 2
+   },
+   "bias": {
+    "estimate": 0.989581,
+    "ci95_bootstrap": [
+     0.475737,
+     1.602815
+    ],
+    "ci95_t": [
+     0.368467,
+     1.610695
+    ]
+   },
+   "sd_of_differences": {
+    "estimate": 1.364503,
+    "ci95_bootstrap": [
+     0.605495,
+     1.803565
+    ]
+   },
+   "constant_loa": {
+    "lower": -1.684846,
+    "upper": 3.664008,
+    "lower_ci95_bootstrap": [
+     -2.157199,
+     -0.631783
+    ],
+    "upper_ci95_bootstrap": [
+     1.715565,
+     5.048785
+    ],
+    "lower_ci95_parametric_BA1986": [
+     -2.760647,
+     -0.609044
+    ],
+    "upper_ci95_parametric_BA1986": [
+     2.588206,
+     4.739809
+    ]
+   },
+   "regression_of_differences_on_means": {
+    "slope": 0.207665,
+    "slope_ci95_t": [
+     0.154342,
+     0.260987
+    ],
+    "slope_p": 0.0,
+    "slope_se": 0.025476,
+    "slope_ci95_bootstrap": [
+     0.1516,
+     0.287883
+    ],
+    "slope_se_hc3": 0.028341,
+    "slope_p_hc3": 1e-06,
+    "slope_ci95_hc3": [
+     0.148347,
+     0.266983
+    ],
+    "intercept": -0.250113,
+    "intercept_ci95_t": [
+     -0.688566,
+     0.188339
+    ],
+    "intercept_p": 0.247189,
+    "intercept_ci95_bootstrap": [
+     -0.504773,
+     -0.074959
+    ],
+    "r_squared": 0.777631,
+    "df": 19
+   },
+   "regression_based_loa": {
+    "abs_residual_intercept_c0": 0.201602,
+    "abs_residual_slope_c1": 0.030795,
+    "abs_residual_slope_ci95_t": [
+     -0.008619,
+     0.070208
+    ],
+    "abs_residual_slope_p": 0.118437,
+    "abs_residual_slope_ci95_bootstrap": [
+     -0.001851,
+     0.111127
+    ],
+    "sd_function": "SD(A) = sqrt(pi/2) * (0.20160 + 0.03079 * A)",
+    "mean_function": "D(A) = -0.25011 + 0.20766 * A",
+    "sd_nonnegative_from_A": 0.0,
+    "at_mean_severity": {
+     "A=1": {
+      "fitted_difference": -0.042449,
+      "fitted_difference_ci95_bootstrap": [
+       -0.24483,
+       0.112935
+      ],
+      "sd": 0.291266,
+      "loa_lower": -0.61333,
+      "loa_upper": 0.528432,
+      "loa_lower_ci95_bootstrap": [
+       -0.926651,
+       -0.213929
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.017711,
+       0.890954
+      ],
+      "within_observed_A_range": true
+     },
+     "A=5": {
+      "fitted_difference": 0.78821,
+      "fitted_difference_ci95_bootstrap": [
+       0.583385,
+       1.059754
+      ],
+      "sd": 0.445647,
+      "loa_lower": -0.085258,
+      "loa_upper": 1.661678,
+      "loa_lower_ci95_bootstrap": [
+       -0.478317,
+       0.269438
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.012737,
+       2.499095
+      ],
+      "within_observed_A_range": true
+     },
+     "A=10": {
+      "fitted_difference": 1.826533,
+      "fitted_difference_ci95_bootstrap": [
+       1.373375,
+       2.443034
+      ],
+      "sd": 0.638623,
+      "loa_lower": 0.574833,
+      "loa_upper": 3.078234,
+      "loa_lower_ci95_bootstrap": [
+       -0.459058,
+       1.157289
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.834495,
+       5.214448
+      ],
+      "within_observed_A_range": true
+     },
+     "A=20": {
+      "fitted_difference": 3.90318,
+      "fitted_difference_ci95_bootstrap": [
+       2.902198,
+       5.311388
+      ],
+      "sd": 1.024575,
+      "loa_lower": 1.895013,
+      "loa_upper": 5.911348,
+      "loa_lower_ci95_bootstrap": [
+       -0.539454,
+       3.123524
+      ],
+      "loa_upper_ci95_bootstrap": [
+       3.437483,
+       10.749263
+      ],
+      "within_observed_A_range": true
+     }
+    },
+    "at_reference_cutpoint": {
+     "ref=5%": {
+      "fitted_difference": 0.879534,
+      "fitted_difference_ci95_bootstrap": [
+       0.637201,
+       1.216038
+      ],
+      "fitted_difference_relative_pct": 17.590681,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       12.744011,
+       24.320753
+      ],
+      "loa_lower": -0.0272,
+      "loa_upper": 1.786269,
+      "loa_lower_ci95_bootstrap": [
+       -0.465382,
+       0.335222
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.068103,
+       2.81754
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 4.285933,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       4.065932,
+       4.463531
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 1,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_013",
+        "ref_sev": 4.712362,
+        "pred_sev": 5.171463,
+        "ref_grade": 1,
+        "pred_grade": 2,
+        "over_graded": true
+       }
+      ],
+      "n_over_graded_in_that_band": 1,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 9
+     },
+     "ref=20%": {
+      "fitted_difference": 4.355413,
+      "fitted_difference_ci95_bootstrap": [
+       3.143095,
+       6.206788
+      ],
+      "fitted_difference_relative_pct": 21.777065,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       15.715473,
+       31.033939
+      ],
+      "loa_lower": 2.182509,
+      "loa_upper": 6.528316,
+      "loa_lower_ci95_bootstrap": [
+       -0.563948,
+       3.573994
+      ],
+      "loa_upper_ci95_bootstrap": [
+       3.694101,
+       12.586912
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 16.463974,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       15.352167,
+       17.306397
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 2,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_009",
+        "ref_sev": 16.647808,
+        "pred_sev": 19.474275,
+        "ref_grade": 2,
+        "pred_grade": 2,
+        "over_graded": false
+       },
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_020",
+        "ref_sev": 19.344143,
+        "pred_sev": 23.730264,
+        "ref_grade": 2,
+        "pred_grade": 3,
+        "over_graded": true
+       }
+      ],
+      "n_over_graded_in_that_band": 1,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 0
+     }
+    }
+   },
+   "calibration_pred_on_ref": {
+    "slope": 1.223191,
+    "slope_ci95_t": [
+     1.15705,
+     1.289332
+    ],
+    "slope_ci95_bootstrap": [
+     1.162347,
+     1.306485
+    ],
+    "p_slope_eq_1": 1e-06,
+    "intercept": -0.232368,
+    "intercept_ci95_bootstrap": [
+     -0.484276,
+     -0.024975
+    ],
+    "predicted_at_ref5": 5.883587,
+    "predicted_at_ref20": 24.231452
+   },
+   "lin_ccc": {
+    "ccc": 0.958179,
+    "ci95_bootstrap": [
+     0.909513,
+     0.979449
+    ],
+    "ci95_z_transform": [
+     0.926202,
+     0.976469
+    ],
+    "pearson_r": 0.993719,
+    "pearson_r_ci95_bootstrap": [
+     0.978925,
+     0.999307
+    ],
+    "cb": 0.964235,
+    "cb_ci95_bootstrap": [
+     0.928509,
+     0.980577
+    ],
+    "location_shift_u": 0.175675,
+    "share_of_log_shortfall_precision_r": 0.147484,
+    "share_of_log_shortfall_accuracy_cb": 0.852516
+   },
+   "mae": {
+    "estimate": 0.989829,
+    "ci95_bootstrap": [
+     0.475737,
+     1.603548
+    ]
+   },
+   "rmse": {
+    "estimate": 1.65906,
+    "ci95_bootstrap": [
+     0.785983,
+     2.336504
+    ]
+   },
+   "relative_error_pct": {
+    "estimate": 18.079397,
+    "ci95_bootstrap": [
+     12.415259,
+     24.153051
+    ],
+    "definition": "100 * MAE / mean reference severity"
+   },
+   "relative_bias_pct": {
+    "estimate": 18.07486,
+    "ci95_bootstrap": [
+     12.407609,
+     24.141024
+    ]
+   },
+   "log_ratio_loa": {
+    "geometric_mean_ratio": 1.142513,
+    "gmr_ci95_bootstrap": [
+     1.101551,
+     1.189213
+    ],
+    "loa_ratio_lower": 0.95122,
+    "loa_ratio_upper": 1.372275,
+    "n_leaves_with_ratio_above_1": 20
+   },
+   "error_decomposition_pct_of_leaf": {
+    "fp_pct": {
+     "mean": 1.28837,
+     "mean_ci95_bootstrap": [
+      0.727088,
+      1.947105
+     ],
+     "slope_on_A": 0.235121,
+     "slope_on_A_ci95_bootstrap": [
+      0.187893,
+      0.317219
+     ]
+    },
+    "fn_pct": {
+     "mean": 0.293072,
+     "mean_ci95_bootstrap": [
+      0.208467,
+      0.384747
+     ],
+     "slope_on_A": 0.027573,
+     "slope_on_A_ci95_bootstrap": [
+      0.018519,
+      0.052566
+     ]
+    },
+    "leafterm_pct": {
+     "mean": -0.005718,
+     "mean_ci95_bootstrap": [
+      -0.010696,
+      -0.001409
+     ],
+     "slope_on_A": 0.000117,
+     "slope_on_A_ci95_bootstrap": [
+      -0.001248,
+      0.000627
+     ]
+    },
+    "fp_spurious_pct": {
+     "mean": 0.118167,
+     "mean_ci95_bootstrap": [
+      0.061439,
+      0.188603
+     ],
+     "slope_on_A": 0.006547,
+     "slope_on_A_ci95_bootstrap": [
+      -0.001529,
+      0.037048
+     ]
+    },
+    "fp_band_pct": {
+     "mean": 0.875582,
+     "mean_ci95_bootstrap": [
+      0.504375,
+      1.325756
+     ],
+     "slope_on_A": 0.168202,
+     "slope_on_A_ci95_bootstrap": [
+      0.135365,
+      0.185086
+     ]
+    },
+    "fp_extension_pct": {
+     "mean": 0.294621,
+     "mean_ci95_bootstrap": [
+      0.0954,
+      0.572142
+     ],
+     "slope_on_A": 0.060371,
+     "slope_on_A_ci95_bootstrap": [
+      0.03011,
+      0.134278
+     ]
+    },
+    "fp_outside_ref_leaf_pct": {
+     "mean": 0.014963,
+     "mean_ci95_bootstrap": [
+      0.007982,
+      0.02301
+     ],
+     "slope_on_A": 0.001939,
+     "slope_on_A_ci95_bootstrap": [
+      0.000881,
+      0.004144
+     ]
+    },
+    "fn_missed_pct": {
+     "mean": 0.014442,
+     "mean_ci95_bootstrap": [
+      0.002075,
+      0.029075
+     ],
+     "slope_on_A": -0.000121,
+     "slope_on_A_ci95_bootstrap": [
+      -0.001665,
+      0.002011
+     ]
+    },
+    "fn_partial_pct": {
+     "mean": 0.27863,
+     "mean_ci95_bootstrap": [
+      0.194666,
+      0.371118
+     ],
+     "slope_on_A": 0.027693,
+     "slope_on_A_ci95_bootstrap": [
+      0.018736,
+      0.051619
+     ]
+    }
+   },
+   "iou": {
+    "mean_leaf_iou": 0.767292,
+    "mean_leaf_iou_ci95_bootstrap": [
+     0.742932,
+     0.790469
+    ],
+    "median_leaf_iou": 0.766538,
+    "median_leaf_iou_ci95_bootstrap": [
+     0.745042,
+     0.80354
+    ],
+    "pooled_micro_iou": 0.768735,
+    "pooled_micro_iou_ci95_bootstrap": [
+     0.732134,
+     0.7969
+    ],
+    "min_leaf_iou": 0.638353
+   },
+   "boundary_f1": {
+    "tol_1px": {
+     "mean_leaf": 0.793292,
+     "mean_leaf_ci95_bootstrap": [
+      0.747071,
+      0.83546
+     ],
+     "pooled": 0.745595,
+     "pooled_ci95_bootstrap": [
+      0.704022,
+      0.800126
+     ],
+     "pooled_precision": 0.728837,
+     "pooled_recall": 0.763141
+    },
+    "tol_2px": {
+     "mean_leaf": 0.889673,
+     "mean_leaf_ci95_bootstrap": [
+      0.856909,
+      0.919252
+     ],
+     "pooled": 0.864797,
+     "pooled_ci95_bootstrap": [
+      0.830346,
+      0.900453
+     ],
+     "pooled_precision": 0.847109,
+     "pooled_recall": 0.883239
+    },
+    "tol_3px": {
+     "mean_leaf": 0.923197,
+     "mean_leaf_ci95_bootstrap": [
+      0.897533,
+      0.945329
+     ],
+     "pooled": 0.912458,
+     "pooled_ci95_bootstrap": [
+      0.879762,
+      0.939578
+     ],
+     "pooled_precision": 0.894506,
+     "pooled_recall": 0.931147
+    },
+    "tol_5px": {
+     "mean_leaf": 0.946618,
+     "mean_leaf_ci95_bootstrap": [
+      0.926628,
+      0.964374
+     ],
+     "pooled": 0.946115,
+     "pooled_ci95_bootstrap": [
+      0.918575,
+      0.967413
+     ],
+     "pooled_precision": 0.925731,
+     "pooled_recall": 0.967418
+    }
+   },
+   "grades": {
+    "qwk": 0.877907,
+    "accuracy": 0.904762,
+    "n_over": 2,
+    "n_under": 0,
+    "disagreements": [
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_013",
+      "ref_sev": 4.712362,
+      "pred_sev": 5.171463,
+      "ref_grade": 1,
+      "pred_grade": 2,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "over"
+     },
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_020",
+      "ref_sev": 19.344143,
+      "pred_sev": 23.730264,
+      "ref_grade": 2,
+      "pred_grade": 3,
+      "mask_grade": 2,
+      "category": "severity_error",
+      "direction": "over"
+     }
+    ],
+    "disagreement_category_counts": {
+     "visual_mask_gap": 0,
+     "severity_error": 2,
+     "gap_and_severity": 0
+    },
+    "category_definitions": {
+     "visual_mask_gap": "predicted grade equals the grade derived from the reference mask severity, which differs from the (visual) reference grade",
+     "severity_error": "grade derived from the reference mask equals the reference grade; the predicted severity crossed a cut-point",
+     "gap_and_severity": "neither of the above"
+    }
+   }
+  },
+  "rust/unetpp": {
+   "disease": "rust",
+   "model": "UNet++",
+   "n_leaves": 21,
+   "reference_severity": {
+    "mean": 5.474903,
+    "median": 3.827765,
+    "sd": 5.202595,
+    "min": 0.406204,
+    "max": 19.344143,
+    "q25": 1.89263,
+    "q75": 7.455066,
+    "n_above_10pct": 3,
+    "n_at_or_above_20pct": 0,
+    "grade_counts_reference": {
+     "G0": 1,
+     "G1": 11,
+     "G2": 9,
+     "G3": 0
+    },
+    "grade_source": "mask-derived (cut-points 0.5/5/20%)"
+   },
+   "predicted_severity": {
+    "mean": 7.223545,
+    "median": 5.010925,
+    "min": 0.401812,
+    "max": 25.107103
+   },
+   "mean_of_A": {
+    "min": 0.404008,
+    "max": 22.225623,
+    "n_A_above_15": 2
+   },
+   "bias": {
+    "estimate": 1.748642,
+    "ci95_bootstrap": [
+     0.883732,
+     2.741655
+    ],
+    "ci95_t": [
+     0.720764,
+     2.77652
+    ]
+   },
+   "sd_of_differences": {
+    "estimate": 2.258108,
+    "ci95_bootstrap": [
+     1.360253,
+     2.806779
+    ]
+   },
+   "constant_loa": {
+    "lower": -2.677249,
+    "upper": 6.174533,
+    "lower_ci95_bootstrap": [
+     -3.333128,
+     -1.61725
+    ],
+    "upper_ci95_bootstrap": [
+     3.59102,
+     8.044842
+    ],
+    "lower_ci95_parametric_BA1986": [
+     -4.457587,
+     -0.896912
+    ],
+    "upper_ci95_parametric_BA1986": [
+     4.394196,
+     7.954871
+    ]
+   },
+   "regression_of_differences_on_means": {
+    "slope": 0.310712,
+    "slope_ci95_t": [
+     0.215004,
+     0.40642
+    ],
+    "slope_p": 2e-06,
+    "slope_se": 0.045727,
+    "slope_ci95_bootstrap": [
+     0.238072,
+     0.490756
+    ],
+    "slope_se_hc3": 0.06257,
+    "slope_p_hc3": 8.6e-05,
+    "slope_ci95_hc3": [
+     0.179751,
+     0.441674
+    ],
+    "intercept": -0.224139,
+    "intercept_ci95_t": [
+     -1.058222,
+     0.609945
+    ],
+    "intercept_p": 0.580388,
+    "intercept_ci95_bootstrap": [
+     -0.894296,
+     0.185161
+    ],
+    "r_squared": 0.70846,
+    "df": 19
+   },
+   "regression_based_loa": {
+    "abs_residual_intercept_c0": 0.304758,
+    "abs_residual_slope_c1": 0.08139,
+    "abs_residual_slope_ci95_t": [
+     0.024239,
+     0.13854
+    ],
+    "abs_residual_slope_p": 0.007682,
+    "abs_residual_slope_ci95_bootstrap": [
+     0.001108,
+     0.149335
+    ],
+    "sd_function": "SD(A) = sqrt(pi/2) * (0.30476 + 0.08139 * A)",
+    "mean_function": "D(A) = -0.22414 + 0.31071 * A",
+    "sd_nonnegative_from_A": 0.0,
+    "at_mean_severity": {
+     "A=1": {
+      "fitted_difference": 0.086574,
+      "fitted_difference_ci95_bootstrap": [
+       -0.421208,
+       0.472868
+      ],
+      "sd": 0.483965,
+      "loa_lower": -0.861997,
+      "loa_upper": 1.035144,
+      "loa_lower_ci95_bootstrap": [
+       -1.777805,
+       -0.27961
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.238812,
+       2.20447
+      ],
+      "within_observed_A_range": true
+     },
+     "A=5": {
+      "fitted_difference": 1.329422,
+      "fitted_difference_ci95_bootstrap": [
+       0.921049,
+       1.797825
+      ],
+      "sd": 0.891992,
+      "loa_lower": -0.418882,
+      "loa_upper": 3.077726,
+      "loa_lower_ci95_bootstrap": [
+       -1.006162,
+       0.256157
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.892468,
+       4.122848
+      ],
+      "within_observed_A_range": true
+     },
+     "A=10": {
+      "fitted_difference": 2.882983,
+      "fitted_difference_ci95_bootstrap": [
+       2.175473,
+       4.062424
+      ],
+      "sd": 1.402026,
+      "loa_lower": 0.135011,
+      "loa_upper": 5.630954,
+      "loa_lower_ci95_bootstrap": [
+       -0.736845,
+       1.547036
+      ],
+      "loa_upper_ci95_bootstrap": [
+       3.240917,
+       7.597562
+      ],
+      "within_observed_A_range": true
+     },
+     "A=20": {
+      "fitted_difference": 5.990104,
+      "fitted_difference_ci95_bootstrap": [
+       4.594155,
+       8.94963
+      ],
+      "sd": 2.422095,
+      "loa_lower": 1.242798,
+      "loa_upper": 10.737409,
+      "loa_lower_ci95_bootstrap": [
+       -0.676748,
+       4.442737
+      ],
+      "loa_upper_ci95_bootstrap": [
+       5.890162,
+       15.161314
+      ],
+      "within_observed_A_range": true
+     }
+    },
+    "at_reference_cutpoint": {
+     "ref=5%": {
+      "fitted_difference": 1.573944,
+      "fitted_difference_ci95_bootstrap": [
+       1.054284,
+       2.265496
+      ],
+      "fitted_difference_relative_pct": 31.478873,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       21.085684,
+       45.309929
+      ],
+      "loa_lower": -0.331703,
+      "loa_upper": 3.47959,
+      "loa_lower_ci95_bootstrap": [
+       -0.918753,
+       0.448321
+      ],
+      "loa_upper_ci95_bootstrap": [
+       2.035657,
+       4.803844
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 3.84934,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       3.495864,
+       4.185021
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 1,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_013",
+        "ref_sev": 4.712362,
+        "pred_sev": 5.388527,
+        "ref_grade": 1,
+        "pred_grade": 2,
+        "over_graded": true
+       }
+      ],
+      "n_over_graded_in_that_band": 1,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 9
+     },
+     "ref=20%": {
+      "fitted_difference": 7.091868,
+      "fitted_difference_ci95_bootstrap": [
+       5.221015,
+       11.87638
+      ],
+      "fitted_difference_relative_pct": 35.459341,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       26.105073,
+       59.381902
+      ],
+      "loa_lower": 1.635612,
+      "loa_upper": 12.548125,
+      "loa_lower_ci95_bootstrap": [
+       -0.663055,
+       5.983911
+      ],
+      "loa_upper_ci95_bootstrap": [
+       6.594901,
+       19.067009
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 14.815361,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       12.814047,
+       15.899959
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 2,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_009",
+        "ref_sev": 16.647808,
+        "pred_sev": 20.585238,
+        "ref_grade": 2,
+        "pred_grade": 3,
+        "over_graded": true
+       },
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_020",
+        "ref_sev": 19.344143,
+        "pred_sev": 25.107103,
+        "ref_grade": 2,
+        "pred_grade": 3,
+        "over_graded": true
+       }
+      ],
+      "n_over_graded_in_that_band": 2,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 0
+     }
+    }
+   },
+   "calibration_pred_on_ref": {
+    "slope": 1.33535,
+    "slope_ci95_t": [
+     1.203039,
+     1.46766
+    ],
+    "slope_ci95_bootstrap": [
+     1.252671,
+     1.575004
+    ],
+    "p_slope_eq_1": 4e-05,
+    "intercept": -0.087364,
+    "intercept_ci95_bootstrap": [
+     -0.855002,
+     0.451759
+    ],
+    "predicted_at_ref5": 6.589384,
+    "predicted_at_ref20": 26.619628
+   },
+   "lin_ccc": {
+    "ccc": 0.896899,
+    "ci95_bootstrap": [
+     0.786199,
+     0.948895
+    ],
+    "ci95_z_transform": [
+     0.81881,
+     0.942399
+    ],
+    "pearson_r": 0.979367,
+    "pearson_r_ci95_bootstrap": [
+     0.95165,
+     0.996911
+    ],
+    "cb": 0.915795,
+    "cb_ci95_bootstrap": [
+     0.818664,
+     0.953319
+    ],
+    "location_shift_u": 0.294952,
+    "share_of_log_shortfall_precision_r": 0.191608,
+    "share_of_log_shortfall_accuracy_cb": 0.808392
+   },
+   "mae": {
+    "estimate": 1.769442,
+    "ci95_bootstrap": [
+     0.919031,
+     2.762763
+    ]
+   },
+   "rmse": {
+    "estimate": 2.813181,
+    "ci95_bootstrap": [
+     1.62688,
+     3.799076
+    ]
+   },
+   "relative_error_pct": {
+    "estimate": 32.319159,
+    "ci95_bootstrap": [
+     21.859318,
+     43.936079
+    ],
+    "definition": "100 * MAE / mean reference severity"
+   },
+   "relative_bias_pct": {
+    "estimate": 31.939236,
+    "ci95_bootstrap": [
+     21.297558,
+     43.575996
+    ]
+   },
+   "log_ratio_loa": {
+    "geometric_mean_ratio": 1.244484,
+    "gmr_ci95_bootstrap": [
+     1.149428,
+     1.350833
+    ],
+    "loa_ratio_lower": 0.850256,
+    "loa_ratio_upper": 1.821497,
+    "n_leaves_with_ratio_above_1": 18
+   },
+   "error_decomposition_pct_of_leaf": {
+    "fp_pct": {
+     "mean": 2.288823,
+     "mean_ci95_bootstrap": [
+      1.337821,
+      3.362914
+     ],
+     "slope_on_A": 0.362503,
+     "slope_on_A_ci95_bootstrap": [
+      0.293938,
+      0.538467
+     ]
+    },
+    "fn_pct": {
+     "mean": 0.407825,
+     "mean_ci95_bootstrap": [
+      0.300508,
+      0.518093
+     ],
+     "slope_on_A": 0.027709,
+     "slope_on_A_ci95_bootstrap": [
+      0.015738,
+      0.051807
+     ]
+    },
+    "leafterm_pct": {
+     "mean": -0.132356,
+     "mean_ci95_bootstrap": [
+      -0.201072,
+      -0.076195
+     ],
+     "slope_on_A": -0.024082,
+     "slope_on_A_ci95_bootstrap": [
+      -0.027095,
+      -0.019333
+     ]
+    },
+    "fp_spurious_pct": {
+     "mean": 0.104346,
+     "mean_ci95_bootstrap": [
+      0.044335,
+      0.17617
+     ],
+     "slope_on_A": 0.007817,
+     "slope_on_A_ci95_bootstrap": [
+      0.000169,
+      0.031882
+     ]
+    },
+    "fp_band_pct": {
+     "mean": 1.305323,
+     "mean_ci95_bootstrap": [
+      0.7945,
+      1.902244
+     ],
+     "slope_on_A": 0.20517,
+     "slope_on_A_ci95_bootstrap": [
+      0.166773,
+      0.229143
+     ]
+    },
+    "fp_extension_pct": {
+     "mean": 0.879153,
+     "mean_ci95_bootstrap": [
+      0.424415,
+      1.417176
+     ],
+     "slope_on_A": 0.149516,
+     "slope_on_A_ci95_bootstrap": [
+      0.097097,
+      0.298203
+     ]
+    },
+    "fp_outside_ref_leaf_pct": {
+     "mean": 0.123731,
+     "mean_ci95_bootstrap": [
+      0.066447,
+      0.189502
+     ],
+     "slope_on_A": 0.020823,
+     "slope_on_A_ci95_bootstrap": [
+      0.015317,
+      0.032184
+     ]
+    },
+    "fn_missed_pct": {
+     "mean": 0.06289,
+     "mean_ci95_bootstrap": [
+      0.026988,
+      0.105949
+     ],
+     "slope_on_A": -0.002306,
+     "slope_on_A_ci95_bootstrap": [
+      -0.007447,
+      0.005089
+     ]
+    },
+    "fn_partial_pct": {
+     "mean": 0.344934,
+     "mean_ci95_bootstrap": [
+      0.242714,
+      0.45563
+     ],
+     "slope_on_A": 0.030014,
+     "slope_on_A_ci95_bootstrap": [
+      0.019007,
+      0.049951
+     ]
+    }
+   },
+   "iou": {
+    "mean_leaf_iou": 0.646541,
+    "mean_leaf_iou_ci95_bootstrap": [
+     0.60689,
+     0.68438
+    ],
+    "median_leaf_iou": 0.648018,
+    "median_leaf_iou_ci95_bootstrap": [
+     0.606742,
+     0.714286
+    ],
+    "pooled_micro_iou": 0.661628,
+    "pooled_micro_iou_ci95_bootstrap": [
+     0.612596,
+     0.701403
+    ],
+    "min_leaf_iou": 0.480846
+   },
+   "boundary_f1": {
+    "tol_1px": {
+     "mean_leaf": 0.547649,
+     "mean_leaf_ci95_bootstrap": [
+      0.483562,
+      0.612147
+     ],
+     "pooled": 0.511384,
+     "pooled_ci95_bootstrap": [
+      0.453551,
+      0.576551
+     ],
+     "pooled_precision": 0.499044,
+     "pooled_recall": 0.524349
+    },
+    "tol_2px": {
+     "mean_leaf": 0.749284,
+     "mean_leaf_ci95_bootstrap": [
+      0.694706,
+      0.801216
+     ],
+     "pooled": 0.713691,
+     "pooled_ci95_bootstrap": [
+      0.659231,
+      0.771378
+     ],
+     "pooled_precision": 0.708025,
+     "pooled_recall": 0.719448
+    },
+    "tol_3px": {
+     "mean_leaf": 0.856966,
+     "mean_leaf_ci95_bootstrap": [
+      0.81285,
+      0.897354
+     ],
+     "pooled": 0.830189,
+     "pooled_ci95_bootstrap": [
+      0.780227,
+      0.880209
+     ],
+     "pooled_precision": 0.831859,
+     "pooled_recall": 0.828525
+    },
+    "tol_5px": {
+     "mean_leaf": 0.917827,
+     "mean_leaf_ci95_bootstrap": [
+      0.887752,
+      0.944917
+     ],
+     "pooled": 0.906049,
+     "pooled_ci95_bootstrap": [
+      0.870773,
+      0.9393
+     ],
+     "pooled_precision": 0.905849,
+     "pooled_recall": 0.906249
+    }
+   },
+   "grades": {
+    "qwk": 0.787879,
+    "accuracy": 0.809524,
+    "n_over": 4,
+    "n_under": 0,
+    "disagreements": [
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_009",
+      "ref_sev": 16.647808,
+      "pred_sev": 20.585238,
+      "ref_grade": 2,
+      "pred_grade": 3,
+      "mask_grade": 2,
+      "category": "severity_error",
+      "direction": "over"
+     },
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_013",
+      "ref_sev": 4.712362,
+      "pred_sev": 5.388527,
+      "ref_grade": 1,
+      "pred_grade": 2,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "over"
+     },
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_020",
+      "ref_sev": 19.344143,
+      "pred_sev": 25.107103,
+      "ref_grade": 2,
+      "pred_grade": 3,
+      "mask_grade": 2,
+      "category": "severity_error",
+      "direction": "over"
+     },
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_116",
+      "ref_sev": 3.827765,
+      "pred_sev": 5.010925,
+      "ref_grade": 1,
+      "pred_grade": 2,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "over"
+     }
+    ],
+    "disagreement_category_counts": {
+     "visual_mask_gap": 0,
+     "severity_error": 4,
+     "gap_and_severity": 0
+    },
+    "category_definitions": {
+     "visual_mask_gap": "predicted grade equals the grade derived from the reference mask severity, which differs from the (visual) reference grade",
+     "severity_error": "grade derived from the reference mask equals the reference grade; the predicted severity crossed a cut-point",
+     "gap_and_severity": "neither of the above"
+    }
+   }
+  },
+  "rust/deeplab": {
+   "disease": "rust",
+   "model": "DeepLabV3+",
+   "n_leaves": 21,
+   "reference_severity": {
+    "mean": 5.474903,
+    "median": 3.827765,
+    "sd": 5.202595,
+    "min": 0.406204,
+    "max": 19.344143,
+    "q25": 1.89263,
+    "q75": 7.455066,
+    "n_above_10pct": 3,
+    "n_at_or_above_20pct": 0,
+    "grade_counts_reference": {
+     "G0": 1,
+     "G1": 11,
+     "G2": 9,
+     "G3": 0
+    },
+    "grade_source": "mask-derived (cut-points 0.5/5/20%)"
+   },
+   "predicted_severity": {
+    "mean": 6.88639,
+    "median": 4.921614,
+    "min": 0.376721,
+    "max": 22.647675
+   },
+   "mean_of_A": {
+    "min": 0.391463,
+    "max": 20.995909,
+    "n_A_above_15": 2
+   },
+   "bias": {
+    "estimate": 1.411488,
+    "ci95_bootstrap": [
+     0.573639,
+     2.438115
+    ],
+    "ci95_t": [
+     0.371724,
+     2.451252
+    ]
+   },
+   "sd_of_differences": {
+    "estimate": 2.284219,
+    "ci95_bootstrap": [
+     1.031093,
+     3.088293
+    ]
+   },
+   "constant_loa": {
+    "lower": -3.065581,
+    "upper": 5.888557,
+    "lower_ci95_bootstrap": [
+     -3.989528,
+     -1.338143
+    ],
+    "upper_ci95_bootstrap": [
+     2.619524,
+     8.370153
+    ],
+    "lower_ci95_parametric_BA1986": [
+     -4.866505,
+     -1.264657
+    ],
+    "upper_ci95_parametric_BA1986": [
+     4.087633,
+     7.689481
+    ]
+   },
+   "regression_of_differences_on_means": {
+    "slope": 0.247129,
+    "slope_ci95_t": [
+     0.101956,
+     0.392301
+    ],
+    "slope_p": 0.002076,
+    "slope_se": 0.06936,
+    "slope_ci95_bootstrap": [
+     0.145951,
+     0.510409
+    ],
+    "slope_se_hc3": 0.093401,
+    "slope_p_hc3": 0.015941,
+    "slope_ci95_hc3": [
+     0.051637,
+     0.44262
+    ],
+    "intercept": -0.115927,
+    "intercept_ci95_t": [
+     -1.337359,
+     1.105505
+    ],
+    "intercept_p": 0.844647,
+    "intercept_ci95_bootstrap": [
+     -1.02382,
+     0.441695
+    ],
+    "r_squared": 0.400534,
+    "df": 19
+   },
+   "regression_based_loa": {
+    "abs_residual_intercept_c0": 0.203091,
+    "abs_residual_slope_c1": 0.136541,
+    "abs_residual_slope_ci95_t": [
+     0.041563,
+     0.231519
+    ],
+    "abs_residual_slope_p": 0.007217,
+    "abs_residual_slope_ci95_bootstrap": [
+     0.013202,
+     0.245444
+    ],
+    "sd_function": "SD(A) = sqrt(pi/2) * (0.20309 + 0.13654 * A)",
+    "mean_function": "D(A) = -0.11593 + 0.24713 * A",
+    "sd_nonnegative_from_A": 0.0,
+    "at_mean_severity": {
+     "A=1": {
+      "fitted_difference": 0.131202,
+      "fitted_difference_ci95_bootstrap": [
+       -0.546924,
+       0.675852
+      ],
+      "sd": 0.425666,
+      "loa_lower": -0.703104,
+      "loa_upper": 0.965508,
+      "loa_lower_ci95_bootstrap": [
+       -2.18154,
+       -0.159139
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.158397,
+       3.140886
+      ],
+      "within_observed_A_range": true
+     },
+     "A=5": {
+      "fitted_difference": 1.119716,
+      "fitted_difference_ci95_bootstrap": [
+       0.551252,
+       1.851624
+      ],
+      "sd": 1.110184,
+      "loa_lower": -1.056244,
+      "loa_upper": 3.295676,
+      "loa_lower_ci95_bootstrap": [
+       -2.15769,
+       -0.176631
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.622791,
+       5.464134
+      ],
+      "within_observed_A_range": true
+     },
+     "A=10": {
+      "fitted_difference": 2.355359,
+      "fitted_difference_ci95_bootstrap": [
+       1.326181,
+       4.207037
+      ],
+      "sd": 1.96583,
+      "loa_lower": -1.497669,
+      "loa_upper": 6.208387,
+      "loa_lower_ci95_bootstrap": [
+       -3.002211,
+       0.535667
+      ],
+      "loa_upper_ci95_bootstrap": [
+       2.615589,
+       10.117846
+      ],
+      "within_observed_A_range": true
+     },
+     "A=20": {
+      "fitted_difference": 4.826645,
+      "fitted_difference_ci95_bootstrap": [
+       2.799295,
+       9.243953
+      ],
+      "sd": 3.677124,
+      "loa_lower": -2.380518,
+      "loa_upper": 12.033807,
+      "loa_lower_ci95_bootstrap": [
+       -5.342123,
+       2.620541
+      ],
+      "loa_upper_ci95_bootstrap": [
+       4.492876,
+       20.223319
+      ],
+      "within_observed_A_range": true
+     }
+    },
+    "at_reference_cutpoint": {
+     "ref=5%": {
+      "fitted_difference": 1.277579,
+      "fitted_difference_ci95_bootstrap": [
+       0.601679,
+       2.360478
+      ],
+      "fitted_difference_relative_pct": 25.551588,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       12.033589,
+       47.209562
+      ],
+      "loa_lower": -1.112639,
+      "loa_upper": 3.667798,
+      "loa_lower_ci95_bootstrap": [
+       -2.265838,
+       -0.112371
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.690447,
+       6.421407
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 4.003425,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       3.444312,
+       4.492021
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 1,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_013",
+        "ref_sev": 4.712362,
+        "pred_sev": 5.288076,
+        "ref_grade": 1,
+        "pred_grade": 2,
+        "over_graded": true
+       }
+      ],
+      "n_over_graded_in_that_band": 1,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 9
+     },
+     "ref=20%": {
+      "fitted_difference": 5.507129,
+      "fitted_difference_ci95_bootstrap": [
+       3.022512,
+       12.379767
+      ],
+      "fitted_difference_relative_pct": 27.535646,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       15.112561,
+       61.898836
+      ],
+      "loa_lower": -2.623616,
+      "loa_upper": 13.637875,
+      "loa_lower_ci95_bootstrap": [
+       -6.31381,
+       3.75794
+      ],
+      "loa_upper_ci95_bootstrap": [
+       4.781747,
+       25.961202
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 15.704167,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       12.60761,
+       17.389922
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 2,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_009",
+        "ref_sev": 16.647808,
+        "pred_sev": 18.634806,
+        "ref_grade": 2,
+        "pred_grade": 2,
+        "over_graded": false
+       },
+       {
+        "leaf_id": "20260819_Hvastatrix_GX_020",
+        "ref_sev": 19.344143,
+        "pred_sev": 22.647675,
+        "ref_grade": 2,
+        "pred_grade": 3,
+        "over_graded": true
+       }
+      ],
+      "n_over_graded_in_that_band": 1,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 0
+     }
+    }
+   },
+   "calibration_pred_on_ref": {
+    "slope": 1.216045,
+    "slope_ci95_t": [
+     1.032513,
+     1.399577
+    ],
+    "slope_ci95_bootstrap": [
+     1.126695,
+     1.511848
+    ],
+    "p_slope_eq_1": 0.02346,
+    "intercept": 0.228662,
+    "intercept_ci95_bootstrap": [
+     -0.718701,
+     1.169975
+    ],
+    "predicted_at_ref5": 6.308887,
+    "predicted_at_ref20": 24.549562
+   },
+   "lin_ccc": {
+    "ccc": 0.900059,
+    "ci95_bootstrap": [
+     0.730805,
+     0.976606
+    ],
+    "ci95_z_transform": [
+     0.804898,
+     0.950089
+    ],
+    "pearson_r": 0.953986,
+    "pearson_r_ci95_bootstrap": [
+     0.876662,
+     0.995484
+    ],
+    "cb": 0.943472,
+    "cb_ci95_bootstrap": [
+     0.820607,
+     0.982055
+    ],
+    "location_shift_u": 0.246234,
+    "share_of_log_shortfall_precision_r": 0.447377,
+    "share_of_log_shortfall_accuracy_cb": 0.552623
+   },
+   "mae": {
+    "estimate": 1.473934,
+    "ci95_bootstrap": [
+     0.654483,
+     2.483417
+    ]
+   },
+   "rmse": {
+    "estimate": 2.638464,
+    "ci95_bootstrap": [
+     1.171389,
+     3.815925
+    ]
+   },
+   "relative_error_pct": {
+    "estimate": 26.921647,
+    "ci95_bootstrap": [
+     13.802078,
+     44.938495
+    ],
+    "definition": "100 * MAE / mean reference severity"
+   },
+   "relative_bias_pct": {
+    "estimate": 25.781056,
+    "ci95_bootstrap": [
+     12.384589,
+     43.906645
+    ]
+   },
+   "log_ratio_loa": {
+    "geometric_mean_ratio": 1.173857,
+    "gmr_ci95_bootstrap": [
+     1.07108,
+     1.303695
+    ],
+    "loa_ratio_lower": 0.735641,
+    "loa_ratio_upper": 1.873117,
+    "n_leaves_with_ratio_above_1": 16
+   },
+   "error_decomposition_pct_of_leaf": {
+    "fp_pct": {
+     "mean": 2.102912,
+     "mean_ci95_bootstrap": [
+      1.198733,
+      3.159739
+     ],
+     "slope_on_A": 0.31784,
+     "slope_on_A_ci95_bootstrap": [
+      0.229812,
+      0.552422
+     ]
+    },
+    "fn_pct": {
+     "mean": 0.581262,
+     "mean_ci95_bootstrap": [
+      0.399551,
+      0.780005
+     ],
+     "slope_on_A": 0.052378,
+     "slope_on_A_ci95_bootstrap": [
+      0.024435,
+      0.076706
+     ]
+    },
+    "leafterm_pct": {
+     "mean": -0.110163,
+     "mean_ci95_bootstrap": [
+      -0.166362,
+      -0.064841
+     ],
+     "slope_on_A": -0.018333,
+     "slope_on_A_ci95_bootstrap": [
+      -0.021628,
+      -0.009298
+     ]
+    },
+    "fp_spurious_pct": {
+     "mean": 0.124929,
+     "mean_ci95_bootstrap": [
+      0.049658,
+      0.215802
+     ],
+     "slope_on_A": 0.014195,
+     "slope_on_A_ci95_bootstrap": [
+      0.001974,
+      0.046759
+     ]
+    },
+    "fp_band_pct": {
+     "mean": 1.168012,
+     "mean_ci95_bootstrap": [
+      0.723854,
+      1.671551
+     ],
+     "slope_on_A": 0.179567,
+     "slope_on_A_ci95_bootstrap": [
+      0.150227,
+      0.23004
+     ]
+    },
+    "fp_extension_pct": {
+     "mean": 0.809971,
+     "mean_ci95_bootstrap": [
+      0.366508,
+      1.339325
+     ],
+     "slope_on_A": 0.124078,
+     "slope_on_A_ci95_bootstrap": [
+      0.065633,
+      0.284557
+     ]
+    },
+    "fp_outside_ref_leaf_pct": {
+     "mean": 0.096556,
+     "mean_ci95_bootstrap": [
+      0.047982,
+      0.155583
+     ],
+     "slope_on_A": 0.015823,
+     "slope_on_A_ci95_bootstrap": [
+      0.009067,
+      0.031613
+     ]
+    },
+    "fn_missed_pct": {
+     "mean": 0.089035,
+     "mean_ci95_bootstrap": [
+      0.05095,
+      0.130774
+     ],
+     "slope_on_A": 0.001492,
+     "slope_on_A_ci95_bootstrap": [
+      -0.005339,
+      0.00951
+     ]
+    },
+    "fn_partial_pct": {
+     "mean": 0.492226,
+     "mean_ci95_bootstrap": [
+      0.328702,
+      0.671852
+     ],
+     "slope_on_A": 0.050886,
+     "slope_on_A_ci95_bootstrap": [
+      0.025924,
+      0.071573
+     ]
+    }
+   },
+   "iou": {
+    "mean_leaf_iou": 0.631615,
+    "mean_leaf_iou_ci95_bootstrap": [
+     0.590438,
+     0.669127
+    ],
+    "median_leaf_iou": 0.646213,
+    "median_leaf_iou_ci95_bootstrap": [
+     0.591268,
+     0.694906
+    ],
+    "pooled_micro_iou": 0.656323,
+    "pooled_micro_iou_ci95_bootstrap": [
+     0.594212,
+     0.703656
+    ],
+    "min_leaf_iou": 0.383867
+   },
+   "boundary_f1": {
+    "tol_1px": {
+     "mean_leaf": 0.522266,
+     "mean_leaf_ci95_bootstrap": [
+      0.464799,
+      0.575537
+     ],
+     "pooled": 0.495155,
+     "pooled_ci95_bootstrap": [
+      0.429698,
+      0.554827
+     ],
+     "pooled_precision": 0.471564,
+     "pooled_recall": 0.521231
+    },
+    "tol_2px": {
+     "mean_leaf": 0.709749,
+     "mean_leaf_ci95_bootstrap": [
+      0.649163,
+      0.765512
+     ],
+     "pooled": 0.688279,
+     "pooled_ci95_bootstrap": [
+      0.613547,
+      0.75552
+     ],
+     "pooled_precision": 0.661592,
+     "pooled_recall": 0.717209
+    },
+    "tol_3px": {
+     "mean_leaf": 0.838422,
+     "mean_leaf_ci95_bootstrap": [
+      0.79014,
+      0.882499
+     ],
+     "pooled": 0.8238,
+     "pooled_ci95_bootstrap": [
+      0.758315,
+      0.88237
+     ],
+     "pooled_precision": 0.802379,
+     "pooled_recall": 0.846397
+    },
+    "tol_5px": {
+     "mean_leaf": 0.922301,
+     "mean_leaf_ci95_bootstrap": [
+      0.896341,
+      0.945742
+     ],
+     "pooled": 0.914728,
+     "pooled_ci95_bootstrap": [
+      0.874455,
+      0.950191
+     ],
+     "pooled_precision": 0.898226,
+     "pooled_recall": 0.931849
+    }
+   },
+   "grades": {
+    "qwk": 0.877907,
+    "accuracy": 0.904762,
+    "n_over": 2,
+    "n_under": 0,
+    "disagreements": [
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_013",
+      "ref_sev": 4.712362,
+      "pred_sev": 5.288076,
+      "ref_grade": 1,
+      "pred_grade": 2,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "over"
+     },
+     {
+      "leaf_id": "20260819_Hvastatrix_GX_020",
+      "ref_sev": 19.344143,
+      "pred_sev": 22.647675,
+      "ref_grade": 2,
+      "pred_grade": 3,
+      "mask_grade": 2,
+      "category": "severity_error",
+      "direction": "over"
+     }
+    ],
+    "disagreement_category_counts": {
+     "visual_mask_gap": 0,
+     "severity_error": 2,
+     "gap_and_severity": 0
+    },
+    "category_definitions": {
+     "visual_mask_gap": "predicted grade equals the grade derived from the reference mask severity, which differs from the (visual) reference grade",
+     "severity_error": "grade derived from the reference mask equals the reference grade; the predicted severity crossed a cut-point",
+     "gap_and_severity": "neither of the above"
+    }
+   }
+  },
+  "leaf_spot/segformer": {
+   "disease": "leaf_spot",
+   "model": "SegFormer-B5",
+   "n_leaves": 55,
+   "reference_severity": {
+    "mean": 5.322426,
+    "median": 4.152692,
+    "sd": 5.430283,
+    "min": 0.131952,
+    "max": 26.78132,
+    "q25": 0.87288,
+    "q75": 7.449374,
+    "n_above_10pct": 8,
+    "n_at_or_above_20pct": 2,
+    "grade_counts_reference": {
+     "G0": 0,
+     "G1": 30,
+     "G2": 23,
+     "G3": 2
+    },
+    "grade_source": "annotator's visual grade"
+   },
+   "predicted_severity": {
+    "mean": 5.486511,
+    "median": 4.128261,
+    "min": 0.106594,
+    "max": 27.884657
+   },
+   "mean_of_A": {
+    "min": 0.119273,
+    "max": 27.332988,
+    "n_A_above_15": 3
+   },
+   "bias": {
+    "estimate": 0.164085,
+    "ci95_bootstrap": [
+     0.08544,
+     0.252702
+    ],
+    "ci95_t": [
+     0.077151,
+     0.251019
+    ]
+   },
+   "sd_of_differences": {
+    "estimate": 0.321576,
+    "ci95_bootstrap": [
+     0.221623,
+     0.405771
+    ]
+   },
+   "constant_loa": {
+    "lower": -0.466204,
+    "upper": 0.794374,
+    "lower_ci95_bootstrap": [
+     -0.586165,
+     -0.31688
+    ],
+    "upper_ci95_bootstrap": [
+     0.535464,
+     1.031936
+    ],
+    "lower_ci95_parametric_BA1986": [
+     -0.616779,
+     -0.31563
+    ],
+    "upper_ci95_parametric_BA1986": [
+     0.6438,
+     0.944949
+    ]
+   },
+   "regression_of_differences_on_means": {
+    "slope": 0.044669,
+    "slope_ci95_t": [
+     0.034516,
+     0.054821
+    ],
+    "slope_p": 0.0,
+    "slope_se": 0.005062,
+    "slope_ci95_bootstrap": [
+     0.034342,
+     0.057463
+    ],
+    "slope_se_hc3": 0.004445,
+    "slope_p_hc3": 0.0,
+    "slope_ci95_hc3": [
+     0.035753,
+     0.053585
+    ],
+    "intercept": -0.077325,
+    "intercept_ci95_t": [
+     -0.155629,
+     0.000979
+    ],
+    "intercept_p": 0.05283,
+    "intercept_ci95_bootstrap": [
+     -0.115718,
+     -0.043642
+    ],
+    "r_squared": 0.595039,
+    "df": 53
+   },
+   "regression_based_loa": {
+    "abs_residual_intercept_c0": 0.063195,
+    "abs_residual_slope_c1": 0.008317,
+    "abs_residual_slope_ci95_t": [
+     4e-05,
+     0.016594
+    ],
+    "abs_residual_slope_p": 0.048944,
+    "abs_residual_slope_ci95_bootstrap": [
+     0.001508,
+     0.02667
+    ],
+    "sd_function": "SD(A) = sqrt(pi/2) * (0.06320 + 0.00832 * A)",
+    "mean_function": "D(A) = -0.07732 + 0.04467 * A",
+    "sd_nonnegative_from_A": 0.0,
+    "at_mean_severity": {
+     "A=1": {
+      "fitted_difference": -0.032656,
+      "fitted_difference_ci95_bootstrap": [
+       -0.065897,
+       0.000274
+      ],
+      "sd": 0.089627,
+      "loa_lower": -0.208325,
+      "loa_upper": 0.143012,
+      "loa_lower_ci95_bootstrap": [
+       -0.292844,
+       -0.100669
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.036187,
+       0.231025
+      ],
+      "within_observed_A_range": true
+     },
+     "A=5": {
+      "fitted_difference": 0.146018,
+      "fitted_difference_ci95_bootstrap": [
+       0.094556,
+       0.200964
+      ],
+      "sd": 0.131321,
+      "loa_lower": -0.11137,
+      "loa_upper": 0.403406,
+      "loa_lower_ci95_bootstrap": [
+       -0.249239,
+       -0.015634
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.308896,
+       0.557062
+      ],
+      "within_observed_A_range": true
+     },
+     "A=10": {
+      "fitted_difference": 0.369361,
+      "fitted_difference_ci95_bootstrap": [
+       0.270383,
+       0.478507
+      ],
+      "sd": 0.183438,
+      "loa_lower": 0.009822,
+      "loa_upper": 0.728899,
+      "loa_lower_ci95_bootstrap": [
+       -0.351479,
+       0.171105
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.554991,
+       1.087281
+      ],
+      "within_observed_A_range": true
+     },
+     "A=20": {
+      "fitted_difference": 0.816046,
+      "fitted_difference_ci95_bootstrap": [
+       0.615987,
+       1.047142
+      ],
+      "sd": 0.287673,
+      "loa_lower": 0.252208,
+      "loa_upper": 1.379884,
+      "loa_lower_ci95_bootstrap": [
+       -0.585612,
+       0.565754
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.030057,
+       2.188712
+      ],
+      "within_observed_A_range": true
+     }
+    },
+    "at_reference_cutpoint": {
+     "ref=5%": {
+      "fitted_difference": 0.149354,
+      "fitted_difference_ci95_bootstrap": [
+       0.096323,
+       0.206473
+      ],
+      "fitted_difference_relative_pct": 2.987071,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       1.926457,
+       4.12945
+      ],
+      "loa_lower": -0.10956,
+      "loa_upper": 0.408267,
+      "loa_lower_ci95_bootstrap": [
+       -0.249682,
+       -0.012606
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.312581,
+       0.567353
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 4.857172,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       4.804333,
+       4.907181
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 1,
+      "leaves_in_that_band_below_cut": [
+       {
+        "leaf_id": "20260621_Mcitricolor_GX_030",
+        "ref_sev": 4.919769,
+        "pred_sev": 5.060288,
+        "ref_grade": 2,
+        "pred_grade": 2,
+        "over_graded": false
+       }
+      ],
+      "n_over_graded_in_that_band": 0,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 23
+     },
+     "ref=20%": {
+      "fitted_difference": 0.834688,
+      "fitted_difference_ci95_bootstrap": [
+       0.626877,
+       1.077947
+      ],
+      "fitted_difference_relative_pct": 4.17344,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       3.134386,
+       5.389733
+      ],
+      "loa_lower": 0.262323,
+      "loa_upper": 1.407053,
+      "loa_lower_ci95_bootstrap": [
+       -0.595748,
+       0.582525
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.048444,
+       2.236751
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 19.201782,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       18.982042,
+       19.394599
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 0,
+      "leaves_in_that_band_below_cut": [],
+      "n_over_graded_in_that_band": 0,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 2
+     }
+    }
+   },
+   "calibration_pred_on_ref": {
+    "slope": 1.044963,
+    "slope_ci95_t": [
+     1.034345,
+     1.055581
+    ],
+    "slope_ci95_bootstrap": [
+     1.033723,
+     1.057792
+    ],
+    "p_slope_eq_1": 0.0,
+    "intercept": -0.075226,
+    "intercept_ci95_bootstrap": [
+     -0.114008,
+     -0.038926
+    ],
+    "predicted_at_ref5": 5.149588,
+    "predicted_at_ref20": 20.824028
+   },
+   "lin_ccc": {
+    "ccc": 0.997882,
+    "ci95_bootstrap": [
+     0.995719,
+     0.998661
+    ],
+    "ci95_z_transform": [
+     0.996893,
+     0.998556
+    ],
+    "pearson_r": 0.999321,
+    "pearson_r_ci95_bootstrap": [
+     0.997901,
+     0.99987
+    ],
+    "cb": 0.99856,
+    "cb_ci95_bootstrap": [
+     0.997378,
+     0.999185
+    ],
+    "location_shift_u": 0.029822,
+    "share_of_log_shortfall_precision_r": 0.320472,
+    "share_of_log_shortfall_accuracy_cb": 0.679528
+   },
+   "mae": {
+    "estimate": 0.219775,
+    "ci95_bootstrap": [
+     0.151009,
+     0.301372
+    ]
+   },
+   "rmse": {
+    "estimate": 0.358406,
+    "ci95_bootstrap": [
+     0.243214,
+     0.469034
+    ]
+   },
+   "relative_error_pct": {
+    "estimate": 4.129218,
+    "ci95_bootstrap": [
+     3.380215,
+     5.045243
+    ],
+    "definition": "100 * MAE / mean reference severity"
+   },
+   "relative_bias_pct": {
+    "estimate": 3.082896,
+    "ci95_bootstrap": [
+     1.902097,
+     4.163267
+    ]
+   },
+   "log_ratio_loa": {
+    "geometric_mean_ratio": 0.992914,
+    "gmr_ci95_bootstrap": [
+     0.971772,
+     1.012482
+    ],
+    "loa_ratio_lower": 0.852203,
+    "loa_ratio_upper": 1.156857,
+    "n_leaves_with_ratio_above_1": 35
+   },
+   "error_decomposition_pct_of_leaf": {
+    "fp_pct": {
+     "mean": 0.338442,
+     "mean_ci95_bootstrap": [
+      0.251436,
+      0.43659
+     ],
+     "slope_on_A": 0.05323,
+     "slope_on_A_ci95_bootstrap": [
+      0.045253,
+      0.076154
+     ]
+    },
+    "fn_pct": {
+     "mean": 0.168537,
+     "mean_ci95_bootstrap": [
+      0.126707,
+      0.228428
+     ],
+     "slope_on_A": 0.008586,
+     "slope_on_A_ci95_bootstrap": [
+      0.001683,
+      0.030638
+     ]
+    },
+    "leafterm_pct": {
+     "mean": -0.00582,
+     "mean_ci95_bootstrap": [
+      -0.007534,
+      -0.004065
+     ],
+     "slope_on_A": 2.4e-05,
+     "slope_on_A_ci95_bootstrap": [
+      -0.000842,
+      0.000454
+     ]
+    },
+    "fp_spurious_pct": {
+     "mean": 0.025325,
+     "mean_ci95_bootstrap": [
+      0.015881,
+      0.036471
+     ],
+     "slope_on_A": 0.002376,
+     "slope_on_A_ci95_bootstrap": [
+      0.000557,
+      0.007651
+     ]
+    },
+    "fp_band_pct": {
+     "mean": 0.286395,
+     "mean_ci95_bootstrap": [
+      0.213894,
+      0.367983
+     ],
+     "slope_on_A": 0.047804,
+     "slope_on_A_ci95_bootstrap": [
+      0.042728,
+      0.061935
+     ]
+    },
+    "fp_extension_pct": {
+     "mean": 0.026722,
+     "mean_ci95_bootstrap": [
+      0.015001,
+      0.04335
+     ],
+     "slope_on_A": 0.00305,
+     "slope_on_A_ci95_bootstrap": [
+      0.001192,
+      0.00803
+     ]
+    },
+    "fp_outside_ref_leaf_pct": {
+     "mean": 0.010963,
+     "mean_ci95_bootstrap": [
+      0.007071,
+      0.015629
+     ],
+     "slope_on_A": 0.002157,
+     "slope_on_A_ci95_bootstrap": [
+      0.001274,
+      0.002989
+     ]
+    },
+    "fn_missed_pct": {
+     "mean": 0.029658,
+     "mean_ci95_bootstrap": [
+      0.019065,
+      0.043176
+     ],
+     "slope_on_A": 0.000691,
+     "slope_on_A_ci95_bootstrap": [
+      -0.000837,
+      0.00518
+     ]
+    },
+    "fn_partial_pct": {
+     "mean": 0.138879,
+     "mean_ci95_bootstrap": [
+      0.105196,
+      0.186531
+     ],
+     "slope_on_A": 0.007895,
+     "slope_on_A_ci95_bootstrap": [
+      0.002329,
+      0.025541
+     ]
+    }
+   },
+   "iou": {
+    "mean_leaf_iou": 0.884468,
+    "mean_leaf_iou_ci95_bootstrap": [
+     0.86813,
+     0.899844
+    ],
+    "median_leaf_iou": 0.903823,
+    "median_leaf_iou_ci95_bootstrap": [
+     0.886881,
+     0.916996
+    ],
+    "pooled_micro_iou": 0.908209,
+    "pooled_micro_iou_ci95_bootstrap": [
+     0.889597,
+     0.923439
+    ],
+    "min_leaf_iou": 0.732362
+   },
+   "boundary_f1": {
+    "tol_1px": {
+     "mean_leaf": 0.912201,
+     "mean_leaf_ci95_bootstrap": [
+      0.90011,
+      0.923764
+     ],
+     "pooled": 0.90414,
+     "pooled_ci95_bootstrap": [
+      0.885826,
+      0.919974
+     ],
+     "pooled_precision": 0.923428,
+     "pooled_recall": 0.885641
+    },
+    "tol_2px": {
+     "mean_leaf": 0.948211,
+     "mean_leaf_ci95_bootstrap": [
+      0.939503,
+      0.956649
+     ],
+     "pooled": 0.944697,
+     "pooled_ci95_bootstrap": [
+      0.929562,
+      0.95662
+     ],
+     "pooled_precision": 0.958395,
+     "pooled_recall": 0.931385
+    },
+    "tol_3px": {
+     "mean_leaf": 0.961549,
+     "mean_leaf_ci95_bootstrap": [
+      0.9544,
+      0.968386
+     ],
+     "pooled": 0.959425,
+     "pooled_ci95_bootstrap": [
+      0.946634,
+      0.969122
+     ],
+     "pooled_precision": 0.968583,
+     "pooled_recall": 0.950439
+    },
+    "tol_5px": {
+     "mean_leaf": 0.969488,
+     "mean_leaf_ci95_bootstrap": [
+      0.963445,
+      0.975412
+     ],
+     "pooled": 0.969264,
+     "pooled_ci95_bootstrap": [
+      0.959479,
+      0.977026
+     ],
+     "pooled_precision": 0.975469,
+     "pooled_recall": 0.963138
+    }
+   },
+   "grades": {
+    "qwk": 0.824655,
+    "accuracy": 0.836364,
+    "n_over": 0,
+    "n_under": 9,
+    "disagreements": [
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_076",
+      "ref_sev": 0.544998,
+      "pred_sev": 0.489878,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_085",
+      "ref_sev": 0.131952,
+      "pred_sev": 0.106594,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_110",
+      "ref_sev": 4.7994,
+      "pred_sev": 4.823294,
+      "ref_grade": 2,
+      "pred_grade": 1,
+      "mask_grade": 1,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_112",
+      "ref_sev": 0.387065,
+      "pred_sev": 0.35202,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_113",
+      "ref_sev": 0.398837,
+      "pred_sev": 0.33768,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_155",
+      "ref_sev": 0.60107,
+      "pred_sev": 0.447531,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_172",
+      "ref_sev": 0.357651,
+      "pred_sev": 0.304857,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_195",
+      "ref_sev": 0.344296,
+      "pred_sev": 0.291243,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_246",
+      "ref_sev": 0.282447,
+      "pred_sev": 0.301975,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     }
+    ],
+    "disagreement_category_counts": {
+     "visual_mask_gap": 7,
+     "severity_error": 2,
+     "gap_and_severity": 0
+    },
+    "category_definitions": {
+     "visual_mask_gap": "predicted grade equals the grade derived from the reference mask severity, which differs from the (visual) reference grade",
+     "severity_error": "grade derived from the reference mask equals the reference grade; the predicted severity crossed a cut-point",
+     "gap_and_severity": "neither of the above"
+    }
+   }
+  },
+  "leaf_spot/unetpp": {
+   "disease": "leaf_spot",
+   "model": "UNet++",
+   "n_leaves": 55,
+   "reference_severity": {
+    "mean": 5.322426,
+    "median": 4.152692,
+    "sd": 5.430283,
+    "min": 0.131952,
+    "max": 26.78132,
+    "q25": 0.87288,
+    "q75": 7.449374,
+    "n_above_10pct": 8,
+    "n_at_or_above_20pct": 2,
+    "grade_counts_reference": {
+     "G0": 0,
+     "G1": 30,
+     "G2": 23,
+     "G3": 2
+    },
+    "grade_source": "annotator's visual grade"
+   },
+   "predicted_severity": {
+    "mean": 5.295857,
+    "median": 4.059401,
+    "min": 0.131363,
+    "max": 27.225328
+   },
+   "mean_of_A": {
+    "min": 0.131657,
+    "max": 27.003324,
+    "n_A_above_15": 3
+   },
+   "bias": {
+    "estimate": -0.02657,
+    "ci95_bootstrap": [
+     -0.093778,
+     0.03307
+    ],
+    "ci95_t": [
+     -0.091283,
+     0.038143
+    ]
+   },
+   "sd_of_differences": {
+    "estimate": 0.239378,
+    "ci95_bootstrap": [
+     0.143445,
+     0.333652
+    ]
+   },
+   "constant_loa": {
+    "lower": -0.495751,
+    "upper": 0.442612,
+    "lower_ci95_bootstrap": [
+     -0.724812,
+     -0.284632
+    ],
+    "upper_ci95_bootstrap": [
+     0.259856,
+     0.59743
+    ],
+    "lower_ci95_parametric_BA1986": [
+     -0.607837,
+     -0.383665
+    ],
+    "upper_ci95_parametric_BA1986": [
+     0.330525,
+     0.554698
+    ]
+   },
+   "regression_of_differences_on_means": {
+    "slope": 0.013593,
+    "slope_ci95_t": [
+     0.002124,
+     0.025062
+    ],
+    "slope_p": 0.021087,
+    "slope_se": 0.005718,
+    "slope_ci95_bootstrap": [
+     -0.0113,
+     0.022742
+    ],
+    "slope_se_hc3": 0.008062,
+    "slope_p_hc3": 0.097651,
+    "slope_ci95_hc3": [
+     -0.002577,
+     0.029763
+    ],
+    "intercept": -0.098738,
+    "intercept_ci95_t": [
+     -0.185725,
+     -0.01175
+    ],
+    "intercept_p": 0.02687,
+    "intercept_ci95_bootstrap": [
+     -0.155641,
+     -0.010143
+    ],
+    "r_squared": 0.09635,
+    "df": 53
+   },
+   "regression_based_loa": {
+    "abs_residual_intercept_c0": 0.09351,
+    "abs_residual_slope_c1": 0.009978,
+    "abs_residual_slope_ci95_t": [
+     0.001704,
+     0.018253
+    ],
+    "abs_residual_slope_p": 0.019039,
+    "abs_residual_slope_ci95_bootstrap": [
+     -0.000532,
+     0.029428
+    ],
+    "sd_function": "SD(A) = sqrt(pi/2) * (0.09351 + 0.00998 * A)",
+    "mean_function": "D(A) = -0.09874 + 0.01359 * A",
+    "sd_nonnegative_from_A": 0.0,
+    "at_mean_severity": {
+     "A=1": {
+      "fitted_difference": -0.085145,
+      "fitted_difference_ci95_bootstrap": [
+       -0.138193,
+       -0.019045
+      ],
+      "sd": 0.129703,
+      "loa_lower": -0.339362,
+      "loa_upper": 0.169073,
+      "loa_lower_ci95_bootstrap": [
+       -0.495797,
+       -0.143543
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.072746,
+       0.24952
+      ],
+      "within_observed_A_range": true
+     },
+     "A=5": {
+      "fitted_difference": -0.030772,
+      "fitted_difference_ci95_bootstrap": [
+       -0.098389,
+       0.019763
+      ],
+      "sd": 0.179726,
+      "loa_lower": -0.383035,
+      "loa_upper": 0.321492,
+      "loa_lower_ci95_bootstrap": [
+       -0.569607,
+       -0.225912
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.235543,
+       0.403936
+      ],
+      "within_observed_A_range": true
+     },
+     "A=10": {
+      "fitted_difference": 0.037194,
+      "fitted_difference_ci95_bootstrap": [
+       -0.138784,
+       0.120792
+      ],
+      "sd": 0.242256,
+      "loa_lower": -0.437627,
+      "loa_upper": 0.512015,
+      "loa_lower_ci95_bootstrap": [
+       -0.918514,
+       -0.150848
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.351503,
+       0.715553
+      ],
+      "within_observed_A_range": true
+     },
+     "A=20": {
+      "fitted_difference": 0.173126,
+      "fitted_difference_ci95_bootstrap": [
+       -0.249257,
+       0.337159
+      ],
+      "sd": 0.367315,
+      "loa_lower": -0.546811,
+      "loa_upper": 0.893063,
+      "loa_lower_ci95_bootstrap": [
+       -1.711369,
+       0.050227
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.543815,
+       1.378281
+      ],
+      "within_observed_A_range": true
+     }
+    },
+    "at_reference_cutpoint": {
+     "ref=5%": {
+      "fitted_difference": -0.030982,
+      "fitted_difference_ci95_bootstrap": [
+       -0.098306,
+       0.019947
+      ],
+      "fitted_difference_relative_pct": -0.619648,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       -1.966114,
+       0.398949
+      ],
+      "loa_lower": -0.382866,
+      "loa_upper": 0.320902,
+      "loa_lower_ci95_bootstrap": [
+       -0.567214,
+       -0.225834
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.235205,
+       0.401794
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 5.030564,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       4.980372,
+       5.098363
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 0,
+      "leaves_in_that_band_below_cut": [],
+      "n_over_graded_in_that_band": 0,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 23
+     },
+     "ref=20%": {
+      "fitted_difference": 0.174311,
+      "fitted_difference_ci95_bootstrap": [
+       -0.247616,
+       0.341128
+      ],
+      "fitted_difference_relative_pct": 0.871553,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       -1.238078,
+       1.705641
+      ],
+      "loa_lower": -0.547762,
+      "loa_upper": 0.896384,
+      "loa_lower_ci95_bootstrap": [
+       -1.701141,
+       0.053054
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.545289,
+       1.374636
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 19.828043,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       19.666486,
+       20.250918
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 0,
+      "leaves_in_that_band_below_cut": [],
+      "n_over_graded_in_that_band": 0,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 2
+     }
+    }
+   },
+   "calibration_pred_on_ref": {
+    "slope": 1.012802,
+    "slope_ci95_t": [
+     1.001181,
+     1.024424
+    ],
+    "slope_ci95_bootstrap": [
+     0.986678,
+     1.022626
+    ],
+    "p_slope_eq_1": 0.031483,
+    "intercept": -0.094708,
+    "intercept_ci95_bootstrap": [
+     -0.151158,
+     -0.000745
+    ],
+    "predicted_at_ref5": 4.969303,
+    "predicted_at_ref20": 20.161336
+   },
+   "lin_ccc": {
+    "ccc": 0.99903,
+    "ci95_bootstrap": [
+     0.997292,
+     0.999604
+    ],
+    "ci95_z_transform": [
+     0.998381,
+     0.999418
+    ],
+    "pearson_r": 0.999134,
+    "pearson_r_ci95_bootstrap": [
+     0.99757,
+     0.999782
+    ],
+    "cb": 0.999896,
+    "cb_ci95_bootstrap": [
+     0.999671,
+     0.999967
+    ],
+    "location_shift_u": -0.004905,
+    "share_of_log_shortfall_precision_r": 0.89254,
+    "share_of_log_shortfall_accuracy_cb": 0.10746
+   },
+   "mae": {
+    "estimate": 0.145165,
+    "ci95_bootstrap": [
+     0.101895,
+     0.198994
+    ]
+   },
+   "rmse": {
+    "estimate": 0.238675,
+    "ci95_bootstrap": [
+     0.144084,
+     0.338299
+    ]
+   },
+   "relative_error_pct": {
+    "estimate": 2.727412,
+    "ci95_bootstrap": [
+     2.050379,
+     3.684188
+    ],
+    "definition": "100 * MAE / mean reference severity"
+   },
+   "relative_bias_pct": {
+    "estimate": -0.499201,
+    "ci95_bootstrap": [
+     -1.884473,
+     0.562296
+    ]
+   },
+   "log_ratio_loa": {
+    "geometric_mean_ratio": 0.979186,
+    "gmr_ci95_bootstrap": [
+     0.958906,
+     0.99798
+    ],
+    "loa_ratio_lower": 0.843223,
+    "loa_ratio_upper": 1.137072,
+    "n_leaves_with_ratio_above_1": 25
+   },
+   "error_decomposition_pct_of_leaf": {
+    "fp_pct": {
+     "mean": 0.309881,
+     "mean_ci95_bootstrap": [
+      0.244762,
+      0.380242
+     ],
+     "slope_on_A": 0.04439,
+     "slope_on_A_ci95_bootstrap": [
+      0.03927,
+      0.05499
+     ]
+    },
+    "fn_pct": {
+     "mean": 0.284697,
+     "mean_ci95_bootstrap": [
+      0.212383,
+      0.3737
+     ],
+     "slope_on_A": 0.020443,
+     "slope_on_A_ci95_bootstrap": [
+      0.008821,
+      0.056405
+     ]
+    },
+    "leafterm_pct": {
+     "mean": -0.051754,
+     "mean_ci95_bootstrap": [
+      -0.068982,
+      -0.037821
+     ],
+     "slope_on_A": -0.010354,
+     "slope_on_A_ci95_bootstrap": [
+      -0.012102,
+      -0.008155
+     ]
+    },
+    "fp_spurious_pct": {
+     "mean": 0.022623,
+     "mean_ci95_bootstrap": [
+      0.014884,
+      0.031546
+     ],
+     "slope_on_A": 0.000258,
+     "slope_on_A_ci95_bootstrap": [
+      -0.000918,
+      0.002175
+     ]
+    },
+    "fp_band_pct": {
+     "mean": 0.271525,
+     "mean_ci95_bootstrap": [
+      0.210621,
+      0.338021
+     ],
+     "slope_on_A": 0.042619,
+     "slope_on_A_ci95_bootstrap": [
+      0.038602,
+      0.051778
+     ]
+    },
+    "fp_extension_pct": {
+     "mean": 0.015733,
+     "mean_ci95_bootstrap": [
+      0.010855,
+      0.020983
+     ],
+     "slope_on_A": 0.001513,
+     "slope_on_A_ci95_bootstrap": [
+      0.000714,
+      0.002642
+     ]
+    },
+    "fp_outside_ref_leaf_pct": {
+     "mean": 0.019307,
+     "mean_ci95_bootstrap": [
+      0.012303,
+      0.028053
+     ],
+     "slope_on_A": 0.003716,
+     "slope_on_A_ci95_bootstrap": [
+      0.0018,
+      0.005847
+     ]
+    },
+    "fn_missed_pct": {
+     "mean": 0.092396,
+     "mean_ci95_bootstrap": [
+      0.066705,
+      0.120198
+     ],
+     "slope_on_A": 0.004316,
+     "slope_on_A_ci95_bootstrap": [
+      6.3e-05,
+      0.016801
+     ]
+    },
+    "fn_partial_pct": {
+     "mean": 0.192301,
+     "mean_ci95_bootstrap": [
+      0.140258,
+      0.259278
+     ],
+     "slope_on_A": 0.016128,
+     "slope_on_A_ci95_bootstrap": [
+      0.008042,
+      0.040317
+     ]
+    }
+   },
+   "iou": {
+    "mean_leaf_iou": 0.853009,
+    "mean_leaf_iou_ci95_bootstrap": [
+     0.829933,
+     0.874039
+    ],
+    "median_leaf_iou": 0.879759,
+    "median_leaf_iou_ci95_bootstrap": [
+     0.861801,
+     0.890738
+    ],
+    "pooled_micro_iou": 0.891468,
+    "pooled_micro_iou_ci95_bootstrap": [
+     0.870105,
+     0.90912
+    ],
+    "min_leaf_iou": 0.586511
+   },
+   "boundary_f1": {
+    "tol_1px": {
+     "mean_leaf": 0.857414,
+     "mean_leaf_ci95_bootstrap": [
+      0.83781,
+      0.875549
+     ],
+     "pooled": 0.859971,
+     "pooled_ci95_bootstrap": [
+      0.835635,
+      0.881336
+     ],
+     "pooled_precision": 0.915251,
+     "pooled_recall": 0.810988
+    },
+    "tol_2px": {
+     "mean_leaf": 0.906088,
+     "mean_leaf_ci95_bootstrap": [
+      0.889372,
+      0.921379
+     ],
+     "pooled": 0.911308,
+     "pooled_ci95_bootstrap": [
+      0.889684,
+      0.929913
+     ],
+     "pooled_precision": 0.961873,
+     "pooled_recall": 0.865794
+    },
+    "tol_3px": {
+     "mean_leaf": 0.920479,
+     "mean_leaf_ci95_bootstrap": [
+      0.905626,
+      0.93431
+     ],
+     "pooled": 0.92733,
+     "pooled_ci95_bootstrap": [
+      0.90812,
+      0.943778
+     ],
+     "pooled_precision": 0.971896,
+     "pooled_recall": 0.886672
+    },
+    "tol_5px": {
+     "mean_leaf": 0.930675,
+     "mean_leaf_ci95_bootstrap": [
+      0.916942,
+      0.943504
+     ],
+     "pooled": 0.938652,
+     "pooled_ci95_bootstrap": [
+      0.921531,
+      0.953671
+     ],
+     "pooled_precision": 0.97708,
+     "pooled_recall": 0.903132
+    }
+   },
+   "grades": {
+    "qwk": 0.852207,
+    "accuracy": 0.872727,
+    "n_over": 0,
+    "n_under": 7,
+    "disagreements": [
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_085",
+      "ref_sev": 0.131952,
+      "pred_sev": 0.131363,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_110",
+      "ref_sev": 4.7994,
+      "pred_sev": 4.884754,
+      "ref_grade": 2,
+      "pred_grade": 1,
+      "mask_grade": 1,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_112",
+      "ref_sev": 0.387065,
+      "pred_sev": 0.393492,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_113",
+      "ref_sev": 0.398837,
+      "pred_sev": 0.375644,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_172",
+      "ref_sev": 0.357651,
+      "pred_sev": 0.262626,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_195",
+      "ref_sev": 0.344296,
+      "pred_sev": 0.28602,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_246",
+      "ref_sev": 0.282447,
+      "pred_sev": 0.338634,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     }
+    ],
+    "disagreement_category_counts": {
+     "visual_mask_gap": 7,
+     "severity_error": 0,
+     "gap_and_severity": 0
+    },
+    "category_definitions": {
+     "visual_mask_gap": "predicted grade equals the grade derived from the reference mask severity, which differs from the (visual) reference grade",
+     "severity_error": "grade derived from the reference mask equals the reference grade; the predicted severity crossed a cut-point",
+     "gap_and_severity": "neither of the above"
+    }
+   }
+  },
+  "leaf_spot/deeplab": {
+   "disease": "leaf_spot",
+   "model": "DeepLabV3+",
+   "n_leaves": 55,
+   "reference_severity": {
+    "mean": 5.322426,
+    "median": 4.152692,
+    "sd": 5.430283,
+    "min": 0.131952,
+    "max": 26.78132,
+    "q25": 0.87288,
+    "q75": 7.449374,
+    "n_above_10pct": 8,
+    "n_at_or_above_20pct": 2,
+    "grade_counts_reference": {
+     "G0": 0,
+     "G1": 30,
+     "G2": 23,
+     "G3": 2
+    },
+    "grade_source": "annotator's visual grade"
+   },
+   "predicted_severity": {
+    "mean": 5.402303,
+    "median": 4.053761,
+    "min": 0.10606,
+    "max": 27.707407
+   },
+   "mean_of_A": {
+    "min": 0.119006,
+    "max": 27.244364,
+    "n_A_above_15": 3
+   },
+   "bias": {
+    "estimate": 0.079877,
+    "ci95_bootstrap": [
+     -0.018015,
+     0.18172
+    ],
+    "ci95_t": [
+     -0.022226,
+     0.18198
+    ]
+   },
+   "sd_of_differences": {
+    "estimate": 0.377687,
+    "ci95_bootstrap": [
+     0.253206,
+     0.485298
+    ]
+   },
+   "constant_loa": {
+    "lower": -0.660389,
+    "upper": 0.820142,
+    "lower_ci95_bootstrap": [
+     -0.886305,
+     -0.406692
+    ],
+    "upper_ci95_bootstrap": [
+     0.555321,
+     1.066476
+    ],
+    "lower_ci95_parametric_BA1986": [
+     -0.837237,
+     -0.483542
+    ],
+    "upper_ci95_parametric_BA1986": [
+     0.643295,
+     0.99699
+    ]
+   },
+   "regression_of_differences_on_means": {
+    "slope": 0.040465,
+    "slope_ci95_t": [
+     0.02535,
+     0.05558
+    ],
+    "slope_p": 2e-06,
+    "slope_se": 0.007536,
+    "slope_ci95_bootstrap": [
+     0.013879,
+     0.055134
+    ],
+    "slope_se_hc3": 0.010313,
+    "slope_p_hc3": 0.000253,
+    "slope_ci95_hc3": [
+     0.01978,
+     0.06115
+    ],
+    "intercept": -0.137113,
+    "intercept_ci95_t": [
+     -0.253108,
+     -0.021117
+    ],
+    "intercept_p": 0.021413,
+    "intercept_ci95_bootstrap": [
+     -0.218773,
+     -0.040835
+    ],
+    "r_squared": 0.352337,
+    "df": 53
+   },
+   "regression_based_loa": {
+    "abs_residual_intercept_c0": 0.131692,
+    "abs_residual_slope_c1": 0.010762,
+    "abs_residual_slope_ci95_t": [
+     -0.00061,
+     0.022134
+    ],
+    "abs_residual_slope_p": 0.063127,
+    "abs_residual_slope_ci95_bootstrap": [
+     -0.000357,
+     0.038395
+    ],
+    "sd_function": "SD(A) = sqrt(pi/2) * (0.13169 + 0.01076 * A)",
+    "mean_function": "D(A) = -0.13711 + 0.04047 * A",
+    "sd_nonnegative_from_A": 0.0,
+    "at_mean_severity": {
+     "A=1": {
+      "fitted_difference": -0.096647,
+      "fitted_difference_ci95_bootstrap": [
+       -0.172258,
+       -0.020097
+      ],
+      "sd": 0.17854,
+      "loa_lower": -0.446585,
+      "loa_upper": 0.25329,
+      "loa_lower_ci95_bootstrap": [
+       -0.673835,
+       -0.192693
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.121769,
+       0.367992
+      ],
+      "within_observed_A_range": true
+     },
+     "A=5": {
+      "fitted_difference": 0.065213,
+      "fitted_difference_ci95_bootstrap": [
+       -0.022939,
+       0.136046
+      ],
+      "sd": 0.232492,
+      "loa_lower": -0.390472,
+      "loa_upper": 0.520899,
+      "loa_lower_ci95_bootstrap": [
+       -0.677201,
+       -0.162332
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.404473,
+       0.659562
+      ],
+      "within_observed_A_range": true
+     },
+     "A=10": {
+      "fitted_difference": 0.267539,
+      "fitted_difference_ci95_bootstrap": [
+       0.068465,
+       0.389345
+      ],
+      "sd": 0.299934,
+      "loa_lower": -0.32033,
+      "loa_upper": 0.855409,
+      "loa_lower_ci95_bootstrap": [
+       -0.997553,
+       0.02151
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.630703,
+       1.193296
+      ],
+      "within_observed_A_range": true
+     },
+     "A=20": {
+      "fitted_difference": 0.672191,
+      "fitted_difference_ci95_bootstrap": [
+       0.212131,
+       0.928611
+      ],
+      "sd": 0.434816,
+      "loa_lower": -0.180048,
+      "loa_upper": 1.52443,
+      "loa_lower_ci95_bootstrap": [
+       -1.771799,
+       0.460856
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.038343,
+       2.31734
+      ],
+      "within_observed_A_range": true
+     }
+    },
+    "at_reference_cutpoint": {
+     "ref=5%": {
+      "fitted_difference": 0.06656,
+      "fitted_difference_ci95_bootstrap": [
+       -0.023244,
+       0.139346
+      ],
+      "fitted_difference_relative_pct": 1.331202,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       -0.464871,
+       2.786918
+      ],
+      "loa_lower": -0.390005,
+      "loa_upper": 0.523125,
+      "loa_lower_ci95_bootstrap": [
+       -0.677286,
+       -0.160191
+      ],
+      "loa_upper_ci95_bootstrap": [
+       0.407271,
+       0.659962
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 4.93608,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       4.867089,
+       5.022732
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 0,
+      "leaves_in_that_band_below_cut": [],
+      "n_over_graded_in_that_band": 0,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 23
+     },
+     "ref=20%": {
+      "fitted_difference": 0.686072,
+      "fitted_difference_ci95_bootstrap": [
+       0.213385,
+       0.954481
+      ],
+      "fitted_difference_relative_pct": 3.430361,
+      "fitted_difference_relative_pct_ci95_bootstrap": [
+       1.066927,
+       4.772404
+      ],
+      "loa_lower": -0.175236,
+      "loa_upper": 1.54738,
+      "loa_lower_ci95_bootstrap": [
+       -1.778434,
+       0.480686
+      ],
+      "loa_upper_ci95_bootstrap": [
+       1.051021,
+       2.340035
+      ],
+      "reference_severity_whose_fitted_prediction_reaches_cut": 19.341139,
+      "reference_severity_whose_fitted_prediction_reaches_cut_ci95_bootstrap": [
+       19.096368,
+       19.789201
+      ],
+      "n_leaves_with_reference_in_that_band_below_cut": 0,
+      "leaves_in_that_band_below_cut": [],
+      "n_over_graded_in_that_band": 0,
+      "band_note": "the fitted mean prediction is at or above the cut-point for reference severities in [lower edge, cut); at the lower edge it only just reaches the cut, so leaves there are prone to, not certain of, over-grading",
+      "n_leaves_with_reference_above_cut": 2
+     }
+    }
+   },
+   "calibration_pred_on_ref": {
+    "slope": 1.039702,
+    "slope_ci95_t": [
+     1.023968,
+     1.055436
+    ],
+    "slope_ci95_bootstrap": [
+     1.009999,
+     1.055663
+    ],
+    "p_slope_eq_1": 5e-06,
+    "intercept": -0.131434,
+    "intercept_ci95_bootstrap": [
+     -0.214051,
+     -0.028421
+    ],
+    "predicted_at_ref5": 5.067076,
+    "predicted_at_ref20": 20.662605
+   },
+   "lin_ccc": {
+    "ccc": 0.997574,
+    "ci95_bootstrap": [
+     0.995637,
+     0.998527
+    ],
+    "ci95_z_transform": [
+     0.996242,
+     0.998434
+    ],
+    "pearson_r": 0.998495,
+    "pearson_r_ci95_bootstrap": [
+     0.995945,
+     0.999608
+    ],
+    "cb": 0.999077,
+    "cb_ci95_bootstrap": [
+     0.998164,
+     0.999876
+    ],
+    "location_shift_u": 0.014548,
+    "share_of_log_shortfall_precision_r": 0.619983,
+    "share_of_log_shortfall_accuracy_cb": 0.380017
+   },
+   "mae": {
+    "estimate": 0.246759,
+    "ci95_bootstrap": [
+     0.176475,
+     0.326713
+    ]
+   },
+   "rmse": {
+    "estimate": 0.382667,
+    "ci95_bootstrap": [
+     0.26264,
+     0.495203
+    ]
+   },
+   "relative_error_pct": {
+    "estimate": 4.636222,
+    "ci95_bootstrap": [
+     3.795582,
+     5.607504
+    ],
+    "definition": "100 * MAE / mean reference severity"
+   },
+   "relative_bias_pct": {
+    "estimate": 1.500754,
+    "ci95_bootstrap": [
+     -0.380471,
+     2.994864
+    ]
+   },
+   "log_ratio_loa": {
+    "geometric_mean_ratio": 0.987499,
+    "gmr_ci95_bootstrap": [
+     0.960467,
+     1.012341
+    ],
+    "loa_ratio_lower": 0.812547,
+    "loa_ratio_upper": 1.200122,
+    "n_leaves_with_ratio_above_1": 32
+   },
+   "error_decomposition_pct_of_leaf": {
+    "fp_pct": {
+     "mean": 0.477999,
+     "mean_ci95_bootstrap": [
+      0.365929,
+      0.603213
+     ],
+     "slope_on_A": 0.078891,
+     "slope_on_A_ci95_bootstrap": [
+      0.06804,
+      0.093067
+     ]
+    },
+    "fn_pct": {
+     "mean": 0.364548,
+     "mean_ci95_bootstrap": [
+      0.272125,
+      0.482618
+     ],
+     "slope_on_A": 0.028142,
+     "slope_on_A_ci95_bootstrap": [
+      0.014636,
+      0.069974
+     ]
+    },
+    "leafterm_pct": {
+     "mean": -0.033575,
+     "mean_ci95_bootstrap": [
+      -0.053056,
+      -0.018681
+     ],
+     "slope_on_A": -0.010284,
+     "slope_on_A_ci95_bootstrap": [
+      -0.012735,
+      -0.003991
+     ]
+    },
+    "fp_spurious_pct": {
+     "mean": 0.021452,
+     "mean_ci95_bootstrap": [
+      0.01293,
+      0.031833
+     ],
+     "slope_on_A": 0.001835,
+     "slope_on_A_ci95_bootstrap": [
+      0.000156,
+      0.004688
+     ]
+    },
+    "fp_band_pct": {
+     "mean": 0.417753,
+     "mean_ci95_bootstrap": [
+      0.319718,
+      0.528444
+     ],
+     "slope_on_A": 0.07054,
+     "slope_on_A_ci95_bootstrap": [
+      0.063261,
+      0.080872
+     ]
+    },
+    "fp_extension_pct": {
+     "mean": 0.038794,
+     "mean_ci95_bootstrap": [
+      0.027172,
+      0.052573
+     ],
+     "slope_on_A": 0.006516,
+     "slope_on_A_ci95_bootstrap": [
+      0.003897,
+      0.009632
+     ]
+    },
+    "fp_outside_ref_leaf_pct": {
+     "mean": 0.044348,
+     "mean_ci95_bootstrap": [
+      0.026859,
+      0.067047
+     ],
+     "slope_on_A": 0.011261,
+     "slope_on_A_ci95_bootstrap": [
+      0.006271,
+      0.016185
+     ]
+    },
+    "fn_missed_pct": {
+     "mean": 0.102513,
+     "mean_ci95_bootstrap": [
+      0.077679,
+      0.128885
+     ],
+     "slope_on_A": 0.003646,
+     "slope_on_A_ci95_bootstrap": [
+      -0.000462,
+      0.015957
+     ]
+    },
+    "fn_partial_pct": {
+     "mean": 0.262034,
+     "mean_ci95_bootstrap": [
+      0.185257,
+      0.362938
+     ],
+     "slope_on_A": 0.024496,
+     "slope_on_A_ci95_bootstrap": [
+      0.014521,
+      0.055763
+     ]
+    }
+   },
+   "iou": {
+    "mean_leaf_iou": 0.814666,
+    "mean_leaf_iou_ci95_bootstrap": [
+     0.789905,
+     0.837328
+    ],
+    "median_leaf_iou": 0.850493,
+    "median_leaf_iou_ci95_bootstrap": [
+     0.814503,
+     0.859652
+    ],
+    "pooled_micro_iou": 0.85177,
+    "pooled_micro_iou_ci95_bootstrap": [
+     0.825314,
+     0.872678
+    ],
+    "min_leaf_iou": 0.519336
+   },
+   "boundary_f1": {
+    "tol_1px": {
+     "mean_leaf": 0.771748,
+     "mean_leaf_ci95_bootstrap": [
+      0.748457,
+      0.793311
+     ],
+     "pooled": 0.753063,
+     "pooled_ci95_bootstrap": [
+      0.719762,
+      0.780768
+     ],
+     "pooled_precision": 0.799535,
+     "pooled_recall": 0.711696
+    },
+    "tol_2px": {
+     "mean_leaf": 0.880969,
+     "mean_leaf_ci95_bootstrap": [
+      0.861658,
+      0.898444
+     ],
+     "pooled": 0.87565,
+     "pooled_ci95_bootstrap": [
+      0.846526,
+      0.898333
+     ],
+     "pooled_precision": 0.926421,
+     "pooled_recall": 0.830156
+    },
+    "tol_3px": {
+     "mean_leaf": 0.91222,
+     "mean_leaf_ci95_bootstrap": [
+      0.895805,
+      0.92729
+     ],
+     "pooled": 0.911938,
+     "pooled_ci95_bootstrap": [
+      0.888107,
+      0.931099
+     ],
+     "pooled_precision": 0.959492,
+     "pooled_recall": 0.868876
+    },
+    "tol_5px": {
+     "mean_leaf": 0.928421,
+     "mean_leaf_ci95_bootstrap": [
+      0.914543,
+      0.941154
+     ],
+     "pooled": 0.930172,
+     "pooled_ci95_bootstrap": [
+      0.911409,
+      0.94598
+     ],
+     "pooled_precision": 0.970406,
+     "pooled_recall": 0.893141
+    }
+   },
+   "grades": {
+    "qwk": 0.837878,
+    "accuracy": 0.854545,
+    "n_over": 0,
+    "n_under": 8,
+    "disagreements": [
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_085",
+      "ref_sev": 0.131952,
+      "pred_sev": 0.10606,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_110",
+      "ref_sev": 4.7994,
+      "pred_sev": 4.923512,
+      "ref_grade": 2,
+      "pred_grade": 1,
+      "mask_grade": 1,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_112",
+      "ref_sev": 0.387065,
+      "pred_sev": 0.408177,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_113",
+      "ref_sev": 0.398837,
+      "pred_sev": 0.368855,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_155",
+      "ref_sev": 0.60107,
+      "pred_sev": 0.465158,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 1,
+      "category": "severity_error",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_172",
+      "ref_sev": 0.357651,
+      "pred_sev": 0.297,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_195",
+      "ref_sev": 0.344296,
+      "pred_sev": 0.297162,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     },
+     {
+      "leaf_id": "20260621_Mcitricolor_GX_246",
+      "ref_sev": 0.282447,
+      "pred_sev": 0.32421,
+      "ref_grade": 1,
+      "pred_grade": 0,
+      "mask_grade": 0,
+      "category": "visual_mask_gap",
+      "direction": "under"
+     }
+    ],
+    "disagreement_category_counts": {
+     "visual_mask_gap": 7,
+     "severity_error": 1,
+     "gap_and_severity": 0
+    },
+    "category_definitions": {
+     "visual_mask_gap": "predicted grade equals the grade derived from the reference mask severity, which differs from the (visual) reference grade",
+     "severity_error": "grade derived from the reference mask equals the reference grade; the predicted severity crossed a cut-point",
+     "gap_and_severity": "neither of the above"
+    }
+   }
+  }
+ },
+ "reproduction_all_match": true,
+ "healthy_rust_test_leaves_local_abaxial": {
+  "SegFormer-B5": {
+   "n_leaves": 21,
+   "mean_pred_sev": 0.121204,
+   "max_pred_sev": 0.35537,
+   "n_any_lesion_px": 17,
+   "n_pred_sev_ge_0.5": 0,
+   "n_pred_sev_ge_5": 0
+  },
+  "UNet++": {
+   "n_leaves": 21,
+   "mean_pred_sev": 0.030901,
+   "max_pred_sev": 0.15517,
+   "n_any_lesion_px": 15,
+   "n_pred_sev_ge_0.5": 0,
+   "n_pred_sev_ge_5": 0
+  },
+  "DeepLabV3+": {
+   "n_leaves": 21,
+   "mean_pred_sev": 0.011097,
+   "max_pred_sev": 0.08548,
+   "n_any_lesion_px": 7,
+   "n_pred_sev_ge_0.5": 0,
+   "n_pred_sev_ge_5": 0
+  }
+ },
+ "healthy_rust_test_leaves_local_max_over_both_faces": {
+  "SegFormer-B5": {
+   "n_leaves": 21,
+   "mean_of_leaf_max_pred_sev": 0.157277,
+   "max_pred_sev": 0.38201,
+   "n_any_lesion_px_either_face": 19,
+   "n_pred_sev_ge_0.5_either_face": 0,
+   "n_pred_sev_ge_5_either_face": 0
+  },
+  "UNet++": {
+   "n_leaves": 21,
+   "mean_of_leaf_max_pred_sev": 0.050577,
+   "max_pred_sev": 0.26707,
+   "n_any_lesion_px_either_face": 19,
+   "n_pred_sev_ge_0.5_either_face": 0,
+   "n_pred_sev_ge_5_either_face": 0
+  },
+  "DeepLabV3+": {
+   "n_leaves": 21,
+   "mean_of_leaf_max_pred_sev": 0.025838,
+   "max_pred_sev": 0.08992,
+   "n_any_lesion_px_either_face": 13,
+   "n_pred_sev_ge_0.5_either_face": 0,
+   "n_pred_sev_ge_5_either_face": 0
+  }
+ },
+ "healthy_definitions_note": "Two leaf-level definitions give different counts for the same 21 leaves: abaxial face only (the rust leaf-level rule used everywhere else in this analysis) and maximum over both faces (revision_brief.md fact 10). Use one, state it, and do not mix the two. The healthy leaves come from the EARTH site, the diseased rust leaves from Sarchi, so healthy-leaf false alarms are not a site-matched estimate of spurious detections on diseased leaves; for that see error_decomposition_pct_of_leaf.fp_spurious_pct."
+}

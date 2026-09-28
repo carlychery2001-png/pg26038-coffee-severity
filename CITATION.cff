@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper and this repository. No DOI has been assigned yet."
+title: "Semantic Segmentation for Leaf-Level Severity Grading of Coffee Leaf Rust and American Leaf Spot on Flatbed Scans: code and derived data"
+type: software
+authors:
+  - given-names: Carly
+    family-names: Chery
+    orcid: "https://orcid.org/0009-0005-7842-3200"
+    affiliation: "EARTH University"
+  - given-names: Victor Hugo
+    family-names: Morales Pena
+    orcid: "https://orcid.org/0000-0003-1269-7290"
+    affiliation: "EARTH University"
+license: MIT
+# RELEASE-URL: confirm after the author approves the push (URL as named in the paper's Data Availability statement)
+repository-code: "https://github.com/carlychery2001-png/pg26038-coffee-severity"
+keywords:
+  - coffee leaf rust
+  - American leaf spot
+  - semantic segmentation
+  - severity grading
+  - flatbed scans
+preferred-citation:
+  type: article
+  title: "Semantic Segmentation for Leaf-Level Severity Grading of Coffee Leaf Rust and American Leaf Spot on Flatbed Scans"
+  authors:
+    - given-names: Carly
+      family-names: Chery
+      orcid: "https://orcid.org/0009-0005-7842-3200"
+    - given-names: Victor Hugo
+      family-names: Morales Pena
+      orcid: "https://orcid.org/0000-0003-1269-7290"
+  journal: "Agriculture"
+  publisher:
+    name: MDPI
+  notes: "Manuscript in revision; volume, pages and DOI not yet assigned."

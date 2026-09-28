@@ -1,0 +1,1067 @@
+{
+  "meta": {
+    "script": "<ROOT>\\reanalysis\\results\\panel_stats\\panel_stats.py",
+    "data_dir": "<ROOT>/validation",
+    "B": 10000,
+    "seed": 7,
+    "seed_check": 20260927,
+    "python": "3.13.15",
+    "numpy": "2.5.3",
+    "primary_set": "60 form leaves minus 7 rust-training healthy leaves (form_image_key.csv model_split == 'train')",
+    "train_leaves_excluded": [
+      "roya01",
+      "roya14",
+      "roya18",
+      "roya19",
+      "roya26",
+      "roya28",
+      "roya30"
+    ],
+    "evaluator_labels": "E1-E4 = column order of expert_consensus.csv; public copy: per-evaluator values removed, per-leaf panel grades sorted",
+    "rust_rule": "abaxial face",
+    "leaf_spot_rule": "mean of both faces",
+    "statistic": "mean over 4 LOO references of QWK(model, median of other 3) minus mean of QWK(evaluator j, median of other 3)",
+    "p_value": "two-sided percentile-bootstrap p = min(1, 2*min(P*(d<=0), P*(d>=0))); add-one version also given",
+    "inference": "leaves resampled, evaluators fixed: conditional on these four readers",
+    "runtime_s": 245.4
+  },
+  "contrasts": {
+    "ojo_segformer": {
+      "disease": "American leaf spot",
+      "model": "SegFormer-B5",
+      "n": 30,
+      "model_loo_qwk": 0.8842486880298743,
+      "evaluator_loo_qwk": 0.765070470470383,
+      "diff": 0.11917821755949132,
+      "ci95": [
+        0.06090950155960026,
+        0.18849941863042932
+      ],
+      "p_two_sided": 0.0004,
+      "p_two_sided_add1": 0.0005999400059994001,
+      "p_le0": 0.0002,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.03214247470999886,
+      "role": "primary (unadjusted)",
+      "p_holm_secondary4": null,
+      "p_holm_all6": 0.0024000000000000002,
+      "p_holm_secondary4_add1": null,
+      "p_holm_all6_add1": 0.0035996400359964006,
+      "p_reported": 0.0004,
+      "significant_0.05": true,
+      "significant_0.05_holm_all6": true
+    },
+    "ojo_deeplab": {
+      "disease": "American leaf spot",
+      "model": "DeepLabV3+",
+      "n": 30,
+      "model_loo_qwk": 0.8597270156415944,
+      "evaluator_loo_qwk": 0.765070470470383,
+      "diff": 0.09465654517121136,
+      "ci95": [
+        0.020244534260763225,
+        0.1747015434317366
+      ],
+      "p_two_sided": 0.0164,
+      "p_two_sided_add1": 0.0165983401659834,
+      "p_le0": 0.0082,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.03938000070108834,
+      "role": "secondary (Holm over 4)",
+      "p_holm_secondary4": 0.0656,
+      "p_holm_all6": 0.082,
+      "p_holm_secondary4_add1": 0.0663933606639336,
+      "p_holm_all6_add1": 0.082991700829917,
+      "p_reported": 0.0656,
+      "significant_0.05": false,
+      "significant_0.05_holm_all6": false
+    },
+    "ojo_unetpp": {
+      "disease": "American leaf spot",
+      "model": "UNet++",
+      "n": 30,
+      "model_loo_qwk": 0.7470492679427405,
+      "evaluator_loo_qwk": 0.765070470470383,
+      "diff": -0.0180212025276425,
+      "ci95": [
+        -0.13069163653280894,
+        0.09295622386662118
+      ],
+      "p_two_sided": 0.7614,
+      "p_two_sided_add1": 0.7615238476152385,
+      "p_le0": 0.6193,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.0570531394071113,
+      "role": "secondary (Holm over 4)",
+      "p_holm_secondary4": 0.9292,
+      "p_holm_all6": 0.9292,
+      "p_holm_secondary4_add1": 0.9295070492950704,
+      "p_holm_all6_add1": 0.9295070492950704,
+      "p_reported": 0.9292,
+      "significant_0.05": false,
+      "significant_0.05_holm_all6": false
+    },
+    "roya_segformer": {
+      "disease": "Coffee leaf rust",
+      "model": "SegFormer-B5",
+      "n": 23,
+      "model_loo_qwk": 0.8151764759067839,
+      "evaluator_loo_qwk": 0.7281698502124674,
+      "diff": 0.0870066256943165,
+      "ci95": [
+        -0.014689617500166586,
+        0.2180085721100748
+      ],
+      "p_two_sided": 0.084,
+      "p_two_sided_add1": 0.0841915808419158,
+      "p_le0": 0.042,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.058643042045831435,
+      "role": "primary (unadjusted)",
+      "p_holm_secondary4": null,
+      "p_holm_all6": 0.336,
+      "p_holm_secondary4_add1": null,
+      "p_holm_all6_add1": 0.3367663233676632,
+      "p_reported": 0.084,
+      "significant_0.05": false,
+      "significant_0.05_holm_all6": false
+    },
+    "roya_deeplab": {
+      "disease": "Coffee leaf rust",
+      "model": "DeepLabV3+",
+      "n": 23,
+      "model_loo_qwk": 0.7771788815521659,
+      "evaluator_loo_qwk": 0.7281698502124674,
+      "diff": 0.04900903133969847,
+      "ci95": [
+        -0.07659350823388374,
+        0.2634743246730176
+      ],
+      "p_two_sided": 0.4646,
+      "p_two_sided_add1": 0.4647535246475352,
+      "p_le0": 0.2323,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.08543002036839535,
+      "role": "secondary (Holm over 4)",
+      "p_holm_secondary4": 0.9292,
+      "p_holm_all6": 0.9292,
+      "p_holm_secondary4_add1": 0.9295070492950704,
+      "p_holm_all6_add1": 0.9295070492950704,
+      "p_reported": 0.9292,
+      "significant_0.05": false,
+      "significant_0.05_holm_all6": false
+    },
+    "roya_unetpp": {
+      "disease": "Coffee leaf rust",
+      "model": "UNet++",
+      "n": 23,
+      "model_loo_qwk": 0.7943430103318188,
+      "evaluator_loo_qwk": 0.7281698502124674,
+      "diff": 0.06617316011935137,
+      "ci95": [
+        -0.034682451936983334,
+        0.2036664889125777
+      ],
+      "p_two_sided": 0.1792,
+      "p_two_sided_add1": 0.17938206179382063,
+      "p_le0": 0.0896,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.06037232177439553,
+      "role": "secondary (Holm over 4)",
+      "p_holm_secondary4": 0.5376,
+      "p_holm_all6": 0.5376,
+      "p_holm_secondary4_add1": 0.5381461853814619,
+      "p_holm_all6_add1": 0.5381461853814619,
+      "p_reported": 0.5376,
+      "significant_0.05": false,
+      "significant_0.05_holm_all6": false
+    },
+    "all_segformer": {
+      "disease": "Pooled",
+      "model": "SegFormer-B5",
+      "n": 53,
+      "model_loo_qwk": 0.8557183827879375,
+      "evaluator_loo_qwk": 0.7485969415598039,
+      "diff": 0.10712144122813361,
+      "ci95": [
+        0.0521322458662494,
+        0.16919963414707845
+      ],
+      "p_two_sided": 0.0006,
+      "p_two_sided_add1": 0.0007999200079992001,
+      "p_le0": 0.0003,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.029605548311747307,
+      "role": "descriptive only (pooled kappa mixes two disease-specific models); not in any Holm family"
+    },
+    "all_deeplab": {
+      "disease": "Pooled",
+      "model": "DeepLabV3+",
+      "n": 53,
+      "model_loo_qwk": 0.8271995321141996,
+      "evaluator_loo_qwk": 0.7485969415598039,
+      "diff": 0.07860259055439567,
+      "ci95": [
+        -0.00044785348194287104,
+        0.1657937646588844
+      ],
+      "p_two_sided": 0.0508,
+      "p_two_sided_add1": 0.050994900509949,
+      "p_le0": 0.0254,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.04231098625055751,
+      "role": "descriptive only (pooled kappa mixes two disease-specific models); not in any Holm family"
+    },
+    "all_unetpp": {
+      "disease": "Pooled",
+      "model": "UNet++",
+      "n": 53,
+      "model_loo_qwk": 0.7709056965448073,
+      "evaluator_loo_qwk": 0.7485969415598039,
+      "diff": 0.0223087549850034,
+      "ci95": [
+        -0.05170043675924224,
+        0.09914220055260893
+      ],
+      "p_two_sided": 0.5116,
+      "p_two_sided_add1": 0.5117488251174882,
+      "p_le0": 0.2558,
+      "n_valid_resamples": 10000,
+      "boot_sd": 0.03786783695634018,
+      "role": "descriptive only (pooled kappa mixes two disease-specific models); not in any Holm family"
+    }
+  },
+  "families": {
+    "primary": [
+      "ojo_segformer",
+      "roya_segformer"
+    ],
+    "primary_note": "SegFormer-B5 per disease, unadjusted (two pre-designated primary contrasts)",
+    "secondary": [
+      "ojo_deeplab",
+      "ojo_unetpp",
+      "roya_deeplab",
+      "roya_unetpp"
+    ],
+    "secondary_note": "DeepLabV3+ and UNet++ per disease, Holm step-down over these 4",
+    "all_six": [
+      "ojo_segformer",
+      "ojo_deeplab",
+      "ojo_unetpp",
+      "roya_segformer",
+      "roya_deeplab",
+      "roya_unetpp"
+    ],
+    "all_six_note": "Holm step-down over all 6 contrasts (sensitivity)"
+  },
+  "direction_of_error": {
+    "ojo": {
+      "n": 30,
+      "n_two_two_splits": 7,
+      "split_leaves": [
+        "ojo09",
+        "ojo16",
+        "ojo17",
+        "ojo19",
+        "ojo23",
+        "ojo28",
+        "ojo29"
+      ],
+      "models": {
+        "SegFormer-B5": {
+          "ties_up": {
+            "lower": 1,
+            "equal": 27,
+            "higher": 2,
+            "bias": 0.03333333333333333,
+            "max_abs_diff": 1,
+            "panel_G0": 7,
+            "panel_G0_model_above": 0
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 22,
+            "higher": 8,
+            "bias": 0.26666666666666666,
+            "max_abs_diff": 1,
+            "panel_G0": 10,
+            "panel_G0_model_above": 3
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 30,
+            "above_max": 0
+          },
+          "outside_range_leaves": []
+        },
+        "DeepLabV3+": {
+          "ties_up": {
+            "lower": 1,
+            "equal": 26,
+            "higher": 3,
+            "bias": 0.06666666666666667,
+            "max_abs_diff": 1,
+            "panel_G0": 7,
+            "panel_G0_model_above": 1
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 21,
+            "higher": 9,
+            "bias": 0.3,
+            "max_abs_diff": 1,
+            "panel_G0": 10,
+            "panel_G0_model_above": 4
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 30,
+            "above_max": 0
+          },
+          "outside_range_leaves": []
+        },
+        "UNet++": {
+          "ties_up": {
+            "lower": 1,
+            "equal": 22,
+            "higher": 7,
+            "bias": 0.2,
+            "max_abs_diff": 1,
+            "panel_G0": 7,
+            "panel_G0_model_above": 5
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 17,
+            "higher": 13,
+            "bias": 0.43333333333333335,
+            "max_abs_diff": 1,
+            "panel_G0": 10,
+            "panel_G0_model_above": 8
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 30,
+            "above_max": 0
+          },
+          "outside_range_leaves": []
+        }
+      }
+    },
+    "roya": {
+      "n": 23,
+      "n_two_two_splits": 9,
+      "split_leaves": [
+        "roya05",
+        "roya09",
+        "roya10",
+        "roya12",
+        "roya17",
+        "roya20",
+        "roya22",
+        "roya27",
+        "roya29"
+      ],
+      "models": {
+        "SegFormer-B5": {
+          "ties_up": {
+            "lower": 2,
+            "equal": 19,
+            "higher": 2,
+            "bias": 0.0,
+            "max_abs_diff": 1,
+            "panel_G0": 3,
+            "panel_G0_model_above": 0
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 14,
+            "higher": 9,
+            "bias": 0.391304347826087,
+            "max_abs_diff": 1,
+            "panel_G0": 7,
+            "panel_G0_model_above": 4
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 21,
+            "above_max": 2
+          },
+          "outside_range_leaves": [
+            {
+              "form_id": "roya13",
+              "model_grade": 2,
+              "sev_ab": 5.4,
+              "sev_ad": 4.59
+            },
+            {
+              "form_id": "roya21",
+              "model_grade": 2,
+              "sev_ab": 8.81,
+              "sev_ad": 6.12
+            }
+          ]
+        },
+        "DeepLabV3+": {
+          "ties_up": {
+            "lower": 6,
+            "equal": 17,
+            "higher": 0,
+            "bias": -0.2608695652173913,
+            "max_abs_diff": 1,
+            "panel_G0": 3,
+            "panel_G0_model_above": 0
+          },
+          "ties_down": {
+            "lower": 2,
+            "equal": 16,
+            "higher": 5,
+            "bias": 0.13043478260869565,
+            "max_abs_diff": 1,
+            "panel_G0": 7,
+            "panel_G0_model_above": 3
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 2,
+            "inside": 21,
+            "above_max": 0
+          },
+          "outside_range_leaves": [
+            {
+              "form_id": "roya07",
+              "model_grade": 2,
+              "sev_ab": 15.2,
+              "sev_ad": 10.43
+            },
+            {
+              "form_id": "roya15",
+              "model_grade": 2,
+              "sev_ab": 17.14,
+              "sev_ad": 6.38
+            }
+          ]
+        },
+        "UNet++": {
+          "ties_up": {
+            "lower": 2,
+            "equal": 18,
+            "higher": 3,
+            "bias": 0.043478260869565216,
+            "max_abs_diff": 1,
+            "panel_G0": 3,
+            "panel_G0_model_above": 0
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 14,
+            "higher": 9,
+            "bias": 0.43478260869565216,
+            "max_abs_diff": 2,
+            "panel_G0": 7,
+            "panel_G0_model_above": 3
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 20,
+            "above_max": 3
+          },
+          "outside_range_leaves": [
+            {
+              "form_id": "roya17",
+              "model_grade": 3,
+              "sev_ab": 24.3,
+              "sev_ad": 6.69
+            },
+            {
+              "form_id": "roya21",
+              "model_grade": 2,
+              "sev_ab": 11.26,
+              "sev_ad": 6.73
+            },
+            {
+              "form_id": "roya23",
+              "model_grade": 2,
+              "sev_ab": 5.51,
+              "sev_ad": 6.89
+            }
+          ]
+        }
+      }
+    },
+    "all": {
+      "n": 53,
+      "n_two_two_splits": 16,
+      "split_leaves": [
+        "ojo09",
+        "ojo16",
+        "ojo17",
+        "ojo19",
+        "ojo23",
+        "ojo28",
+        "ojo29",
+        "roya05",
+        "roya09",
+        "roya10",
+        "roya12",
+        "roya17",
+        "roya20",
+        "roya22",
+        "roya27",
+        "roya29"
+      ],
+      "models": {
+        "SegFormer-B5": {
+          "ties_up": {
+            "lower": 3,
+            "equal": 46,
+            "higher": 4,
+            "bias": 0.018867924528301886,
+            "max_abs_diff": 1,
+            "panel_G0": 10,
+            "panel_G0_model_above": 0
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 36,
+            "higher": 17,
+            "bias": 0.32075471698113206,
+            "max_abs_diff": 1,
+            "panel_G0": 17,
+            "panel_G0_model_above": 7
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 51,
+            "above_max": 2
+          },
+          "outside_range_leaves": [
+            {
+              "form_id": "roya13",
+              "model_grade": 2,
+              "sev_ab": 5.4,
+              "sev_ad": 4.59
+            },
+            {
+              "form_id": "roya21",
+              "model_grade": 2,
+              "sev_ab": 8.81,
+              "sev_ad": 6.12
+            }
+          ]
+        },
+        "DeepLabV3+": {
+          "ties_up": {
+            "lower": 7,
+            "equal": 43,
+            "higher": 3,
+            "bias": -0.07547169811320754,
+            "max_abs_diff": 1,
+            "panel_G0": 10,
+            "panel_G0_model_above": 1
+          },
+          "ties_down": {
+            "lower": 2,
+            "equal": 37,
+            "higher": 14,
+            "bias": 0.22641509433962265,
+            "max_abs_diff": 1,
+            "panel_G0": 17,
+            "panel_G0_model_above": 7
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 2,
+            "inside": 51,
+            "above_max": 0
+          },
+          "outside_range_leaves": [
+            {
+              "form_id": "roya07",
+              "model_grade": 2,
+              "sev_ab": 15.2,
+              "sev_ad": 10.43
+            },
+            {
+              "form_id": "roya15",
+              "model_grade": 2,
+              "sev_ab": 17.14,
+              "sev_ad": 6.38
+            }
+          ]
+        },
+        "UNet++": {
+          "ties_up": {
+            "lower": 3,
+            "equal": 40,
+            "higher": 10,
+            "bias": 0.1320754716981132,
+            "max_abs_diff": 1,
+            "panel_G0": 10,
+            "panel_G0_model_above": 5
+          },
+          "ties_down": {
+            "lower": 0,
+            "equal": 31,
+            "higher": 22,
+            "bias": 0.4339622641509434,
+            "max_abs_diff": 2,
+            "panel_G0": 17,
+            "panel_G0_model_above": 11
+          },
+          "vs_panel_range_tie_free": {
+            "below_min": 0,
+            "inside": 50,
+            "above_max": 3
+          },
+          "outside_range_leaves": [
+            {
+              "form_id": "roya17",
+              "model_grade": 3,
+              "sev_ab": 24.3,
+              "sev_ad": 6.69
+            },
+            {
+              "form_id": "roya21",
+              "model_grade": 2,
+              "sev_ab": 11.26,
+              "sev_ad": 6.73
+            },
+            {
+              "form_id": "roya23",
+              "model_grade": 2,
+              "sev_ab": 5.51,
+              "sev_ad": 6.89
+            }
+          ]
+        }
+      }
+    }
+  },
+  "primary_table": {
+    "ojo": {
+      "disease": "American leaf spot",
+      "n": 30,
+      "evaluators": {
+        "loo_qwk_mean": 0.765070470470383,
+        "loo_qwk_range": [
+          0.6666666666666666,
+          0.8179611650485437
+        ],
+        "pairwise_qwk_mean": 0.7208028519551509,
+        "pairwise_qwk_range": [
+          0.5719844357976653,
+          0.812206572769953
+        ],
+        "exact_vs_loo_mean": 0.6083333333333333
+      },
+      "models": {
+        "SegFormer-B5": {
+          "loo_qwk": 0.8842486880298743,
+          "diff": 0.11917821755949132,
+          "ci95": [
+            0.06090950155960026,
+            0.18849941863042932
+          ],
+          "p_two_sided": 0.0004,
+          "p_holm_secondary4": null,
+          "p_holm_all6": 0.0024000000000000002,
+          "pairwise_qwk_mean": 0.8076678698766051,
+          "exact_vs_loo_mean": 0.8166666666666667,
+          "qwk_median_down": 0.8333333333333334,
+          "qwk_median_up": 0.9365303244005642,
+          "exact_median_down": 0.7333333333333333,
+          "exact_median_up": 0.9,
+          "within1_both_rules": true,
+          "inside_panel_range": 30,
+          "bias_down": 0.26666666666666666,
+          "bias_up": 0.03333333333333333
+        },
+        "DeepLabV3+": {
+          "loo_qwk": 0.8597270156415944,
+          "diff": 0.09465654517121136,
+          "ci95": [
+            0.020244534260763225,
+            0.1747015434317366
+          ],
+          "p_two_sided": 0.0164,
+          "p_holm_secondary4": 0.0656,
+          "p_holm_all6": 0.082,
+          "pairwise_qwk_mean": 0.7921688468749689,
+          "exact_vs_loo_mean": 0.7833333333333333,
+          "qwk_median_down": 0.8085106382978723,
+          "qwk_median_up": 0.9126637554585153,
+          "exact_median_down": 0.7,
+          "exact_median_up": 0.8666666666666667,
+          "within1_both_rules": true,
+          "inside_panel_range": 30,
+          "bias_down": 0.3,
+          "bias_up": 0.06666666666666667
+        },
+        "UNet++": {
+          "loo_qwk": 0.7470492679427405,
+          "diff": -0.0180212025276425,
+          "ci95": [
+            -0.13069163653280894,
+            0.09295622386662118
+          ],
+          "p_two_sided": 0.7614,
+          "p_holm_secondary4": 0.9292,
+          "p_holm_all6": 0.9292,
+          "pairwise_qwk_mean": 0.7220019789075278,
+          "exact_vs_loo_mean": 0.6499999999999999,
+          "qwk_median_down": 0.6976744186046512,
+          "qwk_median_up": 0.7996661101836393,
+          "exact_median_down": 0.5666666666666667,
+          "exact_median_up": 0.7333333333333333,
+          "within1_both_rules": true,
+          "inside_panel_range": 30,
+          "bias_down": 0.43333333333333335,
+          "bias_up": 0.2
+        }
+      }
+    },
+    "roya": {
+      "disease": "Coffee leaf rust",
+      "n": 23,
+      "evaluators": {
+        "loo_qwk_mean": 0.7281698502124674,
+        "loo_qwk_range": [
+          0.688039457459926,
+          0.7510822510822511
+        ],
+        "pairwise_qwk_mean": 0.7693986857114942,
+        "pairwise_qwk_range": [
+          0.7237237237237237,
+          0.851063829787234
+        ],
+        "exact_vs_loo_mean": 0.5543478260869564
+      },
+      "models": {
+        "SegFormer-B5": {
+          "loo_qwk": 0.8151764759067839,
+          "diff": 0.0870066256943165,
+          "ci95": [
+            -0.014689617500166586,
+            0.2180085721100748
+          ],
+          "p_two_sided": 0.084,
+          "p_holm_secondary4": null,
+          "p_holm_all6": 0.336,
+          "pairwise_qwk_mean": 0.7775689122751813,
+          "exact_vs_loo_mean": 0.7173913043478259,
+          "qwk_median_down": 0.7567567567567568,
+          "qwk_median_up": 0.8786279683377308,
+          "exact_median_down": 0.6086956521739131,
+          "exact_median_up": 0.8260869565217391,
+          "within1_both_rules": true,
+          "inside_panel_range": 21,
+          "bias_down": 0.391304347826087,
+          "bias_up": 0.0
+        },
+        "DeepLabV3+": {
+          "loo_qwk": 0.7771788815521659,
+          "diff": 0.04900903133969847,
+          "ci95": [
+            -0.07659350823388374,
+            0.2634743246730176
+          ],
+          "p_two_sided": 0.4646,
+          "p_holm_secondary4": 0.9292,
+          "p_holm_all6": 0.9292,
+          "pairwise_qwk_mean": 0.7308620499324645,
+          "exact_vs_loo_mean": 0.7173913043478259,
+          "qwk_median_down": 0.7586206896551725,
+          "qwk_median_up": 0.7976539589442815,
+          "exact_median_down": 0.6956521739130435,
+          "exact_median_up": 0.7391304347826086,
+          "within1_both_rules": true,
+          "inside_panel_range": 21,
+          "bias_down": 0.13043478260869565,
+          "bias_up": -0.2608695652173913
+        },
+        "UNet++": {
+          "loo_qwk": 0.7943430103318188,
+          "diff": 0.06617316011935137,
+          "ci95": [
+            -0.034682451936983334,
+            0.2036664889125777
+          ],
+          "p_two_sided": 0.1792,
+          "p_holm_secondary4": 0.5376,
+          "p_holm_all6": 0.5376,
+          "pairwise_qwk_mean": 0.7506262654961147,
+          "exact_vs_loo_mean": 0.6956521739130435,
+          "qwk_median_down": 0.7272727272727273,
+          "qwk_median_up": 0.8723640399556049,
+          "exact_median_down": 0.6086956521739131,
+          "exact_median_up": 0.782608695652174,
+          "within1_both_rules": false,
+          "inside_panel_range": 20,
+          "bias_down": 0.43478260869565216,
+          "bias_up": 0.043478260869565216
+        }
+      }
+    },
+    "all": {
+      "disease": "Pooled",
+      "n": 53,
+      "evaluators": {
+        "loo_qwk_mean": 0.7485969415598039,
+        "loo_qwk_range": [
+          0.687076317515854,
+          0.7898493259318001
+        ],
+        "pairwise_qwk_mean": 0.7394319902844423,
+        "pairwise_qwk_range": [
+          0.6465906646590664,
+          0.8264192139737991
+        ],
+        "exact_vs_loo_mean": 0.5849056603773585
+      },
+      "models": {
+        "SegFormer-B5": {
+          "loo_qwk": 0.8557183827879375,
+          "diff": 0.10712144122813361,
+          "ci95": [
+            0.0521322458662494,
+            0.16919963414707845
+          ],
+          "p_two_sided": null,
+          "p_holm_secondary4": null,
+          "p_holm_all6": null,
+          "pairwise_qwk_mean": 0.7952460860190799,
+          "exact_vs_loo_mean": 0.7735849056603774,
+          "qwk_median_down": 0.7999999999999999,
+          "qwk_median_up": 0.9132974994157513,
+          "exact_median_down": 0.6792452830188679,
+          "exact_median_up": 0.8679245283018868,
+          "within1_both_rules": true,
+          "inside_panel_range": 51,
+          "bias_down": 0.32075471698113206,
+          "bias_up": 0.018867924528301886
+        },
+        "DeepLabV3+": {
+          "loo_qwk": 0.8271995321141996,
+          "diff": 0.07860259055439567,
+          "ci95": [
+            -0.00044785348194287104,
+            0.1657937646588844
+          ],
+          "p_two_sided": null,
+          "p_holm_secondary4": null,
+          "p_holm_all6": null,
+          "pairwise_qwk_mean": 0.76992068683296,
+          "exact_vs_loo_mean": 0.7547169811320755,
+          "qwk_median_down": 0.7894736842105263,
+          "qwk_median_up": 0.8662291771832408,
+          "exact_median_down": 0.6981132075471698,
+          "exact_median_up": 0.8113207547169812,
+          "within1_both_rules": true,
+          "inside_panel_range": 51,
+          "bias_down": 0.22641509433962265,
+          "bias_up": -0.07547169811320754
+        },
+        "UNet++": {
+          "loo_qwk": 0.7709056965448073,
+          "diff": 0.0223087549850034,
+          "ci95": [
+            -0.05170043675924224,
+            0.09914220055260893
+          ],
+          "p_two_sided": null,
+          "p_holm_secondary4": null,
+          "p_holm_all6": null,
+          "pairwise_qwk_mean": 0.736399334057714,
+          "exact_vs_loo_mean": 0.6698113207547169,
+          "qwk_median_down": 0.7126436781609196,
+          "qwk_median_up": 0.83567851180539,
+          "exact_median_down": 0.5849056603773585,
+          "exact_median_up": 0.7547169811320755,
+          "within1_both_rules": false,
+          "inside_panel_range": 50,
+          "bias_down": 0.4339622641509434,
+          "bias_up": 0.1320754716981132
+        }
+      },
+      "note": "descriptive only; pooled kappa combines two disease-specific models"
+    }
+  },
+  "reproduction_check": {
+    "ojo_segformer": {
+      "ci_here": [
+        0.061,
+        0.188
+      ],
+      "ci_tiefree": [
+        0.061,
+        0.188
+      ],
+      "diff_here": 0.1192,
+      "diff_tiefree": 0.1192,
+      "p_le0_here": 0.0002,
+      "p_le0_tiefree": 0.0002
+    },
+    "ojo_deeplab": {
+      "ci_here": [
+        0.02,
+        0.175
+      ],
+      "ci_tiefree": [
+        0.02,
+        0.175
+      ],
+      "diff_here": 0.0947,
+      "diff_tiefree": 0.0947,
+      "p_le0_here": 0.0082,
+      "p_le0_tiefree": 0.0082
+    },
+    "ojo_unetpp": {
+      "ci_here": [
+        -0.131,
+        0.093
+      ],
+      "ci_tiefree": [
+        -0.131,
+        0.093
+      ],
+      "diff_here": -0.018,
+      "diff_tiefree": -0.018,
+      "p_le0_here": 0.6193,
+      "p_le0_tiefree": 0.6193
+    },
+    "roya_segformer": {
+      "ci_here": [
+        -0.015,
+        0.218
+      ],
+      "ci_tiefree": [
+        -0.015,
+        0.218
+      ],
+      "diff_here": 0.087,
+      "diff_tiefree": 0.087,
+      "p_le0_here": 0.042,
+      "p_le0_tiefree": 0.042
+    },
+    "roya_deeplab": {
+      "ci_here": [
+        -0.077,
+        0.263
+      ],
+      "ci_tiefree": [
+        -0.077,
+        0.263
+      ],
+      "diff_here": 0.049,
+      "diff_tiefree": 0.049,
+      "p_le0_here": 0.2323,
+      "p_le0_tiefree": 0.2323
+    },
+    "roya_unetpp": {
+      "ci_here": [
+        -0.035,
+        0.204
+      ],
+      "ci_tiefree": [
+        -0.035,
+        0.204
+      ],
+      "diff_here": 0.0662,
+      "diff_tiefree": 0.0662,
+      "p_le0_here": 0.0896,
+      "p_le0_tiefree": 0.0896
+    },
+    "all_segformer": {
+      "ci_here": [
+        0.052,
+        0.169
+      ],
+      "ci_tiefree": [
+        0.052,
+        0.169
+      ],
+      "diff_here": 0.1071,
+      "diff_tiefree": 0.1071,
+      "p_le0_here": 0.0003,
+      "p_le0_tiefree": 0.0003
+    },
+    "all_deeplab": {
+      "ci_here": [
+        -0.0,
+        0.166
+      ],
+      "ci_tiefree": [
+        -0.0,
+        0.166
+      ],
+      "diff_here": 0.0786,
+      "diff_tiefree": 0.0786,
+      "p_le0_here": 0.0254,
+      "p_le0_tiefree": 0.0254
+    },
+    "all_unetpp": {
+      "ci_here": [
+        -0.052,
+        0.099
+      ],
+      "ci_tiefree": [
+        -0.052,
+        0.099
+      ],
+      "diff_here": 0.0223,
+      "diff_tiefree": 0.0223,
+      "p_le0_here": 0.2558,
+      "p_le0_tiefree": 0.2558
+    },
+    "max_abs_ci_difference_3dp": 0.0
+  },
+  "mc_check": {
+    "ojo_segformer": {
+      "seed": 20260927,
+      "ci95": [
+        0.06338018457429634,
+        0.18774997836198706
+      ],
+      "p_two_sided": 0.0
+    },
+    "ojo_deeplab": {
+      "seed": 20260927,
+      "ci95": [
+        0.02007714311426972,
+        0.17216458857640898
+      ],
+      "p_two_sided": 0.0162
+    },
+    "ojo_unetpp": {
+      "seed": 20260927,
+      "ci95": [
+        -0.12984066342154504,
+        0.09075134924378332
+      ],
+      "p_two_sided": 0.7366
+    },
+    "roya_segformer": {
+      "seed": 20260927,
+      "ci95": [
+        -0.016563925153294575,
+        0.2247445228581502
+      ],
+      "p_two_sided": 0.0934
+    },
+    "roya_deeplab": {
+      "seed": 20260927,
+      "ci95": [
+        -0.07631312766322107,
+        0.26935817776178783
+      ],
+      "p_two_sided": 0.4654
+    },
+    "roya_unetpp": {
+      "seed": 20260927,
+      "ci95": [
+        -0.037109502261177665,
+        0.21383200578738973
+      ],
+      "p_two_sided": 0.1756
+    }
+  }
+}

@@ -1,0 +1,4821 @@
+{
+ "description": "PG-26038 major revision: regenerated paper Figures 4, 12, 13, 14 (no re-inference)",
+ "date": "2026-09-27",
+ "scripts": [
+  "common.py",
+  "make_quant_figures.py",
+  "make_qualitative_figures.py",
+  "error_location_summary.py",
+  "write_results.py"
+ ],
+ "inputs": {
+  "per_image": "<ROOT>/reanalysis/out/per_image.csv",
+  "preds": "<ROOT>/reanalysis/out/preds",
+  "packs": [
+   "<ROOT>/datasets/pg26038-roya-real-pack",
+   "<ROOT>/datasets/pg26038-ojo-real-pack"
+  ],
+  "reference_rebuild": "run_inference.py resize_pad()/load(), executed verbatim via ast"
+ },
+ "bootstrap": {
+  "resamples": 10000,
+  "seed": 20260927,
+  "type": "leaf resampling with replacement, percentile 95% CI",
+  "streams": "np.random.default_rng(20260927) created fresh per stratum (Fig. 4: disease; Fig. 12: disease x band); the same indices are used for the three models (paired)"
+ },
+ "reproduction": {
+  "roya": {
+   "segformer": {
+    "n_leaves": 21,
+    "leaf_iou": 0.7672918414967557,
+    "leaf_iou_exact_fraction_mean": 0.7672918414967556,
+    "mae_pp": 0.9898293512307674,
+    "bias_pp": 0.9895809845764696,
+    "sd_diff_pp": 1.3645033335292058,
+    "loa_pp": [
+     -1.6848455491407737,
+     3.6640075182937126
+    ],
+    "qwk": 0.877906976744186,
+    "published": {
+     "leaf_iou": 0.767,
+     "mae": 0.99,
+     "bias": 0.99,
+     "qwk": 0.88,
+     "loa": [
+      -1.68,
+      3.66
+     ]
+    },
+    "reproduced": {
+     "leaf_iou": true,
+     "mae": true,
+     "bias": true,
+     "qwk": true,
+     "loa": true
+    }
+   },
+   "unetpp": {
+    "n_leaves": 21,
+    "leaf_iou": 0.6465413245605872,
+    "leaf_iou_exact_fraction_mean": 0.6465413245605873,
+    "mae_pp": 1.7694424355480138,
+    "bias_pp": 1.748642070509725,
+    "sd_diff_pp": 2.258107717231678,
+    "loa_pp": [
+     -2.677249055264364,
+     6.174533196283814
+    ],
+    "qwk": 0.7878787878787878,
+    "published": {
+     "leaf_iou": 0.647,
+     "mae": 1.77,
+     "bias": 1.75,
+     "qwk": 0.79,
+     "loa": [
+      -2.68,
+      6.17
+     ]
+    },
+    "reproduced": {
+     "leaf_iou": true,
+     "mae": true,
+     "bias": true,
+     "qwk": true,
+     "loa": true
+    }
+   },
+   "deeplab": {
+    "n_leaves": 21,
+    "leaf_iou": 0.6316149374798883,
+    "leaf_iou_exact_fraction_mean": 0.6316149374798883,
+    "mae_pp": 1.473933948229762,
+    "bias_pp": 1.4114876684760556,
+    "sd_diff_pp": 2.284218885758514,
+    "loa_pp": [
+     -3.065581347610632,
+     5.888556684562744
+    ],
+    "qwk": 0.877906976744186,
+    "published": {
+     "leaf_iou": 0.632,
+     "mae": 1.47,
+     "bias": 1.41,
+     "qwk": 0.88,
+     "loa": [
+      -3.07,
+      5.89
+     ]
+    },
+    "reproduced": {
+     "leaf_iou": true,
+     "mae": true,
+     "bias": true,
+     "qwk": true,
+     "loa": true
+    }
+   }
+  },
+  "ojo": {
+   "segformer": {
+    "n_leaves": 55,
+    "leaf_iou": 0.8844675708032855,
+    "leaf_iou_exact_fraction_mean": 0.8844675708032855,
+    "mae_pp": 0.2197745705401279,
+    "bias_pp": 0.16408487538784064,
+    "sd_diff_pp": 0.32157612836450106,
+    "loa_pp": [
+     -0.4662043362065814,
+     0.7943740869822628
+    ],
+    "qwk": 0.824654622741764,
+    "published": {
+     "leaf_iou": 0.884,
+     "mae": 0.22,
+     "bias": 0.16,
+     "qwk": 0.82,
+     "loa": [
+      -0.47,
+      0.79
+     ]
+    },
+    "reproduced": {
+     "leaf_iou": true,
+     "mae": true,
+     "bias": true,
+     "qwk": true,
+     "loa": true
+    }
+   },
+   "unetpp": {
+    "n_leaves": 55,
+    "leaf_iou": 0.8530089273590649,
+    "leaf_iou_exact_fraction_mean": 0.8530089273590649,
+    "mae_pp": 0.1451645148210444,
+    "bias_pp": -0.026569590686395243,
+    "sd_diff_pp": 0.2393781172046125,
+    "loa_pp": [
+     -0.49575070040743574,
+     0.44261151903464524
+    ],
+    "qwk": 0.8522072936660269,
+    "published": {
+     "leaf_iou": 0.853,
+     "mae": 0.15,
+     "bias": -0.03,
+     "qwk": 0.85,
+     "loa": [
+      -0.5,
+      0.44
+     ]
+    },
+    "reproduced": {
+     "leaf_iou": true,
+     "mae": true,
+     "bias": true,
+     "qwk": true,
+     "loa": true
+    }
+   },
+   "deeplab": {
+    "n_leaves": 55,
+    "leaf_iou": 0.8146661538228422,
+    "leaf_iou_exact_fraction_mean": 0.8146661538228422,
+    "mae_pp": 0.24675947210225022,
+    "bias_pp": 0.07987654311888286,
+    "sd_diff_pp": 0.3776865952359564,
+    "loa_pp": [
+     -0.6603891835435917,
+     0.8201422697813573
+    ],
+    "qwk": 0.8378776713338246,
+    "published": {
+     "leaf_iou": 0.815,
+     "mae": 0.25,
+     "bias": 0.08,
+     "qwk": 0.84,
+     "loa": [
+      -0.66,
+      0.82
+     ]
+    },
+    "reproduced": {
+     "leaf_iou": true,
+     "mae": true,
+     "bias": true,
+     "qwk": true,
+     "loa": true
+    }
+   }
+  },
+  "all_reproduced": true,
+  "failed_checks": []
+ },
+ "figure4": {
+  "roya": {
+   "segformer": {
+    "model": "SegFormer-B5",
+    "n_leaves": 21,
+    "mean": 0.7672918414967557,
+    "label": "0.767",
+    "ci95": [
+     0.7429317500467382,
+     0.7904686621378032
+    ],
+    "ci95_3dp": [
+     0.743,
+     0.79
+    ],
+    "sd": 0.05790233780555672,
+    "median": 0.7665379891208984,
+    "min": 0.6383530089260006,
+    "max": 0.857037037037037
+   },
+   "unetpp": {
+    "model": "UNet++",
+    "n_leaves": 21,
+    "mean": 0.6465413245605872,
+    "label": "0.647",
+    "ci95": [
+     0.6068895483612149,
+     0.6843798802929655
+    ],
+    "ci95_3dp": [
+     0.607,
+     0.684
+    ],
+    "sd": 0.09199651411047026,
+    "median": 0.6480183144942052,
+    "min": 0.4808461978273299,
+    "max": 0.7809643080776456
+   },
+   "deeplab": {
+    "model": "DeepLabV3+",
+    "n_leaves": 21,
+    "mean": 0.6316149374798883,
+    "label": "0.632",
+    "ci95": [
+     0.5904376943630292,
+     0.6691270513733993
+    ],
+    "ci95_3dp": [
+     0.59,
+     0.669
+    ],
+    "sd": 0.09373578293118061,
+    "median": 0.6462128475551294,
+    "min": 0.38386710565698895,
+    "max": 0.7584489339912485
+   },
+   "paired_differences": {
+    "SegFormer-B5 - UNet++": {
+     "mean": 0.12075051693616831,
+     "ci95": [
+      0.0931953031748318,
+      0.15054646439071462
+     ],
+     "leaves_where_first_higher": 21,
+     "n_leaves": 21
+    },
+    "SegFormer-B5 - DeepLabV3+": {
+     "mean": 0.13567690401686736,
+     "ci95": [
+      0.10564769198806051,
+      0.169106321073407
+     ],
+     "leaves_where_first_higher": 21,
+     "n_leaves": 21
+    },
+    "UNet++ - DeepLabV3+": {
+     "mean": 0.01492638708069904,
+     "ci95": [
+      -0.002728078226900299,
+      0.03421682360794892
+     ],
+     "leaves_where_first_higher": 13,
+     "n_leaves": 21
+    }
+   }
+  },
+  "ojo": {
+   "segformer": {
+    "model": "SegFormer-B5",
+    "n_leaves": 55,
+    "mean": 0.8844675708032855,
+    "label": "0.884",
+    "ci95": [
+     0.8682500814902474,
+     0.8997068884540289
+    ],
+    "ci95_3dp": [
+     0.868,
+     0.9
+    ],
+    "sd": 0.06055160391577215,
+    "median": 0.9038226222792278,
+    "min": 0.7323620104841196,
+    "max": 0.9609732725643524
+   },
+   "unetpp": {
+    "model": "UNet++",
+    "n_leaves": 55,
+    "mean": 0.8530089273590649,
+    "label": "0.853",
+    "ci95": [
+     0.8300186156653254,
+     0.8743592613528033
+    ],
+    "ci95_3dp": [
+     0.83,
+     0.874
+    ],
+    "sd": 0.08431585534891219,
+    "median": 0.8797594128376556,
+    "min": 0.5865105561262581,
+    "max": 0.9499941128506646
+   },
+   "deeplab": {
+    "model": "DeepLabV3+",
+    "n_leaves": 55,
+    "mean": 0.8146661538228422,
+    "label": "0.815",
+    "ci95": [
+     0.7901752123755875,
+     0.8374071648939163
+    ],
+    "ci95_3dp": [
+     0.79,
+     0.837
+    ],
+    "sd": 0.08983476717915685,
+    "median": 0.8504926108292357,
+    "min": 0.5193358534636425,
+    "max": 0.9198916772388366
+   },
+   "paired_differences": {
+    "SegFormer-B5 - UNet++": {
+     "mean": 0.031458643444220655,
+     "ci95": [
+      0.023344047214184285,
+      0.040673207750479584
+     ],
+     "leaves_where_first_higher": 50,
+     "n_leaves": 55
+    },
+    "SegFormer-B5 - DeepLabV3+": {
+     "mean": 0.0698014169804433,
+     "ci95": [
+      0.060591597575589594,
+      0.08017807013008482
+     ],
+     "leaves_where_first_higher": 55,
+     "n_leaves": 55
+    },
+    "UNet++ - DeepLabV3+": {
+     "mean": 0.03834277353622267,
+     "ci95": [
+      0.03337781344531988,
+      0.043406806144549274
+     ],
+     "leaves_where_first_higher": 54,
+     "n_leaves": 55
+    }
+   }
+  },
+  "files": {
+   "pdf": "<ROOT>/reanalysis/results/figures/figure4.pdf",
+   "png": "<ROOT>/reanalysis/results/figures/figure4.png"
+  },
+  "printed_labels": {
+   "roya": {
+    "segformer": "0.767",
+    "unetpp": "0.647",
+    "deeplab": "0.632"
+   },
+   "ojo": {
+    "segformer": "0.884",
+    "unetpp": "0.853",
+    "deeplab": "0.815"
+   }
+  },
+  "n_annotation_alignment": {
+   "roya": {
+    "text": "n = 21 test leaves (abaxial face)",
+    "right_edge_minus_axis_end_px_at_100dpi": 0.0
+   },
+   "ojo": {
+    "text": "n = 55 test leaves (mean of both faces)",
+    "right_edge_minus_axis_end_px_at_100dpi": 0.0
+   }
+  }
+ },
+ "figure12": {
+  "roya": {
+   "lt0.5": {
+    "label": "<0.5",
+    "lower_pct": 0.0,
+    "upper_pct": 0.5,
+    "n_leaves": 1,
+    "leaf_ids": [
+     "20260819_Hvastatrix_GX_123"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.7450424929178471,
+      "label": "0.745",
+      "values": [
+       0.7450424929178471
+      ],
+      "ci95": null,
+      "ci_note": "CI omitted: n = 1 < 3"
+     },
+     "unetpp": {
+      "mean": 0.7142857142857143,
+      "label": "0.714",
+      "values": [
+       0.7142857142857143
+      ],
+      "ci95": null,
+      "ci_note": "CI omitted: n = 1 < 3"
+     },
+     "deeplab": {
+      "mean": 0.5894428152492669,
+      "label": "0.589",
+      "values": [
+       0.5894428152492669
+      ],
+      "ci95": null,
+      "ci_note": "CI omitted: n = 1 < 3"
+     }
+    },
+    "reference_grades": [
+     0
+    ]
+   },
+   "0.5-2": {
+    "label": "0.5–<2",
+    "lower_pct": 0.5,
+    "upper_pct": 2.0,
+    "n_leaves": 5,
+    "leaf_ids": [
+     "20260819_Hvastatrix_GX_037",
+     "20260819_Hvastatrix_GX_040",
+     "20260819_Hvastatrix_GX_056",
+     "20260819_Hvastatrix_GX_088",
+     "20260819_Hvastatrix_GX_141"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.7551922579007921,
+      "label": "0.755",
+      "values": [
+       0.6810284920083391,
+       0.8378205128205128,
+       0.8176100628930818,
+       0.7603890362511052,
+       0.6791131855309218
+      ],
+      "ci95": [
+       0.6961344782659254,
+       0.8142500375356588
+      ],
+      "ci95_3dp": [
+       0.696,
+       0.814
+      ],
+      "distinct_bootstrap_means_possible": 126
+     },
+     "unetpp": {
+      "mean": 0.5839752014637096,
+      "label": "0.584",
+      "values": [
+       0.4958494742667405,
+       0.7391841779975278,
+       0.6067415730337079,
+       0.4886968085106383,
+       0.5894039735099338
+      ],
+      "ci95": [
+       0.5116993078129383,
+       0.6640287162586063
+      ],
+      "ci95_3dp": [
+       0.512,
+       0.664
+      ],
+      "distinct_bootstrap_means_possible": 126
+     },
+     "deeplab": {
+      "mean": 0.5909612117926384,
+      "label": "0.591",
+      "values": [
+       0.5112107623318386,
+       0.6949055523755009,
+       0.6462128475551294,
+       0.46589446589446587,
+       0.6365824308062575
+      ],
+      "ci95": [
+       0.5116966831906729,
+       0.6637638461335036
+      ],
+      "ci95_3dp": [
+       0.512,
+       0.664
+      ],
+      "distinct_bootstrap_means_possible": 126
+     }
+    },
+    "reference_grades": [
+     1
+    ]
+   },
+   "2-5": {
+    "label": "2–<5",
+    "lower_pct": 2.0,
+    "upper_pct": 5.0,
+    "n_leaves": 6,
+    "leaf_ids": [
+     "20260819_Hvastatrix_GX_003",
+     "20260819_Hvastatrix_GX_013",
+     "20260819_Hvastatrix_GX_045",
+     "20260819_Hvastatrix_GX_048",
+     "20260819_Hvastatrix_GX_082",
+     "20260819_Hvastatrix_GX_116"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.7940228129220682,
+      "label": "0.794",
+      "values": [
+       0.7979218917950556,
+       0.857037037037037,
+       0.803540437348143,
+       0.7157360406091371,
+       0.7990105132962276,
+       0.7908909574468085
+      ],
+      "ci95": [
+       0.7570104031189584,
+       0.8266705158583959
+      ],
+      "ci95_3dp": [
+       0.757,
+       0.827
+      ],
+      "distinct_bootstrap_means_possible": 462
+     },
+     "unetpp": {
+      "mean": 0.6786629917365098,
+      "label": "0.679",
+      "values": [
+       0.6804750869061413,
+       0.718936877076412,
+       0.767416934619507,
+       0.6171013713363808,
+       0.656355455568054,
+       0.6316922249125639
+      ],
+      "ci95": [
+       0.6399133017977273,
+       0.7222258321256064
+      ],
+      "ci95_3dp": [
+       0.64,
+       0.722
+      ],
+      "distinct_bootstrap_means_possible": 462
+     },
+     "deeplab": {
+      "mean": 0.6530946286836602,
+      "label": "0.653",
+      "values": [
+       0.6614285714285715,
+       0.7080536912751678,
+       0.7134602311352821,
+       0.5802825021620064,
+       0.6469939327082185,
+       0.6083488433927147
+      ],
+      "ci95": [
+       0.614280865874372,
+       0.6919083914929484
+      ],
+      "ci95_3dp": [
+       0.614,
+       0.692
+      ],
+      "distinct_bootstrap_means_possible": 462
+     }
+    },
+    "reference_grades": [
+     1
+    ]
+   },
+   "5-20": {
+    "label": "5–<20",
+    "lower_pct": 5.0,
+    "upper_pct": 20.0,
+    "n_leaves": 9,
+    "leaf_ids": [
+     "20260819_Hvastatrix_GX_009",
+     "20260819_Hvastatrix_GX_020",
+     "20260819_Hvastatrix_GX_021",
+     "20260819_Hvastatrix_GX_038",
+     "20260819_Hvastatrix_GX_074",
+     "20260819_Hvastatrix_GX_095",
+     "20260819_Hvastatrix_GX_125",
+     "20260819_Hvastatrix_GX_137",
+     "20260819_Hvastatrix_GX_138"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.758665334608628,
+      "label": "0.759",
+      "values": [
+       0.8128904031800114,
+       0.7665379891208984,
+       0.812511776898436,
+       0.7136966126656848,
+       0.6383530089260006,
+       0.7253554132166848,
+       0.7655889145496536,
+       0.7636083862281208,
+       0.8294455066921607
+      ],
+      "ci95": [
+       0.7193496975825947,
+       0.7936870421683225
+      ],
+      "ci95_3dp": [
+       0.719,
+       0.794
+      ],
+      "distinct_bootstrap_means_possible": 24310
+     },
+     "unetpp": {
+      "mean": 0.652358682638779,
+      "label": "0.652",
+      "values": [
+       0.7332232267037552,
+       0.703916491341641,
+       0.751861504095309,
+       0.4808461978273299,
+       0.5759848211058909,
+       0.6480183144942052,
+       0.5515097690941385,
+       0.6449035110090963,
+       0.7809643080776456
+      ],
+      "ci95": [
+       0.5888994141367463,
+       0.7127191372248068
+      ],
+      "ci95_3dp": [
+       0.589,
+       0.713
+      ],
+      "distinct_bootstrap_means_possible": 24310
+     },
+     "deeplab": {
+      "mean": 0.6445663378625814,
+      "label": "0.645",
+      "values": [
+       0.7584489339912485,
+       0.7301324503311258,
+       0.7108367121267969,
+       0.38386710565698895,
+       0.5912682734097194,
+       0.6667220744680851,
+       0.5837600585223116,
+       0.6335388409371147,
+       0.7425225913198422
+      ],
+      "ci95": [
+       0.5657819323413064,
+       0.7076736657775353
+      ],
+      "ci95_3dp": [
+       0.566,
+       0.708
+      ],
+      "distinct_bootstrap_means_possible": 24310
+     }
+    },
+    "reference_grades": [
+     2
+    ]
+   },
+   "ge20": {
+    "label": "≥20",
+    "lower_pct": 20.0,
+    "upper_pct": null,
+    "n_leaves": 0,
+    "leaf_ids": [],
+    "models": {},
+    "reference_grades": []
+   },
+   "spearman_severity_vs_iou": {
+    "segformer": {
+     "rho": 0.12467532467532469,
+     "ci95": [
+      -0.3403490838958535,
+      0.5602101134323008
+     ],
+     "n_leaves": 21,
+     "valid_resamples": 10000
+    },
+    "unetpp": {
+     "rho": 0.16493506493506493,
+     "ci95": [
+      -0.2764287755300559,
+      0.5782580222658809
+     ],
+     "n_leaves": 21,
+     "valid_resamples": 10000
+    },
+    "deeplab": {
+     "rho": 0.37142857142857144,
+     "ci95": [
+      -0.09832245436400858,
+      0.7230623721771906
+     ],
+     "n_leaves": 21,
+     "valid_resamples": 10000
+    }
+   }
+  },
+  "ojo": {
+   "lt0.5": {
+    "label": "<0.5",
+    "lower_pct": 0.0,
+    "upper_pct": 0.5,
+    "n_leaves": 6,
+    "leaf_ids": [
+     "20260621_Mcitricolor_GX_085",
+     "20260621_Mcitricolor_GX_112",
+     "20260621_Mcitricolor_GX_113",
+     "20260621_Mcitricolor_GX_172",
+     "20260621_Mcitricolor_GX_195",
+     "20260621_Mcitricolor_GX_246"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.8006575016538585,
+      "label": "0.801",
+      "values": [
+       0.7795862068965518,
+       0.8962425840474622,
+       0.831002331002331,
+       0.8231574063900182,
+       0.7415944711026679,
+       0.7323620104841196
+      ],
+      "ci95": [
+       0.7569040193069329,
+       0.8471824041051946
+      ],
+      "ci95_3dp": [
+       0.757,
+       0.847
+      ],
+      "distinct_bootstrap_means_possible": 462
+     },
+     "unetpp": {
+      "mean": 0.7496735276027167,
+      "label": "0.750",
+      "values": [
+       0.7404354124062713,
+       0.8758623068432672,
+       0.8464104075416559,
+       0.7084483938728787,
+       0.6664236520444251,
+       0.6604609929078014
+      ],
+      "ci95": [
+       0.6847692925533712,
+       0.8204801890584346
+      ],
+      "ci95_3dp": [
+       0.685,
+       0.82
+      ],
+      "distinct_bootstrap_means_possible": 462
+     },
+     "deeplab": {
+      "mean": 0.7240936005247035,
+      "label": "0.724",
+      "values": [
+       0.6979889750918742,
+       0.8771909418572926,
+       0.7810211738174124,
+       0.7040869303373587,
+       0.6434005661712667,
+       0.6408730158730158
+      ],
+      "ci95": [
+       0.6621917699693415,
+       0.793346915982986
+      ],
+      "ci95_3dp": [
+       0.662,
+       0.793
+      ],
+      "distinct_bootstrap_means_possible": 462
+     }
+    },
+    "annotator_grades": {
+     "G1": 6,
+     "G2": 0,
+     "G3": 0
+    }
+   },
+   "0.5-2": {
+    "label": "0.5–<2",
+    "lower_pct": 0.5,
+    "upper_pct": 2.0,
+    "n_leaves": 12,
+    "leaf_ids": [
+     "20260621_Mcitricolor_GX_021",
+     "20260621_Mcitricolor_GX_073",
+     "20260621_Mcitricolor_GX_076",
+     "20260621_Mcitricolor_GX_123",
+     "20260621_Mcitricolor_GX_154",
+     "20260621_Mcitricolor_GX_155",
+     "20260621_Mcitricolor_GX_191",
+     "20260621_Mcitricolor_GX_193",
+     "20260621_Mcitricolor_GX_201",
+     "20260621_Mcitricolor_GX_202",
+     "20260621_Mcitricolor_GX_228",
+     "20260621_Mcitricolor_GX_266"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.8604233028459204,
+      "label": "0.860",
+      "values": [
+       0.9197191318114357,
+       0.838443625504808,
+       0.905803415824329,
+       0.8725,
+       0.7433173602642713,
+       0.739492535490232,
+       0.8615605537788251,
+       0.9305010127250597,
+       0.8796880739743018,
+       0.8856979518791013,
+       0.8292194984502677,
+       0.9191364744484138
+      ],
+      "ci95": [
+       0.8234232925195459,
+       0.8923601827764472
+      ],
+      "ci95_3dp": [
+       0.823,
+       0.892
+      ],
+      "distinct_bootstrap_means_possible": 1352078
+     },
+     "unetpp": {
+      "mean": 0.7979954253859125,
+      "label": "0.798",
+      "values": [
+       0.8830657026528042,
+       0.7908036056770233,
+       0.9063898720901924,
+       0.8307630818422185,
+       0.6182026988228538,
+       0.5865105561262581,
+       0.7577975152571927,
+       0.871023795427871,
+       0.8721193948480306,
+       0.842954834605598,
+       0.791715947171299,
+       0.824598100109609
+      ],
+      "ci95": [
+       0.7367690876185532,
+       0.8474261475459408
+      ],
+      "ci95_3dp": [
+       0.737,
+       0.847
+      ],
+      "distinct_bootstrap_means_possible": 1352078
+     },
+     "deeplab": {
+      "mean": 0.7561065716811738,
+      "label": "0.756",
+      "values": [
+       0.8624835534747022,
+       0.7887069783008869,
+       0.8882086406743941,
+       0.7784986296676945,
+       0.5193358534636425,
+       0.5562979004917992,
+       0.732959887806977,
+       0.8519553283262449,
+       0.8145025638243034,
+       0.7968260367607982,
+       0.7119964455965819,
+       0.7715070417860581
+      ],
+      "ci95": [
+       0.687747157206968,
+       0.8116096045570079
+      ],
+      "ci95_3dp": [
+       0.688,
+       0.812
+      ],
+      "distinct_bootstrap_means_possible": 1352078
+     }
+    },
+    "annotator_grades": {
+     "G1": 12,
+     "G2": 0,
+     "G3": 0
+    }
+   },
+   "2-5": {
+    "label": "2–<5",
+    "lower_pct": 2.0,
+    "upper_pct": 5.0,
+    "n_leaves": 14,
+    "leaf_ids": [
+     "20260621_Mcitricolor_GX_001",
+     "20260621_Mcitricolor_GX_019",
+     "20260621_Mcitricolor_GX_026",
+     "20260621_Mcitricolor_GX_030",
+     "20260621_Mcitricolor_GX_038",
+     "20260621_Mcitricolor_GX_108",
+     "20260621_Mcitricolor_GX_110",
+     "20260621_Mcitricolor_GX_179",
+     "20260621_Mcitricolor_GX_182",
+     "20260621_Mcitricolor_GX_230",
+     "20260628_Mcitricolor_GX_017",
+     "20260628_Mcitricolor_GX_046",
+     "20260628_Mcitricolor_GX_101",
+     "20260628_Mcitricolor_GX_114"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.8928600585507679,
+      "label": "0.893",
+      "values": [
+       0.9234487723983859,
+       0.8559982856300979,
+       0.9484468575421459,
+       0.9489047559743728,
+       0.8868809067584684,
+       0.9119073188757246,
+       0.9389390180313675,
+       0.7926708313310908,
+       0.8770100487042798,
+       0.9038226222792278,
+       0.9224837419118168,
+       0.8608955013148374,
+       0.8168064335094205,
+       0.9118257254495163
+      ],
+      "ci95": [
+       0.8672686522454617,
+       0.9156725860846939
+      ],
+      "ci95_3dp": [
+       0.867,
+       0.916
+      ],
+      "distinct_bootstrap_means_possible": 20058300
+     },
+     "unetpp": {
+      "mean": 0.8699344572297693,
+      "label": "0.870",
+      "values": [
+       0.8962003896985579,
+       0.8598694265713154,
+       0.939954799334933,
+       0.9279699568243024,
+       0.861800676843858,
+       0.8849781861670629,
+       0.908777463500486,
+       0.7634821158298781,
+       0.875802305352047,
+       0.8781220630300581,
+       0.89593870976032,
+       0.8290421803427913,
+       0.7697722412039332,
+       0.887371886757228
+      ],
+      "ci95": [
+       0.8419738866184684,
+       0.8941398417274684
+      ],
+      "ci95_3dp": [
+       0.842,
+       0.894
+      ],
+      "distinct_bootstrap_means_possible": 20058300
+     },
+     "deeplab": {
+      "mean": 0.8311679966337809,
+      "label": "0.831",
+      "values": [
+       0.8615984783651713,
+       0.8015664087092658,
+       0.8978810087748403,
+       0.9126185899283409,
+       0.8223135607922836,
+       0.865474933272733,
+       0.8747923503084196,
+       0.7041792970312715,
+       0.8306621558338636,
+       0.8373858570102763,
+       0.8678817823609588,
+       0.7646351728483975,
+       0.7463594531622975,
+       0.849002904474814
+      ],
+      "ci95": [
+       0.7994418208314832,
+       0.8594603468929134
+      ],
+      "ci95_3dp": [
+       0.799,
+       0.859
+      ],
+      "distinct_bootstrap_means_possible": 20058300
+     }
+    },
+    "annotator_grades": {
+     "G1": 12,
+     "G2": 2,
+     "G3": 0
+    }
+   },
+   "5-20": {
+    "label": "5–<20",
+    "lower_pct": 5.0,
+    "upper_pct": 20.0,
+    "n_leaves": 21,
+    "leaf_ids": [
+     "20260621_Mcitricolor_GX_048",
+     "20260621_Mcitricolor_GX_067",
+     "20260621_Mcitricolor_GX_093",
+     "20260621_Mcitricolor_GX_166",
+     "20260621_Mcitricolor_GX_205",
+     "20260621_Mcitricolor_GX_206",
+     "20260621_Mcitricolor_GX_210",
+     "20260621_Mcitricolor_GX_218",
+     "20260628_Mcitricolor_GX_007",
+     "20260628_Mcitricolor_GX_009",
+     "20260628_Mcitricolor_GX_015",
+     "20260628_Mcitricolor_GX_020",
+     "20260628_Mcitricolor_GX_029",
+     "20260628_Mcitricolor_GX_078",
+     "20260628_Mcitricolor_GX_081",
+     "20260628_Mcitricolor_GX_098",
+     "20260628_Mcitricolor_GX_100",
+     "20260628_Mcitricolor_GX_102",
+     "20260628_Mcitricolor_GX_118",
+     "20260628_Mcitricolor_GX_123",
+     "20260628_Mcitricolor_GX_129"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.9100262836090843,
+      "label": "0.910",
+      "values": [
+       0.9555102163907654,
+       0.9005349583005816,
+       0.8104573065976881,
+       0.9469615465117578,
+       0.9262501833271506,
+       0.8979844594703421,
+       0.9334861981609659,
+       0.891466549386281,
+       0.9609732725643524,
+       0.9373293123875333,
+       0.933821603822147,
+       0.9176294601136401,
+       0.9169955981743333,
+       0.9044722634284335,
+       0.9020349320136913,
+       0.9179525623163118,
+       0.9151616610457989,
+       0.8049767459447872,
+       0.8902859316356952,
+       0.9396237834956362,
+       0.9066434107028758
+      ],
+      "ci95": [
+       0.8924826273848201,
+       0.9253387357091787
+      ],
+      "ci95_3dp": [
+       0.892,
+       0.925
+      ],
+      "distinct_bootstrap_means_possible": 269128937220
+     },
+     "unetpp": {
+      "mean": 0.8936558425323472,
+      "label": "0.894",
+      "values": [
+       0.9322162677724161,
+       0.8823529543869342,
+       0.7986716624896784,
+       0.9295902566009726,
+       0.9021713665541256,
+       0.8783684890273273,
+       0.9205172370711717,
+       0.8797594128376556,
+       0.9488554130295934,
+       0.92275406878,
+       0.9256161578906299,
+       0.9109191814082553,
+       0.8907375511540705,
+       0.8994856116918337,
+       0.8800335585779631,
+       0.9198152010198966,
+       0.8919910039135348,
+       0.7768641032944775,
+       0.8461484281161415,
+       0.94157771425986,
+       0.8883270533027523
+      ],
+      "ci95": [
+       0.8745167352167947,
+       0.9106017369195899
+      ],
+      "ci95_3dp": [
+       0.875,
+       0.911
+      ],
+      "distinct_bootstrap_means_possible": 269128937220
+     },
+     "deeplab": {
+      "mean": 0.8539748615920152,
+      "label": "0.854",
+      "values": [
+       0.9143299135075451,
+       0.8508652676528874,
+       0.7294052569038492,
+       0.8996333085253425,
+       0.8569599742532884,
+       0.8504926108292357,
+       0.8887151041095362,
+       0.8336716651518048,
+       0.9156623290983926,
+       0.8862529567961337,
+       0.8786212208598301,
+       0.8717001898239817,
+       0.8596518747510495,
+       0.857490003193728,
+       0.827238425441891,
+       0.896009242489135,
+       0.8578812171831931,
+       0.6934701211791164,
+       0.8118540070779587,
+       0.9012821900211774,
+       0.8522852145832396
+      ],
+      "ci95": [
+       0.8299677351057758,
+       0.8750760860595594
+      ],
+      "ci95_3dp": [
+       0.83,
+       0.875
+      ],
+      "distinct_bootstrap_means_possible": 269128937220
+     }
+    },
+    "annotator_grades": {
+     "G1": 0,
+     "G2": 21,
+     "G3": 0
+    }
+   },
+   "ge20": {
+    "label": "≥20",
+    "lower_pct": 20.0,
+    "upper_pct": null,
+    "n_leaves": 2,
+    "leaf_ids": [
+     "20260628_Mcitricolor_GX_031",
+     "20260628_Mcitricolor_GX_064"
+    ],
+    "models": {
+     "segformer": {
+      "mean": 0.9530494873024933,
+      "label": "0.953",
+      "values": [
+       0.9520979885494356,
+       0.954000986055551
+      ],
+      "ci95": null,
+      "ci_note": "CI omitted: n = 2 < 3"
+     },
+     "unetpp": {
+      "mean": 0.9478248200526281,
+      "label": "0.948",
+      "values": [
+       0.9499941128506646,
+       0.9456555272545917
+      ],
+      "ci95": null,
+      "ci_note": "CI omitted: n = 2 < 3"
+     },
+     "deeplab": {
+      "mean": 0.9094869753143842,
+      "label": "0.909",
+      "values": [
+       0.9198916772388366,
+       0.8990822733899316
+      ],
+      "ci95": null,
+      "ci_note": "CI omitted: n = 2 < 3"
+     }
+    },
+    "annotator_grades": {
+     "G1": 0,
+     "G2": 0,
+     "G3": 2
+    }
+   },
+   "spearman_severity_vs_iou": {
+    "segformer": {
+     "rho": 0.5625541125541127,
+     "ci95": [
+      0.3270190710106191,
+      0.7372402915630305
+     ],
+     "n_leaves": 55,
+     "valid_resamples": 10000
+    },
+    "unetpp": {
+     "rho": 0.6690476190476192,
+     "ci95": [
+      0.4653001915931871,
+      0.8139047906239404
+     ],
+     "n_leaves": 55,
+     "valid_resamples": 10000
+    },
+    "deeplab": {
+     "rho": 0.5733044733044734,
+     "ci95": [
+      0.32962168082937143,
+      0.7650766369671458
+     ],
+     "n_leaves": 55,
+     "valid_resamples": 10000
+    }
+   }
+  },
+  "files": {
+   "pdf": "<ROOT>/reanalysis/results/figures/figure12.pdf",
+   "png": "<ROOT>/reanalysis/results/figures/figure12.png"
+  },
+  "bands": [
+   {
+    "key": "lt0.5",
+    "label": "<0.5",
+    "lower_pct": 0.0,
+    "upper_pct": 0.5
+   },
+   {
+    "key": "0.5-2",
+    "label": "0.5–<2",
+    "lower_pct": 0.5,
+    "upper_pct": 2.0
+   },
+   {
+    "key": "2-5",
+    "label": "2–<5",
+    "lower_pct": 2.0,
+    "upper_pct": 5.0
+   },
+   {
+    "key": "5-20",
+    "label": "5–<20",
+    "lower_pct": 5.0,
+    "upper_pct": 20.0
+   },
+   {
+    "key": "ge20",
+    "label": "≥20",
+    "lower_pct": 20.0,
+    "upper_pct": null
+   }
+  ],
+  "min_n_for_ci": 3
+ },
+ "figure13": {
+  "paper_figure": 13,
+  "replaces_manuscript_file": "figures/figure9.png",
+  "files": {
+   "pdf": "<ROOT>/reanalysis/results/figures/figure13.pdf",
+   "png": "<ROOT>/reanalysis/results/figures/figure13.png"
+  },
+  "layout": {
+   "scale_cm_per_px": 0.011774193548387097,
+   "fig_size_cm": [
+    16.0,
+    19.81
+   ]
+  },
+  "n_test_leaves": 21,
+  "rows": [
+   {
+    "role": "Worst",
+    "rank": 1,
+    "leaf_id": "20260819_Hvastatrix_GX_074",
+    "face_shown": "abaxial",
+    "face_rule": "rust leaf IoU is defined on the abaxial face",
+    "tie_check": null,
+    "file": "20260819_Hvastatrix_GX_074__abaxial.png",
+    "leaf_iou": 0.6383530089260006,
+    "leaf_iou_3dp": "0.638",
+    "face_iou_abaxial": 0.6383530089260006,
+    "face_iou_adaxial": 0.3959812296955842,
+    "iou_recomputed_from_plotted_masks": 0.6383530089260006,
+    "iou_recomputed_exact": "2217/3473",
+    "counts_plotted": {
+     "tp": 6651,
+     "fp": 3616,
+     "fn": 152
+    },
+    "full_frame_counts": {
+     "ref_leaf_px": 76926,
+     "ref_lesion_px": 6803,
+     "pred_leaf_px": 76829,
+     "pred_lesion_px": 10267,
+     "inter_lesion": 6651,
+     "union_lesion": 10419
+    },
+    "other_face": null,
+    "ref_severity_pct_shown_face": 8.843563944570107,
+    "pred_severity_pct_shown_face": 13.36344349138997,
+    "leaf_ref_severity_pct": 8.843563944570107,
+    "leaf_pred_severity_pct": 13.36344349138997,
+    "ref_grade": 2,
+    "crop_box_yx": {
+     "y0": 208,
+     "y1": 733,
+     "x0": 176,
+     "x1": 424
+    },
+    "outline_registration": {
+     "reference_mismatched_px": 0,
+     "prediction_mismatched_px": 0
+    },
+    "printed": {
+     "role": "Worst",
+     "printed_iou": "0.638",
+     "printed_leaf_iou": "0.638",
+     "printed_leaf_severity_ref_pred": "8.84% / 13.36%",
+     "printed_shown_face_severity_ref_pred": null,
+     "text_lines": [
+      "Worst",
+      "rank 1 of 21 · GX_074",
+      "Leaf IoU = 0.638",
+      "abaxial face (shown) = leaf",
+      "TP 6,651 · FP 3,616 · FN 152 px",
+      "leaf severity, ref. / pred.:",
+      "8.84% / 13.36%"
+     ],
+     "crop_px": [
+      525,
+      248
+     ],
+     "panel_cm": [
+      6.181,
+      2.92
+     ]
+    },
+    "pdf_check": {
+     "role": "Worst",
+     "stored_error_map_identical": true,
+     "stored_input_identical": true,
+     "input_placements": 3,
+     "rendered_error_map_identical": true,
+     "rendered_input_identical": true,
+     "rendered_counts": {
+      "tp": 6651,
+      "fp": 3616,
+      "fn": 152
+     },
+     "rendered_iou": 0.6383530089260006,
+     "render": "MuPDF, AA off, zoom 16"
+    },
+    "verified": {
+     "csv_counts": true,
+     "plotted_arrays_eq_raster_eq_csv": true,
+     "outlines_registered": true,
+     "pdf_raster_identical": true,
+     "leaf_mean_consistent": true,
+     "printed_leaf_severity_eq_figure12_value": true
+    }
+   },
+   {
+    "role": "Median",
+    "rank": 11,
+    "leaf_id": "20260819_Hvastatrix_GX_020",
+    "face_shown": "abaxial",
+    "face_rule": "rust leaf IoU is defined on the abaxial face",
+    "tie_check": null,
+    "file": "20260819_Hvastatrix_GX_020__abaxial.png",
+    "leaf_iou": 0.7665379891208984,
+    "leaf_iou_3dp": "0.767",
+    "face_iou_abaxial": 0.7665379891208984,
+    "face_iou_adaxial": 0.6623171780900488,
+    "iou_recomputed_from_plotted_masks": 0.7665379891208984,
+    "iou_recomputed_exact": "8737/11398",
+    "counts_plotted": {
+     "tp": 8737,
+     "fp": 2355,
+     "fn": 306
+    },
+    "full_frame_counts": {
+     "ref_leaf_px": 46748,
+     "ref_lesion_px": 9043,
+     "pred_leaf_px": 46742,
+     "pred_lesion_px": 11092,
+     "inter_lesion": 8737,
+     "union_lesion": 11398
+    },
+    "other_face": null,
+    "ref_severity_pct_shown_face": 19.344143064943953,
+    "pred_severity_pct_shown_face": 23.730264002396133,
+    "leaf_ref_severity_pct": 19.344143064943953,
+    "leaf_pred_severity_pct": 23.730264002396133,
+    "ref_grade": 2,
+    "crop_box_yx": {
+     "y0": 283,
+     "y1": 744,
+     "x0": 159,
+     "x1": 352
+    },
+    "outline_registration": {
+     "reference_mismatched_px": 0,
+     "prediction_mismatched_px": 0
+    },
+    "printed": {
+     "role": "Median",
+     "printed_iou": "0.767",
+     "printed_leaf_iou": "0.767",
+     "printed_leaf_severity_ref_pred": "19.34% / 23.73%",
+     "printed_shown_face_severity_ref_pred": null,
+     "text_lines": [
+      "Median",
+      "rank 11 of 21 · GX_020",
+      "Leaf IoU = 0.767",
+      "abaxial face (shown) = leaf",
+      "TP 8,737 · FP 2,355 · FN 306 px",
+      "leaf severity, ref. / pred.:",
+      "19.34% / 23.73%"
+     ],
+     "crop_px": [
+      461,
+      193
+     ],
+     "panel_cm": [
+      5.428,
+      2.272
+     ]
+    },
+    "pdf_check": {
+     "role": "Median",
+     "stored_error_map_identical": true,
+     "stored_input_identical": true,
+     "input_placements": 3,
+     "rendered_error_map_identical": true,
+     "rendered_input_identical": true,
+     "rendered_counts": {
+      "tp": 8737,
+      "fp": 2355,
+      "fn": 306
+     },
+     "rendered_iou": 0.7665379891208984,
+     "render": "MuPDF, AA off, zoom 16"
+    },
+    "verified": {
+     "csv_counts": true,
+     "plotted_arrays_eq_raster_eq_csv": true,
+     "outlines_registered": true,
+     "pdf_raster_identical": true,
+     "leaf_mean_consistent": true,
+     "printed_leaf_severity_eq_figure12_value": true
+    }
+   },
+   {
+    "role": "Best",
+    "rank": 21,
+    "leaf_id": "20260819_Hvastatrix_GX_013",
+    "face_shown": "abaxial",
+    "face_rule": "rust leaf IoU is defined on the abaxial face",
+    "tie_check": null,
+    "file": "20260819_Hvastatrix_GX_013__abaxial.png",
+    "leaf_iou": 0.857037037037037,
+    "leaf_iou_3dp": "0.857",
+    "face_iou_abaxial": 0.857037037037037,
+    "face_iou_adaxial": 0.4703596941972678,
+    "iou_recomputed_from_plotted_masks": 0.857037037037037,
+    "iou_recomputed_exact": "1157/1350",
+    "counts_plotted": {
+     "tp": 2314,
+     "fp": 313,
+     "fn": 73
+    },
+    "full_frame_counts": {
+     "ref_leaf_px": 50654,
+     "ref_lesion_px": 2387,
+     "pred_leaf_px": 50798,
+     "pred_lesion_px": 2627,
+     "inter_lesion": 2314,
+     "union_lesion": 2700
+    },
+    "other_face": null,
+    "ref_severity_pct_shown_face": 4.712362301101591,
+    "pred_severity_pct_shown_face": 5.171463443442655,
+    "leaf_ref_severity_pct": 4.712362301101591,
+    "leaf_pred_severity_pct": 5.171463443442655,
+    "ref_grade": 1,
+    "crop_box_yx": {
+     "y0": 228,
+     "y1": 719,
+     "x0": 176,
+     "x1": 385
+    },
+    "outline_registration": {
+     "reference_mismatched_px": 0,
+     "prediction_mismatched_px": 0
+    },
+    "printed": {
+     "role": "Best",
+     "printed_iou": "0.857",
+     "printed_leaf_iou": "0.857",
+     "printed_leaf_severity_ref_pred": "4.71% / 5.17%",
+     "printed_shown_face_severity_ref_pred": null,
+     "text_lines": [
+      "Best",
+      "rank 21 of 21 · GX_013",
+      "Leaf IoU = 0.857",
+      "abaxial face (shown) = leaf",
+      "TP 2,314 · FP 313 · FN 73 px",
+      "leaf severity, ref. / pred.:",
+      "4.71% / 5.17%"
+     ],
+     "crop_px": [
+      491,
+      209
+     ],
+     "panel_cm": [
+      5.781,
+      2.461
+     ]
+    },
+    "pdf_check": {
+     "role": "Best",
+     "stored_error_map_identical": true,
+     "stored_input_identical": true,
+     "input_placements": 3,
+     "rendered_error_map_identical": true,
+     "rendered_input_identical": true,
+     "rendered_counts": {
+      "tp": 2314,
+      "fp": 313,
+      "fn": 73
+     },
+     "rendered_iou": 0.857037037037037,
+     "render": "MuPDF, AA off, zoom 16"
+    },
+    "verified": {
+     "csv_counts": true,
+     "plotted_arrays_eq_raster_eq_csv": true,
+     "outlines_registered": true,
+     "pdf_raster_identical": true,
+     "leaf_mean_consistent": true,
+     "printed_leaf_severity_eq_figure12_value": true
+    }
+   }
+  ],
+  "ranking": [
+   {
+    "rank": 1,
+    "leaf_id": "20260819_Hvastatrix_GX_074",
+    "leaf_iou": 0.6383530089260006,
+    "iou_abaxial": 0.6383530089260006,
+    "iou_adaxial": 0.3959812296955842
+   },
+   {
+    "rank": 2,
+    "leaf_id": "20260819_Hvastatrix_GX_141",
+    "leaf_iou": 0.6791131855309218,
+    "iou_abaxial": 0.6791131855309218,
+    "iou_adaxial": 0.6740331491712708
+   },
+   {
+    "rank": 3,
+    "leaf_id": "20260819_Hvastatrix_GX_037",
+    "leaf_iou": 0.6810284920083391,
+    "iou_abaxial": 0.6810284920083391,
+    "iou_adaxial": 0.6173059768064229
+   },
+   {
+    "rank": 4,
+    "leaf_id": "20260819_Hvastatrix_GX_038",
+    "leaf_iou": 0.7136966126656848,
+    "iou_abaxial": 0.7136966126656848,
+    "iou_adaxial": 0.6195020746887967
+   },
+   {
+    "rank": 5,
+    "leaf_id": "20260819_Hvastatrix_GX_048",
+    "leaf_iou": 0.7157360406091371,
+    "iou_abaxial": 0.7157360406091371,
+    "iou_adaxial": 0.437477922995408
+   },
+   {
+    "rank": 6,
+    "leaf_id": "20260819_Hvastatrix_GX_095",
+    "leaf_iou": 0.7253554132166848,
+    "iou_abaxial": 0.7253554132166848,
+    "iou_adaxial": 0.6512928022361985
+   },
+   {
+    "rank": 7,
+    "leaf_id": "20260819_Hvastatrix_GX_123",
+    "leaf_iou": 0.7450424929178471,
+    "iou_abaxial": 0.7450424929178471,
+    "iou_adaxial": 0.5498652291105122
+   },
+   {
+    "rank": 8,
+    "leaf_id": "20260819_Hvastatrix_GX_088",
+    "leaf_iou": 0.7603890362511052,
+    "iou_abaxial": 0.7603890362511052,
+    "iou_adaxial": 0.549598623853211
+   },
+   {
+    "rank": 9,
+    "leaf_id": "20260819_Hvastatrix_GX_137",
+    "leaf_iou": 0.7636083862281208,
+    "iou_abaxial": 0.7636083862281208,
+    "iou_adaxial": 0.778118609406953
+   },
+   {
+    "rank": 10,
+    "leaf_id": "20260819_Hvastatrix_GX_125",
+    "leaf_iou": 0.7655889145496536,
+    "iou_abaxial": 0.7655889145496536,
+    "iou_adaxial": 0.6950059453032105
+   },
+   {
+    "rank": 11,
+    "leaf_id": "20260819_Hvastatrix_GX_020",
+    "leaf_iou": 0.7665379891208984,
+    "iou_abaxial": 0.7665379891208984,
+    "iou_adaxial": 0.6623171780900488
+   },
+   {
+    "rank": 12,
+    "leaf_id": "20260819_Hvastatrix_GX_116",
+    "leaf_iou": 0.7908909574468085,
+    "iou_abaxial": 0.7908909574468085,
+    "iou_adaxial": 0.6042065009560229
+   },
+   {
+    "rank": 13,
+    "leaf_id": "20260819_Hvastatrix_GX_003",
+    "leaf_iou": 0.7979218917950556,
+    "iou_abaxial": 0.7979218917950556,
+    "iou_adaxial": 0.7907915993537964
+   },
+   {
+    "rank": 14,
+    "leaf_id": "20260819_Hvastatrix_GX_082",
+    "leaf_iou": 0.7990105132962276,
+    "iou_abaxial": 0.7990105132962276,
+    "iou_adaxial": 0.6161096829477292
+   },
+   {
+    "rank": 15,
+    "leaf_id": "20260819_Hvastatrix_GX_045",
+    "leaf_iou": 0.803540437348143,
+    "iou_abaxial": 0.803540437348143,
+    "iou_adaxial": 0.6984829329962073
+   },
+   {
+    "rank": 16,
+    "leaf_id": "20260819_Hvastatrix_GX_021",
+    "leaf_iou": 0.812511776898436,
+    "iou_abaxial": 0.812511776898436,
+    "iou_adaxial": 0.6507477086348288
+   },
+   {
+    "rank": 17,
+    "leaf_id": "20260819_Hvastatrix_GX_009",
+    "leaf_iou": 0.8128904031800114,
+    "iou_abaxial": 0.8128904031800114,
+    "iou_adaxial": 0.5596598885011832
+   },
+   {
+    "rank": 18,
+    "leaf_id": "20260819_Hvastatrix_GX_056",
+    "leaf_iou": 0.8176100628930818,
+    "iou_abaxial": 0.8176100628930818,
+    "iou_adaxial": 0.8068027210884354
+   },
+   {
+    "rank": 19,
+    "leaf_id": "20260819_Hvastatrix_GX_138",
+    "leaf_iou": 0.8294455066921607,
+    "iou_abaxial": 0.8294455066921607,
+    "iou_adaxial": 0.7085785625111468
+   },
+   {
+    "rank": 20,
+    "leaf_id": "20260819_Hvastatrix_GX_040",
+    "leaf_iou": 0.8378205128205128,
+    "iou_abaxial": 0.8378205128205128,
+    "iou_adaxial": 0.3392857142857143
+   },
+   {
+    "rank": 21,
+    "leaf_id": "20260819_Hvastatrix_GX_013",
+    "leaf_iou": 0.857037037037037,
+    "iou_abaxial": 0.857037037037037,
+    "iou_adaxial": 0.4703596941972678
+   }
+  ]
+ },
+ "figure14": {
+  "paper_figure": 14,
+  "replaces_manuscript_file": "figures/figure10.png",
+  "files": {
+   "pdf": "<ROOT>/reanalysis/results/figures/figure14.pdf",
+   "png": "<ROOT>/reanalysis/results/figures/figure14.png"
+  },
+  "layout": {
+   "scale_cm_per_px": 0.008961693548387096,
+   "fig_size_cm": [
+    16.0,
+    20.2
+   ]
+  },
+  "n_test_leaves": 55,
+  "rows": [
+   {
+    "role": "Worst",
+    "rank": 1,
+    "leaf_id": "20260621_Mcitricolor_GX_246",
+    "face_shown": "abaxial",
+    "face_rule": "tie: both faces equidistant from the leaf mean by construction; pre-specified IoU-independent tie-break = abaxial face",
+    "tie_check": {
+     "abs_diff_abaxial_to_leaf_mean": 0.04300030835646007,
+     "abs_diff_adaxial_to_leaf_mean": 0.04300030835646007,
+     "exactly_equal": true
+    },
+    "file": "20260621_Mcitricolor_GX_246__abaxial.png",
+    "leaf_iou": 0.7323620104841196,
+    "leaf_iou_3dp": "0.732",
+    "face_iou_abaxial": 0.7753623188405797,
+    "face_iou_adaxial": 0.6893617021276596,
+    "iou_recomputed_from_plotted_masks": 0.7753623188405797,
+    "iou_recomputed_exact": "107/138",
+    "counts_plotted": {
+     "tp": 214,
+     "fp": 14,
+     "fn": 48
+    },
+    "full_frame_counts": {
+     "ref_leaf_px": 75931,
+     "ref_lesion_px": 262,
+     "pred_leaf_px": 76202,
+     "pred_lesion_px": 228,
+     "inter_lesion": 214,
+     "union_lesion": 276
+    },
+    "other_face": {
+     "face": "adaxial",
+     "iou": 0.6893617021276596,
+     "counts": {
+      "tp": 162,
+      "fp": 69,
+      "fn": 4
+     }
+    },
+    "ref_severity_pct_shown_face": 0.3450501112852458,
+    "pred_severity_pct_shown_face": 0.29920474528227603,
+    "leaf_ref_severity_pct": 0.28244718309931627,
+    "leaf_pred_severity_pct": 0.301975032632431,
+    "ref_grade": 1,
+    "crop_box_yx": {
+     "y0": 126,
+     "y1": 737,
+     "x0": 364,
+     "x1": 606
+    },
+    "outline_registration": {
+     "reference_mismatched_px": 0,
+     "prediction_mismatched_px": 0
+    },
+    "printed": {
+     "role": "Worst",
+     "printed_iou": "0.775",
+     "printed_leaf_iou": "0.732",
+     "printed_leaf_severity_ref_pred": "0.28% / 0.30%",
+     "printed_shown_face_severity_ref_pred": "0.35% / 0.30%",
+     "text_lines": [
+      "Worst",
+      "rank 1 of 55 · GX_246 · G1",
+      "Leaf IoU = 0.732",
+      "= mean of abaxial 0.775",
+      "(shown) and adaxial 0.689",
+      "leaf severity (mean of faces),",
+      "ref. / pred.: 0.28% / 0.30%",
+      "Abaxial face (shown):",
+      "TP 214 · FP 14 · FN 48 px",
+      "abaxial-face severity,",
+      "ref. / pred.: 0.35% / 0.30%"
+     ],
+     "crop_px": [
+      611,
+      242
+     ],
+     "panel_cm": [
+      5.476,
+      2.169
+     ]
+    },
+    "pdf_check": {
+     "role": "Worst",
+     "stored_error_map_identical": true,
+     "stored_input_identical": true,
+     "input_placements": 3,
+     "rendered_error_map_identical": true,
+     "rendered_input_identical": true,
+     "rendered_counts": {
+      "tp": 214,
+      "fp": 14,
+      "fn": 48
+     },
+     "rendered_iou": 0.7753623188405797,
+     "render": "MuPDF, AA off, zoom 16"
+    },
+    "verified": {
+     "csv_counts": true,
+     "plotted_arrays_eq_raster_eq_csv": true,
+     "outlines_registered": true,
+     "pdf_raster_identical": true,
+     "leaf_mean_consistent": true,
+     "printed_leaf_severity_eq_figure12_value": true
+    }
+   },
+   {
+    "role": "Median",
+    "rank": 28,
+    "leaf_id": "20260621_Mcitricolor_GX_230",
+    "face_shown": "abaxial",
+    "face_rule": "tie: both faces equidistant from the leaf mean by construction; pre-specified IoU-independent tie-break = abaxial face",
+    "tie_check": {
+     "abs_diff_abaxial_to_leaf_mean": 0.0029425852250360156,
+     "abs_diff_adaxial_to_leaf_mean": 0.0029425852250360156,
+     "exactly_equal": true
+    },
+    "file": "20260621_Mcitricolor_GX_230__abaxial.png",
+    "leaf_iou": 0.9038226222792277,
+    "leaf_iou_3dp": "0.904",
+    "face_iou_abaxial": 0.9008800370541917,
+    "face_iou_adaxial": 0.9067652075042638,
+    "iou_recomputed_from_plotted_masks": 0.9008800370541917,
+    "iou_recomputed_exact": "1945/2159",
+    "counts_plotted": {
+     "tp": 3890,
+     "fp": 299,
+     "fn": 129
+    },
+    "full_frame_counts": {
+     "ref_leaf_px": 92773,
+     "ref_lesion_px": 4019,
+     "pred_leaf_px": 93012,
+     "pred_lesion_px": 4189,
+     "inter_lesion": 3890,
+     "union_lesion": 4318
+    },
+    "other_face": {
+     "face": "adaxial",
+     "iou": 0.9067652075042638,
+     "counts": {
+      "tp": 3190,
+      "fp": 243,
+      "fn": 85
+     }
+    },
+    "ref_severity_pct_shown_face": 4.332079376542744,
+    "pred_severity_pct_shown_face": 4.503719950113964,
+    "leaf_ref_severity_pct": 3.922090691499289,
+    "leaf_pred_severity_pct": 4.092689608499703,
+    "ref_grade": 1,
+    "crop_box_yx": {
+     "y0": 183,
+     "y1": 863,
+     "x0": 377,
+     "x1": 626
+    },
+    "outline_registration": {
+     "reference_mismatched_px": 0,
+     "prediction_mismatched_px": 0
+    },
+    "printed": {
+     "role": "Median",
+     "printed_iou": "0.901",
+     "printed_leaf_iou": "0.904",
+     "printed_leaf_severity_ref_pred": "3.92% / 4.09%",
+     "printed_shown_face_severity_ref_pred": "4.33% / 4.50%",
+     "text_lines": [
+      "Median",
+      "rank 28 of 55 · GX_230 · G1",
+      "Leaf IoU = 0.904",
+      "= mean of abaxial 0.901",
+      "(shown) and adaxial 0.907",
+      "leaf severity (mean of faces),",
+      "ref. / pred.: 3.92% / 4.09%",
+      "Abaxial face (shown):",
+      "TP 3,890 · FP 299 · FN 129 px",
+      "abaxial-face severity,",
+      "ref. / pred.: 4.33% / 4.50%"
+     ],
+     "crop_px": [
+      680,
+      249
+     ],
+     "panel_cm": [
+      6.094,
+      2.231
+     ]
+    },
+    "pdf_check": {
+     "role": "Median",
+     "stored_error_map_identical": true,
+     "stored_input_identical": true,
+     "input_placements": 3,
+     "rendered_error_map_identical": true,
+     "rendered_input_identical": true,
+     "rendered_counts": {
+      "tp": 3890,
+      "fp": 299,
+      "fn": 129
+     },
+     "rendered_iou": 0.9008800370541917,
+     "render": "MuPDF, AA off, zoom 16"
+    },
+    "verified": {
+     "csv_counts": true,
+     "plotted_arrays_eq_raster_eq_csv": true,
+     "outlines_registered": true,
+     "pdf_raster_identical": true,
+     "leaf_mean_consistent": true,
+     "printed_leaf_severity_eq_figure12_value": true
+    }
+   },
+   {
+    "role": "Best",
+    "rank": 55,
+    "leaf_id": "20260628_Mcitricolor_GX_007",
+    "face_shown": "abaxial",
+    "face_rule": "tie: both faces equidistant from the leaf mean by construction; pre-specified IoU-independent tie-break = abaxial face",
+    "tie_check": {
+     "abs_diff_abaxial_to_leaf_mean": 0.004900219403920605,
+     "abs_diff_adaxial_to_leaf_mean": 0.004900219403920605,
+     "exactly_equal": true
+    },
+    "file": "20260628_Mcitricolor_GX_007__abaxial.png",
+    "leaf_iou": 0.9609732725643524,
+    "leaf_iou_3dp": "0.961",
+    "face_iou_abaxial": 0.965873491968273,
+    "face_iou_adaxial": 0.9560730531604318,
+    "iou_recomputed_from_plotted_masks": 0.965873491968273,
+    "iou_recomputed_exact": "14491/15003",
+    "counts_plotted": {
+     "tp": 14491,
+     "fp": 364,
+     "fn": 148
+    },
+    "full_frame_counts": {
+     "ref_leaf_px": 123242,
+     "ref_lesion_px": 14639,
+     "pred_leaf_px": 123522,
+     "pred_lesion_px": 14855,
+     "inter_lesion": 14491,
+     "union_lesion": 15003
+    },
+    "other_face": {
+     "face": "adaxial",
+     "iou": 0.9560730531604318,
+     "counts": {
+      "tp": 14082,
+      "fp": 526,
+      "fn": 121
+     }
+    },
+    "ref_severity_pct_shown_face": 11.878255789422438,
+    "pred_severity_pct_shown_face": 12.026197762341932,
+    "leaf_ref_severity_pct": 11.734141971172928,
+    "leaf_pred_severity_pct": 11.974379936311184,
+    "ref_grade": 2,
+    "crop_box_yx": {
+     "y0": 257,
+     "y1": 950,
+     "x0": 317,
+     "x1": 632
+    },
+    "outline_registration": {
+     "reference_mismatched_px": 0,
+     "prediction_mismatched_px": 0
+    },
+    "printed": {
+     "role": "Best",
+     "printed_iou": "0.966",
+     "printed_leaf_iou": "0.961",
+     "printed_leaf_severity_ref_pred": "11.73% / 11.97%",
+     "printed_shown_face_severity_ref_pred": "11.88% / 12.03%",
+     "text_lines": [
+      "Best",
+      "rank 55 of 55 · GX_007 · G2",
+      "Leaf IoU = 0.961",
+      "= mean of abaxial 0.966",
+      "(shown) and adaxial 0.956",
+      "leaf severity (mean of faces),",
+      "ref. / pred.: 11.73% / 11.97%",
+      "Abaxial face (shown):",
+      "TP 14,491 · FP 364 · FN 148 px",
+      "abaxial-face severity,",
+      "ref. / pred.: 11.88% / 12.03%"
+     ],
+     "crop_px": [
+      693,
+      315
+     ],
+     "panel_cm": [
+      6.21,
+      2.823
+     ]
+    },
+    "pdf_check": {
+     "role": "Best",
+     "stored_error_map_identical": true,
+     "stored_input_identical": true,
+     "input_placements": 3,
+     "rendered_error_map_identical": true,
+     "rendered_input_identical": true,
+     "rendered_counts": {
+      "tp": 14491,
+      "fp": 364,
+      "fn": 148
+     },
+     "rendered_iou": 0.965873491968273,
+     "render": "MuPDF, AA off, zoom 16"
+    },
+    "verified": {
+     "csv_counts": true,
+     "plotted_arrays_eq_raster_eq_csv": true,
+     "outlines_registered": true,
+     "pdf_raster_identical": true,
+     "leaf_mean_consistent": true,
+     "printed_leaf_severity_eq_figure12_value": true
+    }
+   }
+  ],
+  "ranking": [
+   {
+    "rank": 1,
+    "leaf_id": "20260621_Mcitricolor_GX_246",
+    "leaf_iou": 0.7323620104841196,
+    "iou_abaxial": 0.7753623188405797,
+    "iou_adaxial": 0.6893617021276596
+   },
+   {
+    "rank": 2,
+    "leaf_id": "20260621_Mcitricolor_GX_155",
+    "leaf_iou": 0.739492535490232,
+    "iou_abaxial": 0.5540838852097131,
+    "iou_adaxial": 0.924901185770751
+   },
+   {
+    "rank": 3,
+    "leaf_id": "20260621_Mcitricolor_GX_195",
+    "leaf_iou": 0.7415944711026679,
+    "iou_abaxial": 0.6440281030444965,
+    "iou_adaxial": 0.8391608391608392
+   },
+   {
+    "rank": 4,
+    "leaf_id": "20260621_Mcitricolor_GX_154",
+    "leaf_iou": 0.7433173602642713,
+    "iou_abaxial": 0.7693351424694709,
+    "iou_adaxial": 0.7172995780590717
+   },
+   {
+    "rank": 5,
+    "leaf_id": "20260621_Mcitricolor_GX_085",
+    "leaf_iou": 0.7795862068965518,
+    "iou_abaxial": 0.8551724137931035,
+    "iou_adaxial": 0.704
+   },
+   {
+    "rank": 6,
+    "leaf_id": "20260621_Mcitricolor_GX_179",
+    "leaf_iou": 0.7926708313310908,
+    "iou_abaxial": 0.816,
+    "iou_adaxial": 0.7693416626621816
+   },
+   {
+    "rank": 7,
+    "leaf_id": "20260628_Mcitricolor_GX_102",
+    "leaf_iou": 0.8049767459447872,
+    "iou_abaxial": 0.9035379202501954,
+    "iou_adaxial": 0.7064155716393788
+   },
+   {
+    "rank": 8,
+    "leaf_id": "20260621_Mcitricolor_GX_093",
+    "leaf_iou": 0.8104573065976881,
+    "iou_abaxial": 0.7842911877394636,
+    "iou_adaxial": 0.8366234254559127
+   },
+   {
+    "rank": 9,
+    "leaf_id": "20260628_Mcitricolor_GX_101",
+    "leaf_iou": 0.8168064335094205,
+    "iou_abaxial": 0.8228711790393013,
+    "iou_adaxial": 0.8107416879795396
+   },
+   {
+    "rank": 10,
+    "leaf_id": "20260621_Mcitricolor_GX_172",
+    "leaf_iou": 0.8231574063900182,
+    "iou_abaxial": 0.7223382045929019,
+    "iou_adaxial": 0.9239766081871345
+   },
+   {
+    "rank": 11,
+    "leaf_id": "20260621_Mcitricolor_GX_228",
+    "leaf_iou": 0.8292194984502677,
+    "iou_abaxial": 0.854043392504931,
+    "iou_adaxial": 0.8043956043956044
+   },
+   {
+    "rank": 12,
+    "leaf_id": "20260621_Mcitricolor_GX_113",
+    "leaf_iou": 0.831002331002331,
+    "iou_abaxial": 0.7696969696969697,
+    "iou_adaxial": 0.8923076923076924
+   },
+   {
+    "rank": 13,
+    "leaf_id": "20260621_Mcitricolor_GX_073",
+    "leaf_iou": 0.838443625504808,
+    "iou_abaxial": 0.8310598111227702,
+    "iou_adaxial": 0.8458274398868458
+   },
+   {
+    "rank": 14,
+    "leaf_id": "20260621_Mcitricolor_GX_019",
+    "leaf_iou": 0.8559982856300979,
+    "iou_abaxial": 0.9035532994923858,
+    "iou_adaxial": 0.8084432717678101
+   },
+   {
+    "rank": 15,
+    "leaf_id": "20260628_Mcitricolor_GX_046",
+    "leaf_iou": 0.8608955013148374,
+    "iou_abaxial": 0.8445632798573975,
+    "iou_adaxial": 0.8772277227722772
+   },
+   {
+    "rank": 16,
+    "leaf_id": "20260621_Mcitricolor_GX_191",
+    "leaf_iou": 0.8615605537788251,
+    "iou_abaxial": 0.8894230769230769,
+    "iou_adaxial": 0.8336980306345733
+   },
+   {
+    "rank": 17,
+    "leaf_id": "20260621_Mcitricolor_GX_123",
+    "leaf_iou": 0.8725,
+    "iou_abaxial": 0.83,
+    "iou_adaxial": 0.915
+   },
+   {
+    "rank": 18,
+    "leaf_id": "20260621_Mcitricolor_GX_182",
+    "leaf_iou": 0.8770100487042798,
+    "iou_abaxial": 0.8640365177698076,
+    "iou_adaxial": 0.8899835796387521
+   },
+   {
+    "rank": 19,
+    "leaf_id": "20260621_Mcitricolor_GX_201",
+    "leaf_iou": 0.8796880739743018,
+    "iou_abaxial": 0.8849878934624698,
+    "iou_adaxial": 0.8743882544861338
+   },
+   {
+    "rank": 20,
+    "leaf_id": "20260621_Mcitricolor_GX_202",
+    "leaf_iou": 0.8856979518791013,
+    "iou_abaxial": 0.8299065420560747,
+    "iou_adaxial": 0.9414893617021277
+   },
+   {
+    "rank": 21,
+    "leaf_id": "20260621_Mcitricolor_GX_038",
+    "leaf_iou": 0.8868809067584684,
+    "iou_abaxial": 0.916444740346205,
+    "iou_adaxial": 0.8573170731707317
+   },
+   {
+    "rank": 22,
+    "leaf_id": "20260628_Mcitricolor_GX_118",
+    "leaf_iou": 0.8902859316356952,
+    "iou_abaxial": 0.9223968565815324,
+    "iou_adaxial": 0.8581750066898581
+   },
+   {
+    "rank": 23,
+    "leaf_id": "20260621_Mcitricolor_GX_218",
+    "leaf_iou": 0.891466549386281,
+    "iou_abaxial": 0.9159842961301178,
+    "iou_adaxial": 0.8669488026424442
+   },
+   {
+    "rank": 24,
+    "leaf_id": "20260621_Mcitricolor_GX_112",
+    "leaf_iou": 0.8962425840474622,
+    "iou_abaxial": 0.8729729729729729,
+    "iou_adaxial": 0.9195121951219513
+   },
+   {
+    "rank": 25,
+    "leaf_id": "20260621_Mcitricolor_GX_206",
+    "leaf_iou": 0.8979844594703421,
+    "iou_abaxial": 0.9256515412091546,
+    "iou_adaxial": 0.8703173777315296
+   },
+   {
+    "rank": 26,
+    "leaf_id": "20260621_Mcitricolor_GX_067",
+    "leaf_iou": 0.9005349583005816,
+    "iou_abaxial": 0.9395448690425076,
+    "iou_adaxial": 0.8615250475586557
+   },
+   {
+    "rank": 27,
+    "leaf_id": "20260628_Mcitricolor_GX_081",
+    "leaf_iou": 0.9020349320136913,
+    "iou_abaxial": 0.920320518591879,
+    "iou_adaxial": 0.8837493454355035
+   },
+   {
+    "rank": 28,
+    "leaf_id": "20260621_Mcitricolor_GX_230",
+    "leaf_iou": 0.9038226222792278,
+    "iou_abaxial": 0.9008800370541917,
+    "iou_adaxial": 0.9067652075042638
+   },
+   {
+    "rank": 29,
+    "leaf_id": "20260628_Mcitricolor_GX_078",
+    "leaf_iou": 0.9044722634284335,
+    "iou_abaxial": 0.9001161440185831,
+    "iou_adaxial": 0.9088283828382838
+   },
+   {
+    "rank": 30,
+    "leaf_id": "20260621_Mcitricolor_GX_076",
+    "leaf_iou": 0.905803415824329,
+    "iou_abaxial": 0.8642384105960265,
+    "iou_adaxial": 0.9473684210526315
+   },
+   {
+    "rank": 31,
+    "leaf_id": "20260628_Mcitricolor_GX_129",
+    "leaf_iou": 0.9066434107028758,
+    "iou_abaxial": 0.9104349074206975,
+    "iou_adaxial": 0.9028519139850542
+   },
+   {
+    "rank": 32,
+    "leaf_id": "20260628_Mcitricolor_GX_114",
+    "leaf_iou": 0.9118257254495163,
+    "iou_abaxial": 0.9116227255848496,
+    "iou_adaxial": 0.9120287253141831
+   },
+   {
+    "rank": 33,
+    "leaf_id": "20260621_Mcitricolor_GX_108",
+    "leaf_iou": 0.9119073188757246,
+    "iou_abaxial": 0.9591503267973857,
+    "iou_adaxial": 0.8646643109540636
+   },
+   {
+    "rank": 34,
+    "leaf_id": "20260628_Mcitricolor_GX_100",
+    "leaf_iou": 0.9151616610457989,
+    "iou_abaxial": 0.9002489331436699,
+    "iou_adaxial": 0.9300743889479277
+   },
+   {
+    "rank": 35,
+    "leaf_id": "20260628_Mcitricolor_GX_029",
+    "leaf_iou": 0.9169955981743333,
+    "iou_abaxial": 0.9206189034645139,
+    "iou_adaxial": 0.9133722928841527
+   },
+   {
+    "rank": 36,
+    "leaf_id": "20260628_Mcitricolor_GX_020",
+    "leaf_iou": 0.9176294601136401,
+    "iou_abaxial": 0.9303811412205332,
+    "iou_adaxial": 0.904877779006747
+   },
+   {
+    "rank": 37,
+    "leaf_id": "20260628_Mcitricolor_GX_098",
+    "leaf_iou": 0.9179525623163118,
+    "iou_abaxial": 0.935737976782753,
+    "iou_adaxial": 0.9001671478498708
+   },
+   {
+    "rank": 38,
+    "leaf_id": "20260621_Mcitricolor_GX_266",
+    "leaf_iou": 0.9191364744484138,
+    "iou_abaxial": 0.9018567639257294,
+    "iou_adaxial": 0.9364161849710982
+   },
+   {
+    "rank": 39,
+    "leaf_id": "20260621_Mcitricolor_GX_021",
+    "leaf_iou": 0.9197191318114357,
+    "iou_abaxial": 0.9124143183549124,
+    "iou_adaxial": 0.927023945267959
+   },
+   {
+    "rank": 40,
+    "leaf_id": "20260628_Mcitricolor_GX_017",
+    "leaf_iou": 0.9224837419118168,
+    "iou_abaxial": 0.9239742558326629,
+    "iou_adaxial": 0.9209932279909706
+   },
+   {
+    "rank": 41,
+    "leaf_id": "20260621_Mcitricolor_GX_001",
+    "leaf_iou": 0.9234487723983859,
+    "iou_abaxial": 0.9325808419768151,
+    "iou_adaxial": 0.9143167028199566
+   },
+   {
+    "rank": 42,
+    "leaf_id": "20260621_Mcitricolor_GX_205",
+    "leaf_iou": 0.9262501833271506,
+    "iou_abaxial": 0.9433497536945813,
+    "iou_adaxial": 0.9091506129597198
+   },
+   {
+    "rank": 43,
+    "leaf_id": "20260621_Mcitricolor_GX_193",
+    "leaf_iou": 0.9305010127250597,
+    "iou_abaxial": 0.911530815109344,
+    "iou_adaxial": 0.9494712103407755
+   },
+   {
+    "rank": 44,
+    "leaf_id": "20260621_Mcitricolor_GX_210",
+    "leaf_iou": 0.9334861981609659,
+    "iou_abaxial": 0.9387136758022311,
+    "iou_adaxial": 0.9282587205197006
+   },
+   {
+    "rank": 45,
+    "leaf_id": "20260628_Mcitricolor_GX_015",
+    "leaf_iou": 0.933821603822147,
+    "iou_abaxial": 0.9350522648083623,
+    "iou_adaxial": 0.9325909428359317
+   },
+   {
+    "rank": 46,
+    "leaf_id": "20260628_Mcitricolor_GX_009",
+    "leaf_iou": 0.9373293123875333,
+    "iou_abaxial": 0.9569589702333066,
+    "iou_adaxial": 0.9176996545417598
+   },
+   {
+    "rank": 47,
+    "leaf_id": "20260621_Mcitricolor_GX_110",
+    "leaf_iou": 0.9389390180313675,
+    "iou_abaxial": 0.9273537896669289,
+    "iou_adaxial": 0.950524246395806
+   },
+   {
+    "rank": 48,
+    "leaf_id": "20260628_Mcitricolor_GX_123",
+    "leaf_iou": 0.9396237834956362,
+    "iou_abaxial": 0.9252089749230092,
+    "iou_adaxial": 0.9540385920682634
+   },
+   {
+    "rank": 49,
+    "leaf_id": "20260621_Mcitricolor_GX_166",
+    "leaf_iou": 0.9469615465117578,
+    "iou_abaxial": 0.9619314205738279,
+    "iou_adaxial": 0.9319916724496877
+   },
+   {
+    "rank": 50,
+    "leaf_id": "20260621_Mcitricolor_GX_026",
+    "leaf_iou": 0.9484468575421459,
+    "iou_abaxial": 0.9433725883237284,
+    "iou_adaxial": 0.9535211267605633
+   },
+   {
+    "rank": 51,
+    "leaf_id": "20260621_Mcitricolor_GX_030",
+    "leaf_iou": 0.9489047559743728,
+    "iou_abaxial": 0.9441896024464832,
+    "iou_adaxial": 0.9536199095022625
+   },
+   {
+    "rank": 52,
+    "leaf_id": "20260628_Mcitricolor_GX_031",
+    "leaf_iou": 0.9520979885494356,
+    "iou_abaxial": 0.9544705623901582,
+    "iou_adaxial": 0.9497254147087131
+   },
+   {
+    "rank": 53,
+    "leaf_id": "20260628_Mcitricolor_GX_064",
+    "leaf_iou": 0.954000986055551,
+    "iou_abaxial": 0.9678123295144572,
+    "iou_adaxial": 0.9401896425966448
+   },
+   {
+    "rank": 54,
+    "leaf_id": "20260621_Mcitricolor_GX_048",
+    "leaf_iou": 0.9555102163907654,
+    "iou_abaxial": 0.9514809590973202,
+    "iou_adaxial": 0.9595394736842106
+   },
+   {
+    "rank": 55,
+    "leaf_id": "20260628_Mcitricolor_GX_007",
+    "leaf_iou": 0.9609732725643524,
+    "iou_abaxial": 0.965873491968273,
+    "iou_adaxial": 0.9560730531604318
+   }
+  ]
+ },
+ "qualitative_rendering": {
+  "model": "SegFormer-B5",
+  "colours": {
+   "reference_outline_and_FN": "#22F25A",
+   "prediction_outline_and_FP": "#FF22FF",
+   "TP": "#FFFFFF",
+   "leaf_no_lesion": "#545454",
+   "background": "#000000"
+  },
+  "outline": {
+   "level": 0.5,
+   "linewidth_pt": 0.55,
+   "halo": "black, alpha 0.55, 1.35 pt"
+  },
+  "crop_margin_px": 10
+ },
+ "error_location_segformer": {
+  "model": "SegFormer-B5",
+  "distance_unit": "letterbox px (1024 x 1024 canvas)",
+  "rust_letterbox_scale": "rust pack images are 791 x 1024 px, so letterbox px = pack px",
+  "leaf_spot_letterbox_scale": "leaf-spot pack images are 1583 x 2048 px, so 1 letterbox px = 2 pack px",
+  "diseases": {
+   "roya": {
+    "summary": {
+     "n_faces": 21,
+     "tp": 81532,
+     "fp": 19813,
+     "fn": 4715,
+     "fp_le2": 13321,
+     "fp_le5": 16421,
+     "fn_le2": 3403,
+     "fn_le5": 4383,
+     "fp_over_fn_ratio": 4.202120890774125,
+     "share_fp_within_2px_of_reference_lesion": 0.6723363448241054,
+     "share_fp_within_5px_of_reference_lesion": 0.8287992732044617,
+     "share_fn_within_2px_of_predicted_lesion": 0.7217391304347827,
+     "share_fn_within_5px_of_predicted_lesion": 0.9295864262990456,
+     "faces_with_fp_gt_fn": 20
+    },
+    "per_face": [
+     {
+      "file": "20260819_Hvastatrix_GX_003__abaxial.png",
+      "tp": 2227,
+      "fp": 321,
+      "fn": 243,
+      "fp_le2": 286,
+      "fp_le5": 311,
+      "fn_le2": 174,
+      "fn_le5": 243
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_009__abaxial.png",
+      "tp": 17178,
+      "fp": 3477,
+      "fn": 477,
+      "fp_le2": 2911,
+      "fp_le5": 3406,
+      "fn_le2": 378,
+      "fn_le5": 474
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_013__abaxial.png",
+      "tp": 2314,
+      "fp": 313,
+      "fn": 73,
+      "fp_le2": 283,
+      "fp_le5": 293,
+      "fn_le2": 73,
+      "fn_le5": 73
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_020__abaxial.png",
+      "tp": 8737,
+      "fp": 2355,
+      "fn": 306,
+      "fp_le2": 1839,
+      "fp_le5": 2244,
+      "fn_le2": 201,
+      "fn_le5": 301
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_021__abaxial.png",
+      "tp": 4312,
+      "fp": 727,
+      "fn": 268,
+      "fp_le2": 423,
+      "fp_le5": 446,
+      "fn_le2": 174,
+      "fn_le5": 183
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_037__abaxial.png",
+      "tp": 980,
+      "fp": 397,
+      "fn": 62,
+      "fp_le2": 259,
+      "fp_le5": 304,
+      "fn_le2": 58,
+      "fn_le5": 62
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_038__abaxial.png",
+      "tp": 2423,
+      "fp": 773,
+      "fn": 199,
+      "fp_le2": 622,
+      "fp_le5": 684,
+      "fn_le2": 177,
+      "fn_le5": 199
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_040__abaxial.png",
+      "tp": 1307,
+      "fp": 208,
+      "fn": 45,
+      "fp_le2": 174,
+      "fp_le5": 176,
+      "fn_le2": 45,
+      "fn_le5": 45
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_045__abaxial.png",
+      "tp": 2315,
+      "fp": 345,
+      "fn": 221,
+      "fp_le2": 164,
+      "fp_le5": 182,
+      "fn_le2": 188,
+      "fn_le5": 219
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_048__abaxial.png",
+      "tp": 2538,
+      "fp": 503,
+      "fn": 505,
+      "fp_le2": 387,
+      "fp_le5": 427,
+      "fn_le2": 331,
+      "fn_le5": 455
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_056__abaxial.png",
+      "tp": 780,
+      "fp": 142,
+      "fn": 32,
+      "fp_le2": 112,
+      "fp_le5": 121,
+      "fn_le2": 32,
+      "fn_le5": 32
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_074__abaxial.png",
+      "tp": 6651,
+      "fp": 3616,
+      "fn": 152,
+      "fp_le2": 1524,
+      "fp_le5": 2432,
+      "fn_le2": 139,
+      "fn_le5": 152
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_082__abaxial.png",
+      "tp": 1292,
+      "fp": 183,
+      "fn": 142,
+      "fp_le2": 183,
+      "fp_le5": 183,
+      "fn_le2": 72,
+      "fn_le5": 76
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_088__abaxial.png",
+      "tp": 860,
+      "fp": 178,
+      "fn": 93,
+      "fp_le2": 160,
+      "fp_le5": 167,
+      "fn_le2": 90,
+      "fn_le5": 93
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_095__abaxial.png",
+      "tp": 4643,
+      "fp": 1444,
+      "fn": 314,
+      "fp_le2": 761,
+      "fp_le5": 1088,
+      "fn_le2": 177,
+      "fn_le5": 264
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_116__abaxial.png",
+      "tp": 2379,
+      "fp": 406,
+      "fn": 223,
+      "fp_le2": 360,
+      "fp_le5": 399,
+      "fn_le2": 159,
+      "fn_le5": 219
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_123__abaxial.png",
+      "tp": 263,
+      "fp": 72,
+      "fn": 18,
+      "fp_le2": 34,
+      "fp_le5": 34,
+      "fn_le2": 18,
+      "fn_le5": 18
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_125__abaxial.png",
+      "tp": 5304,
+      "fp": 1194,
+      "fn": 430,
+      "fp_le2": 891,
+      "fp_le5": 1055,
+      "fn_le2": 313,
+      "fn_le5": 412
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_137__abaxial.png",
+      "tp": 7940,
+      "fp": 1951,
+      "fn": 507,
+      "fp_le2": 1092,
+      "fp_le5": 1403,
+      "fn_le2": 293,
+      "fn_le5": 458
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_138__abaxial.png",
+      "tp": 6507,
+      "fp": 1026,
+      "fn": 312,
+      "fp_le2": 746,
+      "fp_le5": 956,
+      "fn_le2": 227,
+      "fn_le5": 312
+     },
+     {
+      "file": "20260819_Hvastatrix_GX_141__abaxial.png",
+      "tp": 582,
+      "fp": 182,
+      "fn": 93,
+      "fp_le2": 110,
+      "fp_le5": 110,
+      "fn_le2": 84,
+      "fn_le5": 93
+     }
+    ]
+   },
+   "ojo": {
+    "summary": {
+     "n_faces": 110,
+     "tp": 442353,
+     "fp": 28954,
+     "fn": 15754,
+     "fp_le2": 24588,
+     "fp_le5": 26371,
+     "fn_le2": 9539,
+     "fn_le5": 11683,
+     "fp_over_fn_ratio": 1.837882442554272,
+     "share_fp_within_2px_of_reference_lesion": 0.8492090902811356,
+     "share_fp_within_5px_of_reference_lesion": 0.9107895282171721,
+     "share_fn_within_2px_of_predicted_lesion": 0.605497016630697,
+     "share_fn_within_5px_of_predicted_lesion": 0.7415894376031484,
+     "faces_with_fp_gt_fn": 69
+    },
+    "per_face": [
+     {
+      "file": "20260621_Mcitricolor_GX_001__abaxial.png",
+      "tp": 3057,
+      "fp": 91,
+      "fn": 130,
+      "fp_le2": 77,
+      "fp_le5": 89,
+      "fn_le2": 111,
+      "fn_le5": 112
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_001__adaxial.png",
+      "tp": 2529,
+      "fp": 101,
+      "fn": 136,
+      "fp_le2": 87,
+      "fp_le5": 88,
+      "fn_le2": 37,
+      "fn_le5": 43
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_019__abaxial.png",
+      "tp": 1424,
+      "fp": 33,
+      "fn": 119,
+      "fp_le2": 32,
+      "fp_le5": 33,
+      "fn_le2": 113,
+      "fn_le5": 119
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_019__adaxial.png",
+      "tp": 1532,
+      "fp": 108,
+      "fn": 255,
+      "fp_le2": 100,
+      "fp_le5": 100,
+      "fn_le2": 74,
+      "fn_le5": 77
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_021__abaxial.png",
+      "tp": 2396,
+      "fp": 78,
+      "fn": 152,
+      "fp_le2": 78,
+      "fp_le5": 78,
+      "fn_le2": 113,
+      "fn_le5": 122
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_021__adaxial.png",
+      "tp": 1626,
+      "fp": 82,
+      "fn": 46,
+      "fp_le2": 82,
+      "fp_le5": 82,
+      "fn_le2": 46,
+      "fn_le5": 46
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_026__abaxial.png",
+      "tp": 3765,
+      "fp": 109,
+      "fn": 117,
+      "fp_le2": 109,
+      "fp_le5": 109,
+      "fn_le2": 114,
+      "fn_le5": 117
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_026__adaxial.png",
+      "tp": 3385,
+      "fp": 137,
+      "fn": 28,
+      "fp_le2": 119,
+      "fp_le5": 119,
+      "fn_le2": 28,
+      "fn_le5": 28
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_030__abaxial.png",
+      "tp": 4940,
+      "fp": 208,
+      "fn": 84,
+      "fp_le2": 171,
+      "fp_le5": 186,
+      "fn_le2": 82,
+      "fn_le5": 84
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_030__adaxial.png",
+      "tp": 4215,
+      "fp": 188,
+      "fn": 17,
+      "fp_le2": 188,
+      "fp_le5": 188,
+      "fn_le2": 17,
+      "fn_le5": 17
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_038__abaxial.png",
+      "tp": 2753,
+      "fp": 231,
+      "fn": 20,
+      "fp_le2": 194,
+      "fp_le5": 222,
+      "fn_le2": 20,
+      "fn_le5": 20
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_038__adaxial.png",
+      "tp": 2109,
+      "fp": 190,
+      "fn": 161,
+      "fp_le2": 150,
+      "fp_le5": 150,
+      "fn_le2": 97,
+      "fn_le5": 145
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_048__abaxial.png",
+      "tp": 3373,
+      "fp": 75,
+      "fn": 97,
+      "fp_le2": 75,
+      "fp_le5": 75,
+      "fn_le2": 54,
+      "fn_le5": 82
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_048__adaxial.png",
+      "tp": 2917,
+      "fp": 103,
+      "fn": 20,
+      "fp_le2": 103,
+      "fp_le5": 103,
+      "fn_le2": 17,
+      "fn_le5": 20
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_067__abaxial.png",
+      "tp": 10941,
+      "fp": 606,
+      "fn": 98,
+      "fp_le2": 582,
+      "fp_le5": 583,
+      "fn_le2": 96,
+      "fn_le5": 98
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_067__adaxial.png",
+      "tp": 10869,
+      "fp": 1175,
+      "fn": 572,
+      "fp_le2": 1095,
+      "fp_le5": 1166,
+      "fn_le2": 316,
+      "fn_le5": 479
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_073__abaxial.png",
+      "tp": 792,
+      "fp": 41,
+      "fn": 120,
+      "fp_le2": 41,
+      "fp_le5": 41,
+      "fn_le2": 89,
+      "fn_le5": 94
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_073__adaxial.png",
+      "tp": 598,
+      "fp": 80,
+      "fn": 29,
+      "fp_le2": 13,
+      "fp_le5": 13,
+      "fn_le2": 25,
+      "fn_le5": 29
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_076__abaxial.png",
+      "tp": 522,
+      "fp": 3,
+      "fn": 79,
+      "fp_le2": 3,
+      "fp_le5": 3,
+      "fn_le2": 63,
+      "fn_le5": 79
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_076__adaxial.png",
+      "tp": 324,
+      "fp": 2,
+      "fn": 16,
+      "fp_le2": 2,
+      "fp_le5": 2,
+      "fn_le2": 16,
+      "fn_le5": 16
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_085__abaxial.png",
+      "tp": 124,
+      "fp": 0,
+      "fn": 21,
+      "fp_le2": 0,
+      "fp_le5": 0,
+      "fn_le2": 16,
+      "fn_le5": 21
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_085__adaxial.png",
+      "tp": 88,
+      "fp": 4,
+      "fn": 33,
+      "fp_le2": 4,
+      "fp_le5": 4,
+      "fn_le2": 22,
+      "fn_le5": 33
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_093__abaxial.png",
+      "tp": 4094,
+      "fp": 877,
+      "fn": 249,
+      "fp_le2": 458,
+      "fp_le5": 680,
+      "fn_le2": 192,
+      "fn_le5": 239
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_093__adaxial.png",
+      "tp": 4450,
+      "fp": 780,
+      "fn": 89,
+      "fp_le2": 656,
+      "fp_le5": 733,
+      "fn_le2": 85,
+      "fn_le5": 89
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_108__abaxial.png",
+      "tp": 3522,
+      "fp": 61,
+      "fn": 89,
+      "fp_le2": 60,
+      "fp_le5": 61,
+      "fn_le2": 89,
+      "fn_le5": 89
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_108__adaxial.png",
+      "tp": 2447,
+      "fp": 108,
+      "fn": 275,
+      "fp_le2": 105,
+      "fp_le5": 107,
+      "fn_le2": 93,
+      "fn_le5": 112
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_110__abaxial.png",
+      "tp": 3536,
+      "fp": 167,
+      "fn": 110,
+      "fp_le2": 146,
+      "fp_le5": 150,
+      "fn_le2": 107,
+      "fn_le5": 110
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_110__adaxial.png",
+      "tp": 2901,
+      "fp": 77,
+      "fn": 74,
+      "fp_le2": 77,
+      "fp_le5": 77,
+      "fn_le2": 66,
+      "fn_le5": 74
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_112__abaxial.png",
+      "tp": 646,
+      "fp": 14,
+      "fn": 80,
+      "fp_le2": 14,
+      "fp_le5": 14,
+      "fn_le2": 79,
+      "fn_le5": 80
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_112__adaxial.png",
+      "tp": 377,
+      "fp": 0,
+      "fn": 33,
+      "fp_le2": 0,
+      "fp_le5": 0,
+      "fn_le2": 33,
+      "fn_le5": 33
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_113__abaxial.png",
+      "tp": 508,
+      "fp": 19,
+      "fn": 133,
+      "fp_le2": 10,
+      "fp_le5": 10,
+      "fn_le2": 105,
+      "fn_le5": 119
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_113__adaxial.png",
+      "tp": 348,
+      "fp": 0,
+      "fn": 42,
+      "fp_le2": 0,
+      "fp_le5": 0,
+      "fn_le2": 42,
+      "fn_le5": 42
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_123__abaxial.png",
+      "tp": 498,
+      "fp": 45,
+      "fn": 57,
+      "fp_le2": 43,
+      "fp_le5": 45,
+      "fn_le2": 32,
+      "fn_le5": 39
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_123__adaxial.png",
+      "tp": 366,
+      "fp": 15,
+      "fn": 19,
+      "fp_le2": 15,
+      "fp_le5": 15,
+      "fn_le2": 19,
+      "fn_le5": 19
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_154__abaxial.png",
+      "tp": 1701,
+      "fp": 284,
+      "fn": 226,
+      "fp_le2": 207,
+      "fp_le5": 266,
+      "fn_le2": 132,
+      "fn_le5": 188
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_154__adaxial.png",
+      "tp": 510,
+      "fp": 130,
+      "fn": 71,
+      "fp_le2": 123,
+      "fp_le5": 124,
+      "fn_le2": 50,
+      "fn_le5": 57
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_155__abaxial.png",
+      "tp": 502,
+      "fp": 73,
+      "fn": 331,
+      "fp_le2": 59,
+      "fp_le5": 66,
+      "fn_le2": 151,
+      "fn_le5": 219
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_155__adaxial.png",
+      "tp": 234,
+      "fp": 2,
+      "fn": 17,
+      "fp_le2": 2,
+      "fp_le5": 2,
+      "fn_le2": 17,
+      "fn_le5": 17
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_166__abaxial.png",
+      "tp": 6873,
+      "fp": 184,
+      "fn": 88,
+      "fp_le2": 164,
+      "fp_le5": 166,
+      "fn_le2": 88,
+      "fn_le5": 88
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_166__adaxial.png",
+      "tp": 6715,
+      "fp": 258,
+      "fn": 232,
+      "fp_le2": 220,
+      "fp_le5": 231,
+      "fn_le2": 117,
+      "fn_le5": 183
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_172__abaxial.png",
+      "tp": 346,
+      "fp": 22,
+      "fn": 111,
+      "fp_le2": 22,
+      "fp_le5": 22,
+      "fn_le2": 63,
+      "fn_le5": 65
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_172__adaxial.png",
+      "tp": 158,
+      "fp": 6,
+      "fn": 7,
+      "fp_le2": 6,
+      "fp_le5": 6,
+      "fn_le2": 7,
+      "fn_le5": 7
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_179__abaxial.png",
+      "tp": 1122,
+      "fp": 172,
+      "fn": 81,
+      "fp_le2": 95,
+      "fp_le5": 133,
+      "fn_le2": 65,
+      "fn_le5": 81
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_179__adaxial.png",
+      "tp": 1601,
+      "fp": 259,
+      "fn": 221,
+      "fp_le2": 228,
+      "fp_le5": 254,
+      "fn_le2": 95,
+      "fn_le5": 146
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_182__abaxial.png",
+      "tp": 2650,
+      "fp": 293,
+      "fn": 124,
+      "fp_le2": 217,
+      "fp_le5": 267,
+      "fn_le2": 120,
+      "fn_le5": 124
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_182__adaxial.png",
+      "tp": 2168,
+      "fp": 243,
+      "fn": 25,
+      "fp_le2": 154,
+      "fp_le5": 163,
+      "fn_le2": 25,
+      "fn_le5": 25
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_191__abaxial.png",
+      "tp": 555,
+      "fp": 33,
+      "fn": 36,
+      "fp_le2": 33,
+      "fp_le5": 33,
+      "fn_le2": 36,
+      "fn_le5": 36
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_191__adaxial.png",
+      "tp": 381,
+      "fp": 3,
+      "fn": 73,
+      "fp_le2": 3,
+      "fp_le5": 3,
+      "fn_le2": 24,
+      "fn_le5": 24
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_193__abaxial.png",
+      "tp": 917,
+      "fp": 20,
+      "fn": 69,
+      "fp_le2": 15,
+      "fp_le5": 15,
+      "fn_le2": 47,
+      "fn_le5": 47
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_193__adaxial.png",
+      "tp": 808,
+      "fp": 17,
+      "fn": 26,
+      "fp_le2": 17,
+      "fp_le5": 17,
+      "fn_le2": 26,
+      "fn_le5": 26
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_195__abaxial.png",
+      "tp": 275,
+      "fp": 8,
+      "fn": 144,
+      "fp_le2": 8,
+      "fp_le5": 8,
+      "fn_le2": 51,
+      "fn_le5": 77
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_195__adaxial.png",
+      "tp": 240,
+      "fp": 41,
+      "fn": 5,
+      "fp_le2": 34,
+      "fp_le5": 41,
+      "fn_le2": 5,
+      "fn_le5": 5
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_201__abaxial.png",
+      "tp": 731,
+      "fp": 36,
+      "fn": 59,
+      "fp_le2": 36,
+      "fp_le5": 36,
+      "fn_le2": 23,
+      "fn_le5": 23
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_201__adaxial.png",
+      "tp": 536,
+      "fp": 1,
+      "fn": 76,
+      "fp_le2": 1,
+      "fp_le5": 1,
+      "fn_le2": 76,
+      "fn_le5": 76
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_202__abaxial.png",
+      "tp": 444,
+      "fp": 28,
+      "fn": 63,
+      "fp_le2": 26,
+      "fp_le5": 26,
+      "fn_le2": 45,
+      "fn_le5": 53
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_202__adaxial.png",
+      "tp": 354,
+      "fp": 9,
+      "fn": 13,
+      "fp_le2": 9,
+      "fp_le5": 9,
+      "fn_le2": 13,
+      "fn_le5": 13
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_205__abaxial.png",
+      "tp": 4213,
+      "fp": 162,
+      "fn": 91,
+      "fp_le2": 154,
+      "fp_le5": 159,
+      "fn_le2": 82,
+      "fn_le5": 91
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_205__adaxial.png",
+      "tp": 4153,
+      "fp": 301,
+      "fn": 114,
+      "fp_le2": 301,
+      "fp_le5": 301,
+      "fn_le2": 79,
+      "fn_le5": 95
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_206__abaxial.png",
+      "tp": 6997,
+      "fp": 370,
+      "fn": 192,
+      "fp_le2": 327,
+      "fp_le5": 335,
+      "fn_le2": 128,
+      "fn_le5": 158
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_206__adaxial.png",
+      "tp": 6691,
+      "fp": 618,
+      "fn": 379,
+      "fp_le2": 575,
+      "fp_le5": 599,
+      "fn_le2": 153,
+      "fn_le5": 228
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_210__abaxial.png",
+      "tp": 6816,
+      "fp": 356,
+      "fn": 89,
+      "fp_le2": 338,
+      "fp_le5": 348,
+      "fn_le2": 65,
+      "fn_le5": 78
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_210__adaxial.png",
+      "tp": 6573,
+      "fp": 399,
+      "fn": 109,
+      "fp_le2": 340,
+      "fp_le5": 364,
+      "fn_le2": 71,
+      "fn_le5": 84
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_218__abaxial.png",
+      "tp": 8166,
+      "fp": 603,
+      "fn": 146,
+      "fp_le2": 516,
+      "fp_le5": 520,
+      "fn_le2": 133,
+      "fn_le5": 146
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_218__adaxial.png",
+      "tp": 8399,
+      "fp": 1056,
+      "fn": 233,
+      "fp_le2": 860,
+      "fp_le5": 988,
+      "fn_le2": 155,
+      "fn_le5": 181
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_228__abaxial.png",
+      "tp": 433,
+      "fp": 30,
+      "fn": 44,
+      "fp_le2": 30,
+      "fp_le5": 30,
+      "fn_le2": 10,
+      "fn_le5": 10
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_228__adaxial.png",
+      "tp": 366,
+      "fp": 64,
+      "fn": 25,
+      "fp_le2": 48,
+      "fp_le5": 64,
+      "fn_le2": 11,
+      "fn_le5": 11
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_230__abaxial.png",
+      "tp": 3890,
+      "fp": 299,
+      "fn": 129,
+      "fp_le2": 232,
+      "fp_le5": 263,
+      "fn_le2": 124,
+      "fn_le5": 129
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_230__adaxial.png",
+      "tp": 3190,
+      "fp": 243,
+      "fn": 85,
+      "fp_le2": 200,
+      "fp_le5": 204,
+      "fn_le2": 82,
+      "fn_le5": 85
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_246__abaxial.png",
+      "tp": 214,
+      "fp": 14,
+      "fn": 48,
+      "fp_le2": 14,
+      "fp_le5": 14,
+      "fn_le2": 36,
+      "fn_le5": 37
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_246__adaxial.png",
+      "tp": 162,
+      "fp": 69,
+      "fn": 4,
+      "fp_le2": 29,
+      "fp_le5": 55,
+      "fn_le2": 4,
+      "fn_le5": 4
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_266__abaxial.png",
+      "tp": 340,
+      "fp": 20,
+      "fn": 17,
+      "fp_le2": 20,
+      "fp_le5": 20,
+      "fn_le2": 17,
+      "fn_le5": 17
+     },
+     {
+      "file": "20260621_Mcitricolor_GX_266__adaxial.png",
+      "tp": 324,
+      "fp": 6,
+      "fn": 16,
+      "fp_le2": 6,
+      "fp_le5": 6,
+      "fn_le2": 16,
+      "fn_le5": 16
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_007__abaxial.png",
+      "tp": 14491,
+      "fp": 364,
+      "fn": 148,
+      "fp_le2": 318,
+      "fp_le5": 319,
+      "fn_le2": 146,
+      "fn_le5": 148
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_007__adaxial.png",
+      "tp": 14082,
+      "fp": 526,
+      "fn": 121,
+      "fp_le2": 359,
+      "fp_le5": 368,
+      "fn_le2": 85,
+      "fn_le5": 86
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_009__abaxial.png",
+      "tp": 4758,
+      "fp": 139,
+      "fn": 75,
+      "fp_le2": 139,
+      "fp_le5": 139,
+      "fn_le2": 74,
+      "fn_le5": 75
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_009__adaxial.png",
+      "tp": 4516,
+      "fp": 313,
+      "fn": 92,
+      "fp_le2": 282,
+      "fp_le5": 296,
+      "fn_le2": 44,
+      "fn_le5": 52
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_015__abaxial.png",
+      "tp": 6709,
+      "fp": 311,
+      "fn": 155,
+      "fp_le2": 306,
+      "fp_le5": 311,
+      "fn_le2": 154,
+      "fn_le5": 155
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_015__adaxial.png",
+      "tp": 6281,
+      "fp": 401,
+      "fn": 53,
+      "fp_le2": 368,
+      "fp_le5": 401,
+      "fn_le2": 53,
+      "fn_le5": 53
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_017__abaxial.png",
+      "tp": 2297,
+      "fp": 88,
+      "fn": 101,
+      "fp_le2": 53,
+      "fp_le5": 53,
+      "fn_le2": 101,
+      "fn_le5": 101
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_017__adaxial.png",
+      "tp": 2040,
+      "fp": 112,
+      "fn": 63,
+      "fp_le2": 112,
+      "fp_le5": 112,
+      "fn_le2": 57,
+      "fn_le5": 63
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_020__abaxial.png",
+      "tp": 8446,
+      "fp": 442,
+      "fn": 190,
+      "fp_le2": 394,
+      "fp_le5": 430,
+      "fn_le2": 156,
+      "fn_le5": 178
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_020__adaxial.png",
+      "tp": 8181,
+      "fp": 654,
+      "fn": 206,
+      "fp_le2": 522,
+      "fp_le5": 612,
+      "fn_le2": 91,
+      "fn_le5": 100
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_029__abaxial.png",
+      "tp": 5474,
+      "fp": 359,
+      "fn": 113,
+      "fp_le2": 313,
+      "fp_le5": 340,
+      "fn_le2": 81,
+      "fn_le5": 85
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_029__adaxial.png",
+      "tp": 5314,
+      "fp": 395,
+      "fn": 109,
+      "fp_le2": 337,
+      "fp_le5": 339,
+      "fn_le2": 60,
+      "fn_le5": 69
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_031__abaxial.png",
+      "tp": 17379,
+      "fp": 726,
+      "fn": 103,
+      "fp_le2": 697,
+      "fp_le5": 721,
+      "fn_le2": 81,
+      "fn_le5": 103
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_031__adaxial.png",
+      "tp": 16775,
+      "fp": 841,
+      "fn": 47,
+      "fp_le2": 824,
+      "fp_le5": 841,
+      "fn_le2": 46,
+      "fn_le5": 47
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_046__abaxial.png",
+      "tp": 2369,
+      "fp": 190,
+      "fn": 246,
+      "fp_le2": 159,
+      "fp_le5": 163,
+      "fn_le2": 214,
+      "fn_le5": 232
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_046__adaxial.png",
+      "tp": 1329,
+      "fp": 123,
+      "fn": 63,
+      "fp_le2": 87,
+      "fp_le5": 87,
+      "fn_le2": 57,
+      "fn_le5": 63
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_064__abaxial.png",
+      "tp": 8870,
+      "fp": 278,
+      "fn": 17,
+      "fp_le2": 271,
+      "fp_le5": 273,
+      "fn_le2": 17,
+      "fn_le5": 17
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_064__adaxial.png",
+      "tp": 9023,
+      "fp": 497,
+      "fn": 77,
+      "fp_le2": 483,
+      "fp_le5": 497,
+      "fn_le2": 48,
+      "fn_le5": 70
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_078__abaxial.png",
+      "tp": 6975,
+      "fp": 654,
+      "fn": 120,
+      "fp_le2": 462,
+      "fp_le5": 481,
+      "fn_le2": 84,
+      "fn_le5": 89
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_078__adaxial.png",
+      "tp": 6609,
+      "fp": 478,
+      "fn": 185,
+      "fp_le2": 465,
+      "fp_le5": 471,
+      "fn_le2": 114,
+      "fn_le5": 147
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_081__abaxial.png",
+      "tp": 10222,
+      "fp": 536,
+      "fn": 349,
+      "fp_le2": 516,
+      "fp_le5": 530,
+      "fn_le2": 196,
+      "fn_le5": 239
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_081__adaxial.png",
+      "tp": 10126,
+      "fp": 1007,
+      "fn": 325,
+      "fp_le2": 979,
+      "fp_le5": 999,
+      "fn_le2": 223,
+      "fn_le5": 299
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_098__abaxial.png",
+      "tp": 6771,
+      "fp": 360,
+      "fn": 105,
+      "fp_le2": 319,
+      "fp_le5": 332,
+      "fn_le2": 101,
+      "fn_le5": 105
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_098__adaxial.png",
+      "tp": 5924,
+      "fp": 598,
+      "fn": 59,
+      "fp_le2": 323,
+      "fp_le5": 376,
+      "fn_le2": 55,
+      "fn_le5": 59
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_100__abaxial.png",
+      "tp": 5063,
+      "fp": 256,
+      "fn": 305,
+      "fp_le2": 187,
+      "fp_le5": 215,
+      "fn_le2": 191,
+      "fn_le5": 217
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_100__adaxial.png",
+      "tp": 4376,
+      "fp": 211,
+      "fn": 118,
+      "fp_le2": 210,
+      "fp_le5": 210,
+      "fn_le2": 53,
+      "fn_le5": 62
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_101__abaxial.png",
+      "tp": 3015,
+      "fp": 342,
+      "fn": 307,
+      "fp_le2": 217,
+      "fp_le5": 296,
+      "fn_le2": 274,
+      "fn_le5": 307
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_101__adaxial.png",
+      "tp": 2853,
+      "fp": 388,
+      "fn": 278,
+      "fp_le2": 368,
+      "fp_le5": 378,
+      "fn_le2": 146,
+      "fn_le5": 196
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_102__abaxial.png",
+      "tp": 9245,
+      "fp": 754,
+      "fn": 233,
+      "fp_le2": 556,
+      "fp_le5": 652,
+      "fn_le2": 230,
+      "fn_le5": 233
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_102__adaxial.png",
+      "tp": 10053,
+      "fp": 1331,
+      "fn": 2847,
+      "fp_le2": 1018,
+      "fp_le5": 1116,
+      "fn_le2": 621,
+      "fn_le5": 1239
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_114__abaxial.png",
+      "tp": 2455,
+      "fp": 133,
+      "fn": 105,
+      "fp_le2": 123,
+      "fp_le5": 123,
+      "fn_le2": 65,
+      "fn_le5": 78
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_114__adaxial.png",
+      "tp": 2032,
+      "fp": 112,
+      "fn": 84,
+      "fp_le2": 93,
+      "fp_le5": 93,
+      "fn_le2": 76,
+      "fn_le5": 84
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_118__abaxial.png",
+      "tp": 3756,
+      "fp": 193,
+      "fn": 123,
+      "fp_le2": 158,
+      "fp_le5": 163,
+      "fn_le2": 122,
+      "fn_le5": 123
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_118__adaxial.png",
+      "tp": 3207,
+      "fp": 373,
+      "fn": 157,
+      "fp_le2": 353,
+      "fp_le5": 362,
+      "fn_le2": 99,
+      "fn_le5": 127
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_123__abaxial.png",
+      "tp": 10515,
+      "fp": 792,
+      "fn": 58,
+      "fp_le2": 611,
+      "fp_le5": 698,
+      "fn_le2": 54,
+      "fn_le5": 58
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_123__adaxial.png",
+      "tp": 9839,
+      "fp": 420,
+      "fn": 54,
+      "fp_le2": 395,
+      "fp_le5": 420,
+      "fn_le2": 53,
+      "fn_le5": 54
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_129__abaxial.png",
+      "tp": 6343,
+      "fp": 424,
+      "fn": 200,
+      "fp_le2": 370,
+      "fp_le5": 386,
+      "fn_le2": 135,
+      "fn_le5": 185
+     },
+     {
+      "file": "20260628_Mcitricolor_GX_129__adaxial.png",
+      "tp": 5920,
+      "fp": 293,
+      "fn": 344,
+      "fp_le2": 283,
+      "fp_le5": 283,
+      "fn_le2": 132,
+      "fn_le5": 209
+     }
+    ]
+   }
+  },
+  "derived": {
+   "rust_fp_share_beyond_2px_of_reference_lesion": 0.3276636551758946,
+   "rust_fp_share_beyond_5px_of_reference_lesion": 0.17120072679553833,
+   "rust_fp_px_beyond_2px": 6492,
+   "rust_fp_px_beyond_5px": 3392,
+   "leaf_spot_fp_share_beyond_2px_of_reference_lesion": 0.15079090971886444,
+   "leaf_spot_fp_share_beyond_5px_of_reference_lesion": 0.08921047178282793,
+   "rust_worst_leaf": {
+    "leaf_id": "20260819_Hvastatrix_GX_074",
+    "fp": 3616,
+    "fp_share_within_2px": 0.42146017699115046,
+    "fp_share_beyond_2px": 0.5785398230088495,
+    "fp_share_beyond_5px": 0.327433628318584,
+    "fp_px_beyond_5px": 1184
+   },
+   "leaf_spot_worst_leaf": {
+    "leaf_id": "20260621_Mcitricolor_GX_246",
+    "leaf_ref_severity_pct": 0.28244718309931627,
+    "abaxial_face_ref_severity_pct": 0.3450501112852458,
+    "rank_of_leaf_ref_severity_ascending": 2,
+    "n_leaves": 55,
+    "union_lesion_px_abaxial": 276,
+    "union_lesion_px_adaxial": 235
+   }
+  }
+ },
+ "leaf_tables": {
+  "roya": [
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_003",
+    "ref_sev_pct": 3.124960463556888,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7979218917950556,
+    "iou_unetpp": 0.6804750869061413,
+    "iou_deeplab": 0.6614285714285715,
+    "pred_sev_segformer": 3.2181875592042943,
+    "pred_sev_unetpp": 4.139893861622401,
+    "pred_sev_deeplab": 4.141184044370713
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_009",
+    "ref_sev_pct": 16.64780763790665,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.8128904031800114,
+    "iou_unetpp": 0.7332232267037552,
+    "iou_deeplab": 0.7584489339912485,
+    "pred_sev_segformer": 19.474274723513382,
+    "pred_sev_unetpp": 20.585238430471673,
+    "pred_sev_deeplab": 18.6348059646198
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_013",
+    "ref_sev_pct": 4.712362301101591,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.857037037037037,
+    "iou_unetpp": 0.718936877076412,
+    "iou_deeplab": 0.7080536912751678,
+    "pred_sev_segformer": 5.171463443442655,
+    "pred_sev_unetpp": 5.3885269039655075,
+    "pred_sev_deeplab": 5.288075907267925
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_020",
+    "ref_sev_pct": 19.344143064943953,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.7665379891208984,
+    "iou_unetpp": 0.703916491341641,
+    "iou_deeplab": 0.7301324503311258,
+    "pred_sev_segformer": 23.730264002396133,
+    "pred_sev_unetpp": 25.107103299826544,
+    "pred_sev_deeplab": 22.64767490573942
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_021",
+    "ref_sev_pct": 5.231953757753687,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.812511776898436,
+    "iou_unetpp": 0.751861504095309,
+    "iou_deeplab": 0.7108367121267969,
+    "pred_sev_segformer": 5.758067465033367,
+    "pred_sev_unetpp": 5.458201990758002,
+    "pred_sev_deeplab": 5.232182987339519
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_037",
+    "ref_sev_pct": 0.9071676693103958,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.6810284920083391,
+    "iou_unetpp": 0.4958494742667405,
+    "iou_deeplab": 0.5112107623318386,
+    "pred_sev_segformer": 1.196787707069478,
+    "pred_sev_unetpp": 1.428387152255235,
+    "pred_sev_deeplab": 1.1232792589939102
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_038",
+    "ref_sev_pct": 5.382657250780095,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.7136966126656848,
+    "iou_unetpp": 0.4808461978273299,
+    "iou_deeplab": 0.38386710565698895,
+    "pred_sev_segformer": 6.51872399445215,
+    "pred_sev_unetpp": 10.352316602316602,
+    "pred_sev_deeplab": 13.512135427289415
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_040",
+    "ref_sev_pct": 1.8926296633303004,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8378205128205128,
+    "iou_unetpp": 0.7391841779975278,
+    "iou_deeplab": 0.6949055523755009,
+    "pred_sev_segformer": 2.1175483961143335,
+    "pred_sev_unetpp": 2.007386964342107,
+    "pred_sev_deeplab": 2.180837365646051
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_045",
+    "ref_sev_pct": 2.2517602976301467,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.803540437348143,
+    "iou_unetpp": 0.767416934619507,
+    "iou_deeplab": 0.7134602311352821,
+    "pred_sev_segformer": 2.3599343476910795,
+    "pred_sev_unetpp": 2.113484751527477,
+    "pred_sev_deeplab": 2.169902029573036
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_048",
+    "ref_sev_pct": 2.2494418900338564,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7157360406091371,
+    "iou_unetpp": 0.6171013713363808,
+    "iou_deeplab": 0.5802825021620064,
+    "pred_sev_segformer": 2.2468340401637286,
+    "pred_sev_unetpp": 2.173706275287352,
+    "pred_sev_deeplab": 1.7828426069413175
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_056",
+    "ref_sev_pct": 0.9683959451401312,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8176100628930818,
+    "iou_unetpp": 0.6067415730337079,
+    "iou_deeplab": 0.6462128475551294,
+    "pred_sev_segformer": 1.0967051266801475,
+    "pred_sev_unetpp": 1.400049413508712,
+    "pred_sev_deeplab": 1.0589625677209487
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_074",
+    "ref_sev_pct": 8.843563944570107,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.6383530089260006,
+    "iou_unetpp": 0.5759848211058909,
+    "iou_deeplab": 0.5912682734097194,
+    "pred_sev_segformer": 13.36344349138997,
+    "pred_sev_unetpp": 13.603354812314615,
+    "pred_sev_deeplab": 12.009187215318907
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_082",
+    "ref_sev_pct": 2.1438182089998503,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7990105132962276,
+    "iou_unetpp": 0.656355455568054,
+    "iou_deeplab": 0.6469939327082185,
+    "pred_sev_segformer": 2.2015253959014314,
+    "pred_sev_unetpp": 2.2217974355958123,
+    "pred_sev_deeplab": 2.239570556573688
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_088",
+    "ref_sev_pct": 1.2232062636375305,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.7603890362511052,
+    "iou_unetpp": 0.4886968085106383,
+    "iou_deeplab": 0.46589446589446587,
+    "pred_sev_segformer": 1.3291163553017402,
+    "pred_sev_unetpp": 1.6239014041822406,
+    "pred_sev_deeplab": 1.6518725377748966
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_095",
+    "ref_sev_pct": 7.422769949536545,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.7253554132166848,
+    "iou_unetpp": 0.6480183144942052,
+    "iou_deeplab": 0.6667220744680851,
+    "pred_sev_segformer": 9.098110725816095,
+    "pred_sev_unetpp": 9.648529411764706,
+    "pred_sev_deeplab": 7.607358281067131
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_116",
+    "ref_sev_pct": 3.827765273548406,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7908909574468085,
+    "iou_unetpp": 0.6316922249125639,
+    "iou_deeplab": 0.6083488433927147,
+    "pred_sev_segformer": 4.08447605778397,
+    "pred_sev_unetpp": 5.010924771013905,
+    "pred_sev_deeplab": 4.9216139809817525
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_123",
+    "ref_sev_pct": 0.4062043742862512,
+    "band": "lt0.5",
+    "ref_grade": 0,
+    "iou_segformer": 0.7450424929178471,
+    "iou_unetpp": 0.7142857142857143,
+    "iou_deeplab": 0.5894428152492669,
+    "pred_sev_segformer": 0.4834682714926902,
+    "pred_sev_unetpp": 0.4018117022333915,
+    "pred_sev_deeplab": 0.3767212262925435
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_125",
+    "ref_sev_pct": 10.387492980199633,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.7655889145496536,
+    "iou_unetpp": 0.5515097690941385,
+    "iou_deeplab": 0.5837600585223116,
+    "pred_sev_segformer": 11.755341281183856,
+    "pred_sev_unetpp": 17.739930382894084,
+    "pred_sev_deeplab": 16.799215406562055
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_137",
+    "ref_sev_pct": 9.87525865999509,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.7636083862281208,
+    "iou_unetpp": 0.6449035110090963,
+    "iou_deeplab": 0.6335388409371147,
+    "pred_sev_segformer": 11.554096675466672,
+    "pred_sev_unetpp": 12.56613299215049,
+    "pred_sev_deeplab": 13.1849236024558
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_138",
+    "ref_sev_pct": 7.455066252678533,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.8294455066921607,
+    "iou_unetpp": 0.7809643080776456,
+    "iou_deeplab": 0.7425225913198422,
+    "pred_sev_segformer": 8.233416764124032,
+    "pred_sev_unetpp": 7.969937765144174,
+    "pred_sev_deeplab": 7.382341250657986
+   },
+   {
+    "leaf_id": "20260819_Hvastatrix_GX_141",
+    "ref_sev_pct": 0.674527830518637,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.6791131855309218,
+    "iou_unetpp": 0.5894039735099338,
+    "iou_deeplab": 0.6365824308062575,
+    "pred_sev_segformer": 0.7623685313429261,
+    "pred_sev_unetpp": 0.7538208369874757,
+    "pred_sev_deeplab": 0.669507594268624
+   }
+  ],
+  "ojo": [
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_001",
+    "ref_sev_pct": 3.612562265616654,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.9234487723983859,
+    "iou_unetpp": 0.8962003896985579,
+    "iou_deeplab": 0.8615984783651713,
+    "pred_sev_segformer": 3.55976984018831,
+    "pred_sev_unetpp": 3.448773751641264,
+    "pred_sev_deeplab": 3.607749704178813
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_019",
+    "ref_sev_pct": 2.236404333146722,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8559982856300979,
+    "iou_unetpp": 0.8598694265713154,
+    "iou_deeplab": 0.8015664087092658,
+    "pred_sev_segformer": 2.0782932479338494,
+    "pred_sev_unetpp": 2.049100173530692,
+    "pred_sev_deeplab": 2.107553966947235
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_021",
+    "ref_sev_pct": 1.936682875314461,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.9197191318114357,
+    "iou_unetpp": 0.8830657026528042,
+    "iou_deeplab": 0.8624835534747022,
+    "pred_sev_segformer": 1.9109555229586055,
+    "pred_sev_unetpp": 1.9284974921099183,
+    "pred_sev_deeplab": 2.0007315047386434
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_026",
+    "ref_sev_pct": 4.152691989510005,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.9484468575421459,
+    "iou_unetpp": 0.939954799334933,
+    "iou_deeplab": 0.8978810087748403,
+    "pred_sev_segformer": 4.1975674086944705,
+    "pred_sev_unetpp": 4.208264266627453,
+    "pred_sev_deeplab": 4.4037035720596815
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_030",
+    "ref_sev_pct": 4.919769483250816,
+    "band": "2-5",
+    "ref_grade": 2,
+    "iou_segformer": 0.9489047559743728,
+    "iou_unetpp": 0.9279699568243024,
+    "iou_deeplab": 0.9126185899283409,
+    "pred_sev_segformer": 5.060288483196406,
+    "pred_sev_unetpp": 5.1436756409815985,
+    "pred_sev_deeplab": 5.127566734629621
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_038",
+    "ref_sev_pct": 4.163749566754946,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8868809067584684,
+    "iou_unetpp": 0.861800676843858,
+    "iou_deeplab": 0.8223135607922836,
+    "pred_sev_segformer": 4.354360083456111,
+    "pred_sev_unetpp": 4.104726270499375,
+    "pred_sev_deeplab": 4.385733173961237
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_048",
+    "ref_sev_pct": 5.851271392920521,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9555102163907654,
+    "iou_unetpp": 0.9322162677724161,
+    "iou_deeplab": 0.9143299135075451,
+    "pred_sev_segformer": 5.902059166348343,
+    "pred_sev_unetpp": 5.752235667961598,
+    "pred_sev_deeplab": 5.663793179799083
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_067",
+    "ref_sev_pct": 10.805591236254724,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9005349583005816,
+    "iou_unetpp": 0.8823529543869342,
+    "iou_deeplab": 0.8508652676528874,
+    "pred_sev_segformer": 11.319836762390919,
+    "pred_sev_unetpp": 10.701526973110054,
+    "pred_sev_deeplab": 11.056828941863603
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_073",
+    "ref_sev_pct": 0.9652935650085435,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.838443625504808,
+    "iou_unetpp": 0.7908036056770233,
+    "iou_deeplab": 0.7887069783008869,
+    "pred_sev_segformer": 0.9452687814834202,
+    "pred_sev_unetpp": 0.983706135618203,
+    "pred_sev_deeplab": 0.9520211087096522
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_076",
+    "ref_sev_pct": 0.5449976631037645,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.905803415824329,
+    "iou_unetpp": 0.9063898720901924,
+    "iou_deeplab": 0.8882086406743941,
+    "pred_sev_segformer": 0.48987777778786357,
+    "pred_sev_unetpp": 0.5061347705938603,
+    "pred_sev_deeplab": 0.5579479594138295
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_085",
+    "ref_sev_pct": 0.13195168838689975,
+    "band": "lt0.5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7795862068965518,
+    "iou_unetpp": 0.7404354124062713,
+    "iou_deeplab": 0.6979889750918742,
+    "pred_sev_segformer": 0.10659431434405445,
+    "pred_sev_unetpp": 0.13136302474599465,
+    "pred_sev_deeplab": 0.10606005055977619
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_093",
+    "ref_sev_pct": 8.553437650648206,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.8104573065976881,
+    "iou_unetpp": 0.7986716624896784,
+    "iou_deeplab": 0.7294052569038492,
+    "pred_sev_segformer": 9.828783934686204,
+    "pred_sev_unetpp": 8.071340539033354,
+    "pred_sev_deeplab": 7.671709209407788
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_108",
+    "ref_sev_pct": 4.267021573741801,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.9119073188757246,
+    "iou_unetpp": 0.8849781861670629,
+    "iou_deeplab": 0.865474933272733,
+    "pred_sev_segformer": 4.128261098799748,
+    "pred_sev_unetpp": 4.059400967993164,
+    "pred_sev_deeplab": 4.053761454863114
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_110",
+    "ref_sev_pct": 4.799400154101193,
+    "band": "2-5",
+    "ref_grade": 2,
+    "iou_segformer": 0.9389390180313675,
+    "iou_unetpp": 0.908777463500486,
+    "iou_deeplab": 0.8747923503084196,
+    "pred_sev_segformer": 4.82329439336271,
+    "pred_sev_unetpp": 4.884753704663254,
+    "pred_sev_deeplab": 4.923511592302434
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_112",
+    "ref_sev_pct": 0.38706539111890936,
+    "band": "lt0.5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8962425840474622,
+    "iou_unetpp": 0.8758623068432672,
+    "iou_deeplab": 0.8771909418572926,
+    "pred_sev_segformer": 0.3520201353759383,
+    "pred_sev_unetpp": 0.39349225688827516,
+    "pred_sev_deeplab": 0.4081773932652335
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_113",
+    "ref_sev_pct": 0.3988365813483399,
+    "band": "lt0.5",
+    "ref_grade": 1,
+    "iou_segformer": 0.831002331002331,
+    "iou_unetpp": 0.8464104075416559,
+    "iou_deeplab": 0.7810211738174124,
+    "pred_sev_segformer": 0.3376796218969476,
+    "pred_sev_unetpp": 0.375644051812153,
+    "pred_sev_deeplab": 0.36885528278304963
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_123",
+    "ref_sev_pct": 0.6022365650035256,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8725,
+    "iou_unetpp": 0.8307630818422185,
+    "iou_deeplab": 0.7784986296676945,
+    "pred_sev_segformer": 0.588735817900653,
+    "pred_sev_unetpp": 0.5666384475337345,
+    "pred_sev_deeplab": 0.6279754334265781
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_154",
+    "ref_sev_pct": 1.9405586279036533,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.7433173602642713,
+    "iou_unetpp": 0.6182026988228538,
+    "iou_deeplab": 0.5193358534636425,
+    "pred_sev_segformer": 2.028011334585007,
+    "pred_sev_unetpp": 1.4784437495078608,
+    "pred_sev_deeplab": 1.2823890605014285
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_155",
+    "ref_sev_pct": 0.601069546277644,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.739492535490232,
+    "iou_unetpp": 0.5865105561262581,
+    "iou_deeplab": 0.5562979004917992,
+    "pred_sev_segformer": 0.44753074663177683,
+    "pred_sev_unetpp": 0.5445606883364402,
+    "pred_sev_deeplab": 0.465158166597623
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_166",
+    "ref_sev_pct": 5.957059331860554,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9469615465117578,
+    "iou_unetpp": 0.9295902566009726,
+    "iou_deeplab": 0.8996333085253425,
+    "pred_sev_segformer": 6.002423133376804,
+    "pred_sev_unetpp": 5.9160817213774175,
+    "pred_sev_deeplab": 6.170481693435153
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_172",
+    "ref_sev_pct": 0.3576509375899905,
+    "band": "lt0.5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8231574063900182,
+    "iou_unetpp": 0.7084483938728787,
+    "iou_deeplab": 0.7040869303373587,
+    "pred_sev_segformer": 0.30485652737093843,
+    "pred_sev_unetpp": 0.2626260712983765,
+    "pred_sev_deeplab": 0.29699982295379956
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_179",
+    "ref_sev_pct": 2.1367926511994715,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7926708313310908,
+    "iou_unetpp": 0.7634821158298781,
+    "iou_deeplab": 0.7041792970312715,
+    "pred_sev_segformer": 2.2246961063044255,
+    "pred_sev_unetpp": 2.0133436938687757,
+    "pred_sev_deeplab": 2.0819486708150294
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_182",
+    "ref_sev_pct": 3.0789473166180414,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8770100487042798,
+    "iou_unetpp": 0.875802305352047,
+    "iou_deeplab": 0.8306621558338636,
+    "pred_sev_segformer": 3.3157380630483173,
+    "pred_sev_unetpp": 2.907639996482311,
+    "pred_sev_deeplab": 3.058524336150111
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_191",
+    "ref_sev_pct": 0.9538166775555834,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8615605537788251,
+    "iou_unetpp": 0.7577975152571927,
+    "iou_deeplab": 0.732959887806977,
+    "pred_sev_segformer": 0.8828671936703907,
+    "pred_sev_unetpp": 0.9785431416589254,
+    "pred_sev_deeplab": 0.809648017760582
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_193",
+    "ref_sev_pct": 0.6751304326458536,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.9305010127250597,
+    "iou_unetpp": 0.871023795427871,
+    "iou_deeplab": 0.8519553283262449,
+    "pred_sev_segformer": 0.6510308728443529,
+    "pred_sev_unetpp": 0.6829269551796397,
+    "pred_sev_deeplab": 0.6471073881688638
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_195",
+    "ref_sev_pct": 0.3442961243049342,
+    "band": "lt0.5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7415944711026679,
+    "iou_unetpp": 0.6664236520444251,
+    "iou_deeplab": 0.6434005661712667,
+    "pred_sev_segformer": 0.2912427886231778,
+    "pred_sev_unetpp": 0.2860195224769485,
+    "pred_sev_deeplab": 0.29716210344934935
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_201",
+    "ref_sev_pct": 0.7448906090729954,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8796880739743018,
+    "iou_unetpp": 0.8721193948480306,
+    "iou_deeplab": 0.8145025638243034,
+    "pred_sev_segformer": 0.6892082033574748,
+    "pred_sev_unetpp": 0.7301238652685942,
+    "pred_sev_deeplab": 0.7455117045039806
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_202",
+    "ref_sev_pct": 0.6372058196465391,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8856979518791013,
+    "iou_unetpp": 0.842954834605598,
+    "iou_deeplab": 0.7968260367607982,
+    "pred_sev_segformer": 0.6083737680309935,
+    "pred_sev_unetpp": 0.571684663118155,
+    "pred_sev_deeplab": 0.5945542501510424
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_205",
+    "ref_sev_pct": 5.738237488082908,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9262501833271506,
+    "iou_unetpp": 0.9021713665541256,
+    "iou_deeplab": 0.8569599742532884,
+    "pred_sev_segformer": 5.911794454684577,
+    "pred_sev_unetpp": 5.883228608162689,
+    "pred_sev_deeplab": 5.966868795263869
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_206",
+    "ref_sev_pct": 6.995986838370083,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.8979844594703421,
+    "iou_unetpp": 0.8783684890273273,
+    "iou_deeplab": 0.8504926108292357,
+    "pred_sev_segformer": 7.189930448932975,
+    "pred_sev_unetpp": 6.894808728659978,
+    "pred_sev_deeplab": 7.028751418418
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_210",
+    "ref_sev_pct": 9.834487604747359,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9334861981609659,
+    "iou_unetpp": 0.9205172370711717,
+    "iou_deeplab": 0.8887151041095362,
+    "pred_sev_segformer": 10.224448847160804,
+    "pred_sev_unetpp": 9.953889017201945,
+    "pred_sev_deeplab": 10.173597601650673
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_218",
+    "ref_sev_pct": 7.457235754608536,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.891466549386281,
+    "iou_unetpp": 0.8797594128376556,
+    "iou_deeplab": 0.8336716651518048,
+    "pred_sev_segformer": 8.008877572204943,
+    "pred_sev_unetpp": 7.275403004557484,
+    "pred_sev_deeplab": 7.4339538595559524
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_228",
+    "ref_sev_pct": 0.6238236366206269,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.8292194984502677,
+    "iou_unetpp": 0.791715947171299,
+    "iou_deeplab": 0.7119964455965819,
+    "pred_sev_segformer": 0.6403442148734013,
+    "pred_sev_unetpp": 0.6457617572184676,
+    "pred_sev_deeplab": 0.7328783106032024
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_230",
+    "ref_sev_pct": 3.922090691499289,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.9038226222792278,
+    "iou_unetpp": 0.8781220630300581,
+    "iou_deeplab": 0.8373858570102763,
+    "pred_sev_segformer": 4.092689608499703,
+    "pred_sev_unetpp": 3.942383895385291,
+    "pred_sev_deeplab": 3.7935011969081165
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_246",
+    "ref_sev_pct": 0.28244718309931627,
+    "band": "lt0.5",
+    "ref_grade": 1,
+    "iou_segformer": 0.7323620104841196,
+    "iou_unetpp": 0.6604609929078014,
+    "iou_deeplab": 0.6408730158730158,
+    "pred_sev_segformer": 0.301975032632431,
+    "pred_sev_unetpp": 0.3386339232055412,
+    "pred_sev_deeplab": 0.32421008035080484
+   },
+   {
+    "leaf_id": "20260621_Mcitricolor_GX_266",
+    "ref_sev_pct": 0.7919436882456593,
+    "band": "0.5-2",
+    "ref_grade": 1,
+    "iou_segformer": 0.9191364744484138,
+    "iou_unetpp": 0.824598100109609,
+    "iou_deeplab": 0.7715070417860581,
+    "pred_sev_segformer": 0.7755671295808326,
+    "pred_sev_unetpp": 0.8703777703464619,
+    "pred_sev_deeplab": 0.9093089088339088
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_007",
+    "ref_sev_pct": 11.734141971172928,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9609732725643524,
+    "iou_unetpp": 0.9488554130295934,
+    "iou_deeplab": 0.9156623290983926,
+    "pred_sev_segformer": 11.974379936311184,
+    "pred_sev_unetpp": 12.015391182189934,
+    "pred_sev_deeplab": 12.388396246629183
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_009",
+    "ref_sev_pct": 5.442979332442361,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9373293123875333,
+    "iou_unetpp": 0.92275406878,
+    "iou_deeplab": 0.8862529567961337,
+    "pred_sev_segformer": 5.602627852528147,
+    "pred_sev_unetpp": 5.374356363668445,
+    "pred_sev_deeplab": 5.680468748310169
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_015",
+    "ref_sev_pct": 7.16192404825588,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.933821603822147,
+    "iou_unetpp": 0.9256161578906299,
+    "iou_deeplab": 0.8786212208598301,
+    "pred_sev_segformer": 7.415186227740707,
+    "pred_sev_unetpp": 7.314334659343592,
+    "pred_sev_deeplab": 7.662401784390855
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_017",
+    "ref_sev_pct": 2.9481649898743596,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.9224837419118168,
+    "iou_unetpp": 0.89593870976032,
+    "iou_deeplab": 0.8678817823609588,
+    "pred_sev_segformer": 2.969665156042179,
+    "pred_sev_unetpp": 3.1221877121863053,
+    "pred_sev_deeplab": 3.115379520569892
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_020",
+    "ref_sev_pct": 10.309211098113607,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9176294601136401,
+    "iou_unetpp": 0.9109191814082553,
+    "iou_deeplab": 0.8717001898239817,
+    "pred_sev_segformer": 10.721119239045706,
+    "pred_sev_unetpp": 10.122404839758552,
+    "pred_sev_deeplab": 10.18743661609738
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_029",
+    "ref_sev_pct": 7.441512013322887,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9169955981743333,
+    "iou_unetpp": 0.8907375511540705,
+    "iou_deeplab": 0.8596518747510495,
+    "pred_sev_segformer": 7.791922850171762,
+    "pred_sev_unetpp": 7.527062402716853,
+    "pred_sev_deeplab": 7.6853845279019595
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_031",
+    "ref_sev_pct": 26.781319663547997,
+    "band": "ge20",
+    "ref_grade": 3,
+    "iou_segformer": 0.9520979885494356,
+    "iou_unetpp": 0.9499941128506646,
+    "iou_deeplab": 0.9198916772388366,
+    "pred_sev_segformer": 27.884656900492423,
+    "pred_sev_unetpp": 27.22532784041544,
+    "pred_sev_deeplab": 27.707407442091835
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_046",
+    "ref_sev_pct": 2.4511284777288136,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8608955013148374,
+    "iou_unetpp": 0.8290421803427913,
+    "iou_deeplab": 0.7646351728483975,
+    "pred_sev_segformer": 2.443324719049574,
+    "pred_sev_unetpp": 2.4731675050390245,
+    "pred_sev_deeplab": 2.237112265374866
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_064",
+    "ref_sev_pct": 23.74117195523523,
+    "band": "ge20",
+    "ref_grade": 3,
+    "iou_segformer": 0.954000986055551,
+    "iou_unetpp": 0.9456555272545917,
+    "iou_deeplab": 0.8990822733899316,
+    "pred_sev_segformer": 24.655200557146987,
+    "pred_sev_unetpp": 24.342687365150994,
+    "pred_sev_deeplab": 25.156703235813225
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_078",
+    "ref_sev_pct": 11.141305441576595,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9044722634284335,
+    "iou_unetpp": 0.8994856116918337,
+    "iou_deeplab": 0.857490003193728,
+    "pred_sev_segformer": 11.795660491621291,
+    "pred_sev_unetpp": 11.091349697024974,
+    "pred_sev_deeplab": 11.572677778777372
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_081",
+    "ref_sev_pct": 8.2753397647214,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9020349320136913,
+    "iou_unetpp": 0.8800335585779631,
+    "iou_deeplab": 0.827238425441891,
+    "pred_sev_segformer": 8.597733604851562,
+    "pred_sev_unetpp": 8.218840735168715,
+    "pred_sev_deeplab": 8.518474170532208
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_098",
+    "ref_sev_pct": 9.651512576337566,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9179525623163118,
+    "iou_unetpp": 0.9198152010198966,
+    "iou_deeplab": 0.896009242489135,
+    "pred_sev_segformer": 10.234857747714237,
+    "pred_sev_unetpp": 9.812445491345303,
+    "pred_sev_deeplab": 9.87541334973628
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_100",
+    "ref_sev_pct": 5.542036182604436,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9151616610457989,
+    "iou_unetpp": 0.8919910039135348,
+    "iou_deeplab": 0.8578812171831931,
+    "pred_sev_segformer": 5.558891971245503,
+    "pred_sev_unetpp": 5.545924048633039,
+    "pred_sev_deeplab": 5.781304400876751
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_101",
+    "ref_sev_pct": 3.7340781649911836,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.8168064335094205,
+    "iou_unetpp": 0.7697722412039332,
+    "iou_deeplab": 0.7463594531622975,
+    "pred_sev_segformer": 3.8114162883336116,
+    "pred_sev_unetpp": 3.4271357870911334,
+    "pred_sev_deeplab": 3.3758963677129143
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_102",
+    "ref_sev_pct": 10.742373524992114,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.8049767459447872,
+    "iou_unetpp": 0.7768641032944775,
+    "iou_deeplab": 0.6934701211791164,
+    "pred_sev_segformer": 10.259633615332946,
+    "pred_sev_unetpp": 9.577309069740329,
+    "pred_sev_deeplab": 9.676188270004772
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_114",
+    "ref_sev_pct": 3.836507360976147,
+    "band": "2-5",
+    "ref_grade": 1,
+    "iou_segformer": 0.9118257254495163,
+    "iou_unetpp": 0.887371886757228,
+    "iou_deeplab": 0.849002904474814,
+    "pred_sev_segformer": 3.878654783404514,
+    "pred_sev_unetpp": 3.958901145579256,
+    "pred_sev_deeplab": 3.964725551231874
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_118",
+    "ref_sev_pct": 5.8767284386720515,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.8902859316356952,
+    "iou_unetpp": 0.8461484281161415,
+    "iou_deeplab": 0.8118540070779587,
+    "pred_sev_segformer": 6.098344009060366,
+    "pred_sev_unetpp": 5.933873868490924,
+    "pred_sev_deeplab": 6.1135606612193545
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_123",
+    "ref_sev_pct": 15.728524682933298,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9396237834956362,
+    "iou_unetpp": 0.94157771425986,
+    "iou_deeplab": 0.9012821900211774,
+    "pred_sev_segformer": 16.576352440546188,
+    "pred_sev_unetpp": 16.0212904656221,
+    "pred_sev_deeplab": 16.569599191693758
+   },
+   {
+    "leaf_id": "20260628_Mcitricolor_GX_129",
+    "ref_sev_pct": 8.790843622991554,
+    "band": "5-20",
+    "ref_grade": 2,
+    "iou_segformer": 0.9066434107028758,
+    "iou_unetpp": 0.8883270533027523,
+    "iou_deeplab": 0.8522852145832396,
+    "pred_sev_segformer": 8.913225564143946,
+    "pred_sev_unetpp": 8.682365670097582,
+    "pred_sev_deeplab": 9.021882339262525
+   }
+  ]
+ },
+ "notes": {
+  "reproduction": "All published leaf-level values (IoU, MAE, bias, QWK, Bland–Altman LoA) reproduced exactly at the printed precision for all six models before any figure was drawn (the script stops otherwise).",
+  "figure4_label_fix": "Rust UNet++ leaf IoU is 0.646541 (exact mean of 21 abaxial-face IoUs), which rounds to 0.647; the current figure4.png label 0.646 does not match the leaf-level mean (cause not traced).",
+  "figure4_annotation": "The 'n = ... test leaves' note of each Figure 4 panel is right-aligned to the right end of the drawn x-axis (checked in rendered coordinates), so it no longer extends past the axis.",
+  "severity_labels": "Figure 14 prints two severities per leaf, each labelled: the leaf severity (mean of the two faces; the value that sets the leaf's Figure 12 band and the value quoted in sentence 5) and the abaxial-face severity of the face shown. They differ, e.g. GX_246 reference 0.28% (leaf) vs 0.35% (abaxial face); GX_230 reference 3.92% (leaf) vs 4.33% (abaxial face); GX_007 reference 11.73% (leaf) vs 11.88% (abaxial face). Figure 13 prints the leaf severity, which for rust is by definition the abaxial-face severity (asserted equal). The printed leaf severities are asserted equal to the Figure 12 leaf table.",
+  "healthy_leaves": "Only 21 of the 54 healthy rust-pack test leaves (EARTH site) are available locally. None of Figures 4, 12, 13 or 14 uses healthy leaves: leaf IoU, as in the paper, is computed on the test leaves with disease (rust 21, leaf spot 55), so this local gap does not affect these figures.",
+  "leaf_spot_face_rule": "The requested rule 'face whose IoU is closest to the leaf mean' is degenerate: the leaf IoU is the mean of the two face IoUs, so both faces are exactly equidistant from it (asserted with exact fractions for the three selected leaves). A pre-specified, IoU-independent tie-break was used: the abaxial face (as for rust and for paper Figure 2). Both face IoUs are printed in Figure 14. Under an alternative reading (face closest to the disease-level mean 0.884) the faces would be abaxial, abaxial, adaxial (worst, median, best).",
+  "extra_band": "Bands 0.5–<2, 2–<5, 5–<20 and ≥20% were used as requested. One rust and six leaf-spot test leaves have reference severity <0.5%; they are shown as an additional '<0.5' band (the G0 range) so that every test leaf is counted (n sums to 21 and 55). Dropping that band leaves the other four bands unchanged. The six leaf-spot leaves below 0.5% all carry annotator grade G1 (the leaf-spot grade is visual).",
+  "small_n": "CIs are omitted for n < 3 (rust <0.5%: n = 1; leaf spot ≥20%: n = 2); no rust test leaf reached 20%. Percentile bootstrap CIs for bands with n = 5–6 rest on few distinct resamples (126 multisets for n = 5, 462 for n = 6) and are likely too narrow; treat per-band trends as descriptive.",
+  "rust_reference": "The rust reference masks are semi-automatic (colour detector + SAM 2, spot-checked, not edited), so rust FP/FN in Figure 13 and in the error-location summary are disagreements with that reference.",
+  "cnn_protocol": "Model contrasts compare the published single-run models, whose training protocols differ (CNNs: photometric jitter p = 0.8, 30 epochs, FP-penalised selection for rust). Matched retraining is in progress; Figures 4 and 12 will need regenerating with those models (% TODO(retraining)).",
+  "test_leaves_shown": "Figures 13 and 14 show three test leaves per disease, as the current Figures 9 and 10 already do. The data-availability statement says the held-out test set is withheld pending peer review; the author may wish to confirm that showing these six test scans is compatible with that.",
+  "selection_unchanged": "The selected leaves have leaf IoUs 0.638/0.767/0.857 (rust) and 0.732/0.904/0.961 (leaf spot), matching the values printed in the current figure9/figure10 to two decimals, so the leaf selection appears unchanged; the overlays are what was wrong (they are now registered).",
+  "rendering": "Qualitative panels are drawn in the 1024 x 1024 letterbox space; the PDF embeds the native pixels (interpolation 'none'), the 600 dpi PNG upsamples them with nearest neighbour. Outlines are vector 0.5-level contours of the binary masks with a thin dark halo.",
+  "colours": "Model colours/markers as specified. The disease colours of figure5 (rendered ≈ #CC7951 rust, ≈ #448BB0 leaf spot) are not used, because model is the encoded variable in these figures.",
+  "file_mapping": {
+   "figure4": "replaces manuscript figures/figure4.png (label fig4)",
+   "figure12": "replaces manuscript figures/figure8.png (label fig8)",
+   "figure13": "replaces manuscript figures/figure9.png (label fig9)",
+   "figure14": "replaces manuscript figures/figure10.png (label fig10)"
+  }
+ }
+}

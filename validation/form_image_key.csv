@@ -1,0 +1,61 @@
+form_id,leaf_id,score,second_best,second_score,margin,model_split,other_packs
+ojo01,20260621_Mcitricolor_GX_246,0.7342,20260612_Healthy_027,0.53,0.2042,test,pg26038-ojo-balanced:test
+ojo02,20260628_Mcitricolor_GX_102,0.7625,20260621_Mcitricolor_GX_139,0.5354,0.2271,test,pg26038-ojo-balanced:test
+ojo03,20260628_Mcitricolor_GX_118,0.7034,20260819_Hvastatrix_GX_049,0.5606,0.1428,test,pg26038-ojo-balanced:test
+ojo04,20260621_Mcitricolor_GX_038,0.5977,20260819_Hvastatrix_GX_071,0.5194,0.0783,test,pg26038-ojo-balanced:test
+ojo05,20260621_Mcitricolor_GX_112,0.7473,20260819_Hvastatrix_GX_076,0.5135,0.2339,test,pg26038-ojo-balanced:test
+ojo06,20260621_Mcitricolor_GX_021,0.7477,20260621_Mcitricolor_GX_066,0.5514,0.1963,test,pg26038-ojo-balanced:test
+ojo07,20260628_Mcitricolor_GX_007,0.7977,20260819_Hvastatrix_GX_102,0.5417,0.256,test,pg26038-ojo-balanced:test
+ojo08,20260621_Mcitricolor_GX_179,0.6974,20260819_Hvastatrix_GX_120,0.5191,0.1783,test,pg26038-ojo-balanced:test
+ojo09,20260621_Mcitricolor_GX_093,0.608,20260819_Hvastatrix_GX_030,0.4935,0.1145,test,pg26038-ojo-balanced:test
+ojo10,20260621_Mcitricolor_GX_155,0.7604,20260819_Hvastatrix_GX_124,0.5051,0.2553,test,pg26038-ojo-balanced:test
+ojo11,20260615_Healthy_129,0.6745,20260819_Hvastatrix_GX_048,0.5408,0.1338,NOT IN PACK,
+ojo12,20260628_Mcitricolor_GX_078,0.6391,20260819_Hvastatrix_GX_047,0.4757,0.1635,test,pg26038-ojo-balanced:test
+ojo13,20260628_Mcitricolor_GX_129,0.7242,20260615_Healthy_114,0.5065,0.2178,test,pg26038-ojo-balanced:test
+ojo14,20260628_Mcitricolor_GX_031,0.7371,20260819_Hvastatrix_GX_054,0.5189,0.2182,test,pg26038-ojo-balanced:test
+ojo15,20260621_Mcitricolor_GX_019,0.6911,20260621_Mcitricolor_GX_011,0.5612,0.1299,test,pg26038-ojo-balanced:test
+ojo16,20260628_Mcitricolor_GX_098,0.7242,20260819_Hvastatrix_GX_076,0.5209,0.2033,test,pg26038-ojo-balanced:test
+ojo17,20260621_Mcitricolor_GX_076,0.7291,20260819_Hvastatrix_GX_055,0.5524,0.1767,test,pg26038-ojo-balanced:test
+ojo18,20260628_Mcitricolor_GX_064,0.7177,20260628_Mcitricolor_GX_007,0.4986,0.2191,test,pg26038-ojo-balanced:test
+ojo19,20260621_Mcitricolor_GX_123,0.6647,20260621_Mcitricolor_GX_063,0.5098,0.1549,test,pg26038-ojo-balanced:test
+ojo20,20260628_Mcitricolor_GX_123,0.6899,20260819_Hvastatrix_GX_076,0.5082,0.1817,test,pg26038-ojo-balanced:test
+ojo21,20260628_Mcitricolor_GX_017,0.6569,20260819_Hvastatrix_GX_042,0.5283,0.1286,test,pg26038-ojo-balanced:test
+ojo22,20260621_Mcitricolor_GX_195,0.7743,20260819_Hvastatrix_GX_068,0.5372,0.2371,test,pg26038-ojo-balanced:test
+ojo23,20260628_Mcitricolor_GX_015,0.747,20260628_Mcitricolor_GX_079,0.5498,0.1972,test,pg26038-ojo-balanced:test
+ojo24,20260615_Healthy_118,0.6928,20260819_Hvastatrix_GX_048,0.5354,0.1574,NOT IN PACK,
+ojo25,20260628_Mcitricolor_GX_046,0.6833,20260819_Hvastatrix_GX_113,0.558,0.1253,test,pg26038-ojo-balanced:test
+ojo26,20260621_Mcitricolor_GX_073,0.7215,20260819_Hvastatrix_GX_041,0.5416,0.1799,test,pg26038-ojo-balanced:test
+ojo27,20260615_Healthy_114,0.7801,20260612_Healthy_062,0.5153,0.2648,NOT IN PACK,
+ojo28,20260621_Mcitricolor_GX_266,0.5652,20260819_Hvastatrix_GX_103,0.5406,0.0246,test,pg26038-ojo-balanced:test
+ojo29,20260628_Mcitricolor_GX_020,0.7948,20260819_Hvastatrix_GX_045,0.4958,0.2991,test,pg26038-ojo-balanced:test
+ojo30,20260621_Mcitricolor_GX_210,0.6097,20260819_Hvastatrix_GX_101,0.4871,0.1226,test,pg26038-ojo-balanced:test
+roya01,20260612_Healthy_004,0.7112,20260615_Healthy_193,0.5174,0.1938,train,
+roya02,20260612_Healthy_048,0.606,20260819_Hvastatrix_GX_117,0.5328,0.0732,NOT IN PACK,
+roya03,20260819_Hvastatrix_GX_123,0.6426,20260819_Hvastatrix_GX_076,0.539,0.1036,test,pg26038-roya-grade-pack-v2:test
+roya04,20260819_Hvastatrix_GX_040,0.6716,20260819_Hvastatrix_GX_042,0.5546,0.1171,test,pg26038-roya-grade-pack-v2:test
+roya05,20260819_Hvastatrix_GX_138,0.7613,20260819_Hvastatrix_GX_041,0.5431,0.2183,test,pg26038-roya-grade-pack-v2:test
+roya06,20260819_Hvastatrix_GX_048,0.7822,20260819_Hvastatrix_GX_043,0.5657,0.2165,test,pg26038-roya-grade-pack-v2:test
+roya07,20260819_Hvastatrix_GX_009,0.8014,20260819_Hvastatrix_GX_138,0.5486,0.2528,test,pg26038-roya-grade-pack-v2:test
+roya08,20260612_Healthy_092,0.677,20260819_Hvastatrix_GX_069,0.5235,0.1535,NOT IN PACK,
+roya09,20260819_Hvastatrix_GX_038,0.5433,20260819_Hvastatrix_GX_031,0.5028,0.0405,test,pg26038-roya-grade-pack-v2:test
+roya10,20260819_Hvastatrix_GX_003,0.7249,20260819_Hvastatrix_GX_129,0.523,0.2019,test,pg26038-roya-grade-pack-v2:test
+roya11,20260819_Hvastatrix_GX_137,0.7184,20260819_Hvastatrix_GX_123,0.5395,0.1788,test,pg26038-roya-grade-pack-v2:test
+roya12,20260819_Hvastatrix_GX_037,0.8047,20260819_Hvastatrix_GX_027,0.572,0.2327,test,pg26038-roya-grade-pack-v2:test
+roya13,20260819_Hvastatrix_GX_013,0.687,20260819_Hvastatrix_GX_004,0.4745,0.2126,test,pg26038-roya-grade-pack-v2:test
+roya14,20260615_Healthy_159,0.6918,20260819_Hvastatrix_GX_132,0.5337,0.1582,train,
+roya15,20260819_Hvastatrix_GX_020,0.641,20260819_Hvastatrix_GX_076,0.5127,0.1283,test,pg26038-roya-grade-pack-v2:test
+roya16,20260819_Hvastatrix_GX_045,0.8071,20260819_Hvastatrix_GX_040,0.5439,0.2632,test,pg26038-roya-grade-pack-v2:test
+roya17,20260819_Hvastatrix_GX_125,0.6481,20260615_Healthy_137,0.5041,0.1441,test,pg26038-roya-grade-pack-v2:test
+roya18,20260615_Healthy_182,0.7356,20260819_Hvastatrix_GX_030,0.5175,0.2181,train,
+roya19,20260615_Healthy_130,0.6349,20260819_Hvastatrix_GX_048,0.5006,0.1343,train,
+roya20,20260819_Hvastatrix_GX_056,0.7227,20260819_Hvastatrix_GX_060,0.5391,0.1836,test,pg26038-roya-grade-pack-v2:test
+roya21,20260819_Hvastatrix_GX_095,0.6962,20260819_Hvastatrix_GX_049,0.5252,0.171,test,pg26038-roya-grade-pack-v2:test
+roya22,20260819_Hvastatrix_GX_088,0.643,20260819_Hvastatrix_GX_018,0.5083,0.1347,test,pg26038-roya-grade-pack-v2:test
+roya23,20260819_Hvastatrix_GX_116,0.7213,20260819_Hvastatrix_GX_030,0.5516,0.1697,test,pg26038-roya-grade-pack-v2:test
+roya24,20260819_Hvastatrix_GX_082,0.7535,20260819_Hvastatrix_GX_083,0.4959,0.2576,test,pg26038-roya-grade-pack-v2:test
+roya25,20260819_Hvastatrix_GX_074,0.7632,20260819_Hvastatrix_GX_042,0.5461,0.2171,test,pg26038-roya-grade-pack-v2:test
+roya26,20260612_Healthy_062,0.7003,20260819_Hvastatrix_GX_030,0.5413,0.159,train,
+roya27,20260819_Hvastatrix_GX_021,0.7225,20260819_Hvastatrix_GX_059,0.5206,0.202,test,pg26038-roya-grade-pack-v2:test
+roya28,20260612_Healthy_085,0.6731,20260819_Hvastatrix_GX_054,0.5231,0.15,train,
+roya29,20260819_Hvastatrix_GX_141,0.7412,20260819_Hvastatrix_GX_103,0.5463,0.1949,test,pg26038-roya-grade-pack-v2:test
+roya30,20260612_Healthy_072,0.6928,20260819_Hvastatrix_GX_040,0.5809,0.1119,train,

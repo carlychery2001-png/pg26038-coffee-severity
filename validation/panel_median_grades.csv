@@ -1,0 +1,61 @@
+form_id,leaf_id,disease,model_split,n_evaluators,median_grade
+ojo01,20260621_Mcitricolor_GX_246,american_leaf_spot,test,5,G0
+ojo02,20260628_Mcitricolor_GX_102,american_leaf_spot,test,5,G2
+ojo03,20260628_Mcitricolor_GX_118,american_leaf_spot,test,5,G1
+ojo04,20260621_Mcitricolor_GX_038,american_leaf_spot,test,5,G1
+ojo05,20260621_Mcitricolor_GX_112,american_leaf_spot,test,5,G0
+ojo06,20260621_Mcitricolor_GX_021,american_leaf_spot,test,5,G1
+ojo07,20260628_Mcitricolor_GX_007,american_leaf_spot,test,5,G2
+ojo08,20260621_Mcitricolor_GX_179,american_leaf_spot,test,5,G1
+ojo09,20260621_Mcitricolor_GX_093,american_leaf_spot,test,5,G2
+ojo10,20260621_Mcitricolor_GX_155,american_leaf_spot,test,5,G0
+ojo11,20260615_Healthy_129,american_leaf_spot,NOT IN PACK,5,G0
+ojo12,20260628_Mcitricolor_GX_078,american_leaf_spot,test,5,G2
+ojo13,20260628_Mcitricolor_GX_129,american_leaf_spot,test,5,G2
+ojo14,20260628_Mcitricolor_GX_031,american_leaf_spot,test,5,G3
+ojo15,20260621_Mcitricolor_GX_019,american_leaf_spot,test,5,G1
+ojo16,20260628_Mcitricolor_GX_098,american_leaf_spot,test,5,G2
+ojo17,20260621_Mcitricolor_GX_076,american_leaf_spot,test,5,G0
+ojo18,20260628_Mcitricolor_GX_064,american_leaf_spot,test,5,G2
+ojo19,20260621_Mcitricolor_GX_123,american_leaf_spot,test,5,G1
+ojo20,20260628_Mcitricolor_GX_123,american_leaf_spot,test,5,G2
+ojo21,20260628_Mcitricolor_GX_017,american_leaf_spot,test,5,G1
+ojo22,20260621_Mcitricolor_GX_195,american_leaf_spot,test,5,G0
+ojo23,20260628_Mcitricolor_GX_015,american_leaf_spot,test,5,G1
+ojo24,20260615_Healthy_118,american_leaf_spot,NOT IN PACK,5,G0
+ojo25,20260628_Mcitricolor_GX_046,american_leaf_spot,test,5,G1
+ojo26,20260621_Mcitricolor_GX_073,american_leaf_spot,test,5,G1
+ojo27,20260615_Healthy_114,american_leaf_spot,NOT IN PACK,5,G0
+ojo28,20260621_Mcitricolor_GX_266,american_leaf_spot,test,5,G1
+ojo29,20260628_Mcitricolor_GX_020,american_leaf_spot,test,5,G3
+ojo30,20260621_Mcitricolor_GX_210,american_leaf_spot,test,5,G2
+roya01,20260612_Healthy_004,coffee_leaf_rust,train,5,G0
+roya02,20260612_Healthy_048,coffee_leaf_rust,NOT IN PACK,5,G0
+roya03,20260819_Hvastatrix_GX_123,coffee_leaf_rust,test,5,G0
+roya04,20260819_Hvastatrix_GX_040,coffee_leaf_rust,test,5,G1
+roya05,20260819_Hvastatrix_GX_138,coffee_leaf_rust,test,5,G1
+roya06,20260819_Hvastatrix_GX_048,coffee_leaf_rust,test,5,G1
+roya07,20260819_Hvastatrix_GX_009,coffee_leaf_rust,test,5,G3
+roya08,20260612_Healthy_092,coffee_leaf_rust,NOT IN PACK,5,G0
+roya09,20260819_Hvastatrix_GX_038,coffee_leaf_rust,test,5,G2
+roya10,20260819_Hvastatrix_GX_003,coffee_leaf_rust,test,5,G1
+roya11,20260819_Hvastatrix_GX_137,coffee_leaf_rust,test,5,G2
+roya12,20260819_Hvastatrix_GX_037,coffee_leaf_rust,test,5,G0
+roya13,20260819_Hvastatrix_GX_013,coffee_leaf_rust,test,5,G1
+roya14,20260615_Healthy_159,coffee_leaf_rust,train,5,G0
+roya15,20260819_Hvastatrix_GX_020,coffee_leaf_rust,test,5,G3
+roya16,20260819_Hvastatrix_GX_045,coffee_leaf_rust,test,5,G1
+roya17,20260819_Hvastatrix_GX_125,coffee_leaf_rust,test,5,G2
+roya18,20260615_Healthy_182,coffee_leaf_rust,train,5,G0
+roya19,20260615_Healthy_130,coffee_leaf_rust,train,5,G0
+roya20,20260819_Hvastatrix_GX_056,coffee_leaf_rust,test,5,G0
+roya21,20260819_Hvastatrix_GX_095,coffee_leaf_rust,test,5,G1
+roya22,20260819_Hvastatrix_GX_088,coffee_leaf_rust,test,5,G0
+roya23,20260819_Hvastatrix_GX_116,coffee_leaf_rust,test,5,G1
+roya24,20260819_Hvastatrix_GX_082,coffee_leaf_rust,test,5,G1
+roya25,20260819_Hvastatrix_GX_074,coffee_leaf_rust,test,5,G2
+roya26,20260612_Healthy_062,coffee_leaf_rust,train,5,G0
+roya27,20260819_Hvastatrix_GX_021,coffee_leaf_rust,test,5,G2
+roya28,20260612_Healthy_085,coffee_leaf_rust,train,5,G0
+roya29,20260819_Hvastatrix_GX_141,coffee_leaf_rust,test,5,G1
+roya30,20260612_Healthy_072,coffee_leaf_rust,train,5,G0

@@ -1,0 +1,999 @@
+{
+ "analysis": "A6 related-work comparison table (round 4)",
+ "quote_verification": {
+  "quotes_checked": 75,
+  "quotes_failed": []
+ },
+ "studies": [
+  {
+   "key": "ref22",
+   "cite": "ref22",
+   "short": "Esgario et al., 2020",
+   "cells": {
+    "crop_disease": {
+     "value": "*Coffea arabica*; leaf miner, rust, brown leaf spot, Cercospora leaf spot",
+     "source": "ref22_full",
+     "quotes": [
+      "A total of 1747 images of arabica coffee leaves were collected",
+      "affected by one or more of the following biotic stresses: leaf miner, rust, brown leaf spot, and cercospora leaf spot"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2019.105162",
+      "https://biblioteca.incaper.es.gov.br/digital/bitstream/123456789/3972/1/Coffee-leaves-stress-ventura.pdf"
+     ],
+     "source_kind": "Publisher version (Comput. Electron. Agric. 169 (2020) 105162), PDF in the Incaper institutional repository; full text read"
+    },
+    "imaging": {
+     "value": "Smartphones (5 models); abaxial face; collected leaves on a white background, partially controlled",
+     "source": "ref22_full",
+     "quotes": [
+      "The images were obtained using different smartphones (ASUS Zenfone 2, Xiaomi Redmi 5A, Xiaomi S2, Galaxy S8, and iPhone 6S)",
+      "The photos were taken from the abaxial (lower) side of the leaves under partially controlled conditions and placed on a white background"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2019.105162",
+      "https://biblioteca.incaper.es.gov.br/digital/bitstream/123456789/3972/1/Coffee-leaves-stress-ventura.pdf"
+     ],
+     "source_kind": "Publisher version (Comput. Electron. Agric. 169 (2020) 105162), PDF in the Incaper institutional repository; full text read"
+    },
+    "task": {
+     "value": "Classification (predominant stress) + severity-class estimation (5 classes), multi-task CNN",
+     "source": "ref22_full",
+     "quotes": [
+      "The proposed approach consists of a multi-task system based on convolutional neural networks",
+      "labels were assigned as follows: healthy (<0.1%)"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2019.105162",
+      "https://biblioteca.incaper.es.gov.br/digital/bitstream/123456789/3972/1/Coffee-leaves-stress-ventura.pdf"
+     ],
+     "source_kind": "Publisher version (Comput. Electron. Agric. 169 (2020) 105162), PDF in the Incaper institutional repository; full text read"
+    },
+    "dataset": {
+     "value": "1747 images collected; leaf dataset 1685 images; symptom dataset 2722 crops",
+     "source": "ref22_full",
+     "quotes": [
+      "A total of 1747 images",
+      "Total 1685 2722"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2019.105162",
+      "https://biblioteca.incaper.es.gov.br/digital/bitstream/123456789/3972/1/Coffee-leaves-stress-ventura.pdf"
+     ],
+     "source_kind": "Publisher version (Comput. Electron. Agric. 169 (2020) 105162), PDF in the Incaper institutional repository; full text read"
+    },
+    "metric": {
+     "value": "Test accuracy (70/15/15 split)",
+     "source": "ref22_full",
+     "quotes": [
+      "Test results obtained with different architectures for the Leaf dataset",
+      "the proportions 70-15-15 for the training, validation and test datasets"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2019.105162",
+      "https://biblioteca.incaper.es.gov.br/digital/bitstream/123456789/3972/1/Coffee-leaves-stress-ventura.pdf"
+     ],
+     "source_kind": "Publisher version (Comput. Electron. Agric. 169 (2020) 105162), PDF in the Incaper institutional repository; full text read"
+    },
+    "result": {
+     "value": "ResNet50, multi-task: 95.24% (stress), 86.51% (severity class)",
+     "source": "ref22_full",
+     "quotes": [
+      "ResNet50 architecture achieved an accuracy of 95.24% for biotic stress classification and 86.51% for severity estimation using multi-task learning"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2019.105162",
+      "https://biblioteca.incaper.es.gov.br/digital/bitstream/123456789/3972/1/Coffee-leaves-stress-ventura.pdf"
+     ],
+     "source_kind": "Publisher version (Comput. Electron. Agric. 169 (2020) 105162), PDF in the Incaper institutional repository; full text read"
+    }
+   }
+  },
+  {
+   "key": "ref26",
+   "cite": "ref26",
+   "short": "Tassis et al., 2021",
+   "cells": {
+    "crop_disease": {
+     "value": "Coffee; lesions of diseases and pests (agents n.r. in the accessible abstract)",
+     "source": "ref26_abs",
+     "quotes": [
+      "automate detection/recognition of lesions from in-field images collected via smartphone containing part of the coffee tree"
+     ],
+     "note": "Species and the list of diseases/pests are not in the abstract; full text not accessible.",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2021.106191",
+      "https://europepmc.org/article/AGR/IND607377036"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA record); full text paywalled; ScienceDirect blocks automated access (HTTP 403 / CAPTCHA seen on this publisher during this check)"
+    },
+    "imaging": {
+     "value": "In-field smartphone images of part of the tree",
+     "source": "ref26_abs",
+     "quotes": [
+      "in-field images collected via smartphone containing part of the coffee tree"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2021.106191",
+      "https://europepmc.org/article/AGR/IND607377036"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA record); full text paywalled; ScienceDirect blocks automated access (HTTP 403 / CAPTCHA seen on this publisher during this check)"
+    },
+    "task": {
+     "value": "Instance segmentation (Mask R-CNN) + lesion semantic segmentation (UNet, PSPNet) + classification (ResNet)",
+     "source": "ref26_abs",
+     "quotes": [
+      "In the first stage, we use a Mask R-CNN network for instance segmentation; in the second stage the UNet and PSPNet networks for semantic segmentation and finally, in the third stage, a ResNet for classification"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2021.106191",
+      "https://europepmc.org/article/AGR/IND607377036"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA record); full text paywalled; ScienceDirect blocks automated access (HTTP 403 / CAPTCHA seen on this publisher during this check)"
+    },
+    "dataset": {
+     "value": "n.r.",
+     "source": null,
+     "quotes": [],
+     "note": "Not stated in the abstract; full text not accessible (paywalled; ScienceDirect blocks automated access).",
+     "verified": null
+    },
+    "metric": {
+     "value": "Instance segmentation: precision, recall; semantic segmentation: mean IoU (classes averaged n.r.)",
+     "source": "ref26_abs",
+     "quotes": [
+      "we obtained a precision of 73.90% and a recall of 71.90% in the instance segmentation task",
+      "we obtained a mean intersection over union of 94.25% and 93.54%"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2021.106191",
+      "https://europepmc.org/article/AGR/IND607377036"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA record); full text paywalled; ScienceDirect blocks automated access (HTTP 403 / CAPTCHA seen on this publisher during this check)"
+    },
+    "result": {
+     "value": "Mask R-CNN precision 73.90%, recall 71.90%; mIoU 94.25% (UNet), 93.54% (PSPNet)",
+     "source": "ref26_abs",
+     "quotes": [
+      "For the UNet and PSPNet networks, we obtained a mean intersection over union of 94.25% and 93.54%, respectively"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.compag.2021.106191",
+      "https://europepmc.org/article/AGR/IND607377036"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA record); full text paywalled; ScienceDirect blocks automated access (HTTP 403 / CAPTCHA seen on this publisher during this check)"
+    }
+   }
+  },
+  {
+   "key": "ref27",
+   "cite": "ref27",
+   "short": "Esgario et al., 2022",
+   "cells": {
+    "crop_disease": {
+     "value": "*C. arabica*; leaf miner, rust, brown leaf spot, Cercospora leaf spot",
+     "source": "ref27_full",
+     "quotes": [
+      "images of Arabica coffee leaves affected by the main pests and diseases",
+      "leaf miner, rust, brown leaf spot and cercospora leaf spot"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.inpa.2021.01.004",
+      "https://www.aeeisp.com/ipa/en/article/pdf/preview/10.1016/j.inpa.2021.01.004.pdf"
+     ],
+     "source_kind": "Open-access full text (CC BY-NC-ND) from the journal platform; the download was truncated, text recovered for pp. 38-45 of 38-47"
+    },
+    "imaging": {
+     "value": "Smartphone images of leaves (BRACOL dataset)",
+     "source": "ref27_full",
+     "quotes": [
+      "using images of coffee leaves acquired by smartphone",
+      "In a previous work, we construct a dataset named BRACOL"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.inpa.2021.01.004",
+      "https://www.aeeisp.com/ipa/en/article/pdf/preview/10.1016/j.inpa.2021.01.004.pdf"
+     ],
+     "source_kind": "Open-access full text (CC BY-NC-ND) from the journal platform; the download was truncated, text recovered for pp. 38-45 of 38-47"
+    },
+    "task": {
+     "value": "Semantic segmentation (background/leaf/symptom) + severity + symptom classification; Android app",
+     "source": "ref27_full",
+     "quotes": [
+      "a semantic segmentation stage with severity calculation and a symptom lesion classification stage",
+      "annotated manually with one of three possible labels: background, leaf and symptom"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.inpa.2021.01.004",
+      "https://www.aeeisp.com/ipa/en/article/pdf/preview/10.1016/j.inpa.2021.01.004.pdf"
+     ],
+     "source_kind": "Open-access full text (CC BY-NC-ND) from the journal platform; the download was truncated, text recovered for pp. 38-45 of 38-47"
+    },
+    "dataset": {
+     "value": "500 pixel-annotated images (100 healthy, 400 diseased), 70/15/15 split (50 test); 2722 symptom crops",
+     "source": "ref27_full",
+     "quotes": [
+      "A total of 500 images from the dataset of leaves were selected",
+      "100consists of images of healthy leaves and 400 of diseased leaves",
+      "the proportions of 70 % /15 % /15 % were used for the training, validation, and test",
+      "using the 50 test images of the segmentation dataset",
+      "Total 2722"
+     ],
+     "note": "'100consists' is the PDF text as extracted (missing space in the source).",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.inpa.2021.01.004",
+      "https://www.aeeisp.com/ipa/en/article/pdf/preview/10.1016/j.inpa.2021.01.004.pdf"
+     ],
+     "source_kind": "Open-access full text (CC BY-NC-ND) from the journal platform; the download was truncated, text recovered for pp. 38-45 of 38-47"
+    },
+    "metric": {
+     "value": "3-class mean IoU and pixel accuracy (test, n = 50 images); R² of predicted vs mask severity",
+     "source": "ref27_full",
+     "quotes": [
+      "Model MIoU (%) AC (%)",
+      "the determination coefficients R 2 were calculated"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.inpa.2021.01.004",
+      "https://www.aeeisp.com/ipa/en/article/pdf/preview/10.1016/j.inpa.2021.01.004.pdf"
+     ],
+     "source_kind": "Open-access full text (CC BY-NC-ND) from the journal platform; the download was truncated, text recovered for pp. 38-45 of 38-47"
+    },
+    "result": {
+     "value": "mIoU 94.85% (UNet), 93.69% (PSPNet); severity R² 0.9798 (UNet), 0.9855 (PSPNet); symptom classification 97.07% (ResNet50)",
+     "source": "ref27_full",
+     "quotes": [
+      "UNet 94.85 99.53 PSPNet 93.69 99.31",
+      "values of R 2 equal to 0 : 9798 and 0 : 9855 for the UNet and PSPNet networks, respectively",
+      "The best result was achieved with ResNet50 with accuracy of 97 : 07 %"
+     ],
+     "note": "In the PDF text layer the decimal point is extracted as ' : ' (0 : 9798 = 0.9798; 97 : 07 % = 97.07%).",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.inpa.2021.01.004",
+      "https://www.aeeisp.com/ipa/en/article/pdf/preview/10.1016/j.inpa.2021.01.004.pdf"
+     ],
+     "source_kind": "Open-access full text (CC BY-NC-ND) from the journal platform; the download was truncated, text recovered for pp. 38-45 of 38-47"
+    }
+   }
+  },
+  {
+   "key": "ref28",
+   "cite": "ref28",
+   "short": "Gonçalves et al., 2021",
+   "cells": {
+    "crop_disease": {
+     "value": "Coffee leaf miner (insect pest), soybean rust, wheat tan spot",
+     "source": "ref28_abs",
+     "quotes": [
+      "caused by the insect pest coffee leaf miner (CLM), and two fungal diseases: soybean rust (SBR) and wheat tan spot (WTS)"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.biosystemseng.2021.08.011",
+      "https://europepmc.org/article/AGR/IND607493854",
+      "https://www.alice.cnptia.embrapa.br/alice/handle/doc/1134326"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA; identical in Embrapa Alice); the PDF attached to the Alice record is a different paper; the ScienceDirect article page returned a CAPTCHA (not bypassed)"
+    },
+    "imaging": {
+     "value": "Images of individual leaves; non-uniform illumination and background (device n.r.)",
+     "source": "ref28_abs",
+     "quotes": [
+      "images of individual leaves exhibiting necrotic lesions and/or yellowing",
+      "obtained under challenging conditions of brightness and background"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.biosystemseng.2021.08.011",
+      "https://europepmc.org/article/AGR/IND607493854",
+      "https://www.alice.cnptia.embrapa.br/alice/handle/doc/1134326"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA; identical in Embrapa Alice); the PDF attached to the Alice record is a different paper; the ScienceDirect article page returned a CAPTCHA (not bypassed)"
+    },
+    "task": {
+     "value": "Semantic segmentation, 6 CNNs, 3 classes (background, healthy, injured) + percent severity",
+     "source": "ref28_abs",
+     "quotes": [
+      "six convolutional neural network (CNN) architectures were trained for semantic segmentation",
+      "three classes: leaf background (B), healthy leaf (H) and injured leaf (I)"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.biosystemseng.2021.08.011",
+      "https://europepmc.org/article/AGR/IND607493854",
+      "https://www.alice.cnptia.embrapa.br/alice/handle/doc/1134326"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA; identical in Embrapa Alice); the PDF attached to the Alice record is a different paper; the ScienceDirect article page returned a CAPTCHA (not bypassed)"
+    },
+    "dataset": {
+     "value": "n.r.",
+     "source": null,
+     "quotes": [],
+     "note": "Not stated in the abstract; full text not accessible (ScienceDirect CAPTCHA; the PDF attached to the Embrapa Alice record is a different paper).",
+     "verified": null
+    },
+    "metric": {
+     "value": "Per-class precision, recall, IoU; concordance coefficient, predicted vs annotated severity",
+     "source": "ref28_abs",
+     "quotes": [
+      "Precision, recall, and Intersection over Union (IoU) metrics in the test image set",
+      "concordance coefficients were greater than 0.95, 0.96 and 0.98"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.biosystemseng.2021.08.011",
+      "https://europepmc.org/article/AGR/IND607493854",
+      "https://www.alice.cnptia.embrapa.br/alice/handle/doc/1134326"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA; identical in Embrapa Alice); the PDF attached to the Alice record is a different paper; the ScienceDirect article page returned a CAPTCHA (not bypassed)"
+    },
+    "result": {
+     "value": "Best (FPN, U-Net, DeepLabv3+ Xception): concordance > 0.95 (CLM), > 0.96 (SBR), > 0.98 (WTS); IoU values n.r. in abstract",
+     "source": "ref28_abs",
+     "quotes": [
+      "Feature Pyramid Network (FPN), Unet and DeepLabv3+ (Xception) performed the best among the architectures: concordance coefficients were greater than 0.95, 0.96 and 0.98 for CLM, SBR and WTS datasets, respectively"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1016/j.biosystemseng.2021.08.011",
+      "https://europepmc.org/article/AGR/IND607493854",
+      "https://www.alice.cnptia.embrapa.br/alice/handle/doc/1134326"
+     ],
+     "source_kind": "Abstract only (Europe PMC / AGRICOLA; identical in Embrapa Alice); the PDF attached to the Alice record is a different paper; the ScienceDirect article page returned a CAPTCHA (not bypassed)"
+    }
+   }
+  },
+  {
+   "key": "ref29",
+   "cite": "ref29",
+   "short": "Romero-Benavides et al., 2026",
+   "cells": {
+    "crop_disease": {
+     "value": "Coffee; leaf rust (*Hemileia vastatrix*)",
+     "source": "ref29_abs",
+     "quotes": [
+      "Accurate estimation of coffee leaf rust ( Hemileia vastatrix ) severity"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1111/ppa.70191",
+      "https://api.crossref.org/works/10.1111/ppa.70191"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); Wiley full text returned 403/Cloudflare challenge"
+    },
+    "imaging": {
+     "value": "Field images, branch level, several plots (device n.r. in abstract)",
+     "source": "ref29_abs",
+     "quotes": [
+      "A total of 1285 images were collected across several field plots",
+      "robust leaf extraction from complex branch-level images"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1111/ppa.70191",
+      "https://api.crossref.org/works/10.1111/ppa.70191"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); Wiley full text returned 403/Cloudflare challenge"
+    },
+    "task": {
+     "value": "Leaf detection (YOLOv8 + SAM2) + lesion segmentation (SAM3 zero-shot, fine-tuned SAM2, DeepLabV3+, ImageJ, pliman) + percent severity",
+     "source": "ref29_abs",
+     "quotes": [
+      "A two-stage detection–segmentation workflow integrating YOLOv8 and SAM2",
+      "combining zero-shot foundational models (SAM3) and fine-tuned deep learning (SAM2) for estimation of percentage severity"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1111/ppa.70191",
+      "https://api.crossref.org/works/10.1111/ppa.70191"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); Wiley full text returned 403/Cloudflare challenge"
+    },
+    "dataset": {
+     "value": "1285 images; 606 pixel-level rust lesion masks",
+     "source": "ref29_abs",
+     "quotes": [
+      "A total of 1285 images were collected across several field plots, and 606 pixel-level rust lesion masks were curated for model fine-tuning and independent evaluation"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1111/ppa.70191",
+      "https://api.crossref.org/works/10.1111/ppa.70191"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); Wiley full text returned 403/Cloudflare challenge"
+    },
+    "metric": {
+     "value": "Pixel-level lesion Dice and IoU; leaf-level severity agreement (values n.r. in abstract)",
+     "source": "ref29_abs",
+     "quotes": [
+      "For lesion segmentation, at the pixel level",
+      "At the leaf level, the highest agreement between predicted and reference severity estimates was found for SAM3"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1111/ppa.70191",
+      "https://api.crossref.org/works/10.1111/ppa.70191"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); Wiley full text returned 403/Cloudflare challenge"
+    },
+    "result": {
+     "value": "SAM3: Dice ≈0.91, IoU ≈0.83; DeepLabV3+: Dice ≈0.86, IoU ≈0.75",
+     "source": "ref29_abs",
+     "quotes": [
+      "SAM3 achieved the highest disease segmentation performance (Dice ≈0.91; IoU ≈0.83)",
+      "DeepLabV3+ also performed well (Dice ≈0.86; IoU ≈0.75)"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.1111/ppa.70191",
+      "https://api.crossref.org/works/10.1111/ppa.70191"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); Wiley full text returned 403/Cloudflare challenge"
+    }
+   }
+  },
+  {
+   "key": "yang2023ecasegformer",
+   "cite": "yang2023ecasegformer",
+   "short": "Yang et al., 2023",
+   "cells": {
+    "crop_disease": {
+     "value": "Cucumber; downy mildew, powdery mildew, target leaf spot, angular leaf spot",
+     "source": "yang_abs",
+     "quotes": [
+      "including downy mildew, powdery mildew, target leaf spot, and angular leaf spot"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.3390/agriculture13081513",
+      "https://api.crossref.org/works/10.3390/agriculture13081513"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); mdpi.com returned 403"
+    },
+    "imaging": {
+     "value": "Natural (outdoor) acquisition, experimental vegetable base (device n.r. in abstract)",
+     "source": "yang_abs",
+     "quotes": [
+      "under natural acquisition conditions",
+      "1558 images collected from the outdoor experimental vegetable base"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.3390/agriculture13081513",
+      "https://api.crossref.org/works/10.3390/agriculture13081513"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); mdpi.com returned 403"
+    },
+    "task": {
+     "value": "Semantic segmentation of disease spots (ECA-SegFormer)",
+     "source": "yang_abs",
+     "quotes": [
+      "the Efficient Channel Attention SegFormer (ECA-SegFormer) is proposed to handle the semantic segmentation of cucumber leaf disease spots"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.3390/agriculture13081513",
+      "https://api.crossref.org/works/10.3390/agriculture13081513"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); mdpi.com returned 403"
+    },
+    "dataset": {
+     "value": "1558 images",
+     "source": "yang_abs",
+     "quotes": [
+      "a cucumber leaf disease dataset is built with 1558 images"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.3390/agriculture13081513",
+      "https://api.crossref.org/works/10.3390/agriculture13081513"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); mdpi.com returned 403"
+    },
+    "metric": {
+     "value": "Mean pixel accuracy (MPA), mean IoU",
+     "source": "yang_abs",
+     "quotes": [
+      "the Mean Pixel Accuracy of ECA-SegFormer is 38.03%, and the mean Intersection over Union is 60.86%"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.3390/agriculture13081513",
+      "https://api.crossref.org/works/10.3390/agriculture13081513"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); mdpi.com returned 403"
+    },
+    "result": {
+     "value": "MPA 38.03%, mIoU 60.86% (reported as 14.55% and 1.47% higher than SegFormer)",
+     "source": "yang_abs",
+     "quotes": [
+      "the Mean Pixel Accuracy of ECA-SegFormer is 38.03%, and the mean Intersection over Union is 60.86%, which is 14.55% and 1.47% higher than SegFormer, respectively"
+     ],
+     "note": "As reported in the abstract. An MPA below the mIoU is unusual; the full text was not accessible to check the definitions.",
+     "verified": true,
+     "urls": [
+      "https://doi.org/10.3390/agriculture13081513",
+      "https://api.crossref.org/works/10.3390/agriculture13081513"
+     ],
+     "source_kind": "Abstract only (Crossref, publisher-deposited); mdpi.com returned 403"
+    }
+   }
+  },
+  {
+   "key": "this_study",
+   "cite": null,
+   "short": "This study",
+   "cells": {
+    "crop_disease": {
+     "value": "*C. arabica* var. Esperanza L4A5; coffee leaf rust, American leaf spot (*Mycena citricolor*)",
+     "source": "ms_main",
+     "quotes": [
+      "Coffee leaf rust (\\textit{Hemileia vastatrix}) and American leaf spot (\\textit{Mycena citricolor})",
+      "684 detached \\textit{Coffea arabica} var. Esperanza L4A5 leaves"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "<USER_HOME>\\OneDrive\\Documents\\Tesis\\MDPI_rebuild\\manuscript\\manuscript.tex"
+     ],
+     "source_kind": "Manuscript (abstract)"
+    },
+    "imaging": {
+     "value": "Flatbed scans (600 dpi) of both faces of detached leaves",
+     "source": "ms_methods",
+     "quotes": [
+      "Both faces of each leaf were scanned on an Epson Perfection V39 II flatbed scanner (600 dpi"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "<USER_HOME>\\OneDrive\\Documents\\Tesis\\MDPI_rebuild\\manuscript\\sections\\02_methods.tex"
+     ],
+     "source_kind": "Manuscript Methods"
+    },
+    "task": {
+     "value": "Lesion semantic segmentation (DeepLabV3+, UNet++, SegFormer-B5) + leaf severity + ordinal grade G0–G3",
+     "source": "ms_main",
+     "quotes": [
+      "trained DeepLabV3+, UNet++ (MobileNetV2 encoders) and SegFormer-B5 per disease to segment lesions",
+      "mapped severity to grades G0--G3"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "<USER_HOME>\\OneDrive\\Documents\\Tesis\\MDPI_rebuild\\manuscript\\manuscript.tex"
+     ],
+     "source_kind": "Manuscript (abstract)"
+    },
+    "dataset": {
+     "value": "684 leaves, 1,367 images; test: 21 rust and 55 leaf-spot diseased leaves, 54 healthy leaves",
+     "source": "ms_methods",
+     "quotes": [
+      "The test partition holds 21 diseased rust leaves (reference grades: 1 G0, 11 G1, 9 G2, 0 G3), 55 diseased leaf-spot leaves, and 54 healthy leaves. Corpus total: 684 leaves, 1,367 images."
+     ],
+     "note": "Images of only 21 of the 54 healthy test leaves were retained (round-4 plan, item 5).",
+     "verified": true,
+     "urls": [
+      "<USER_HOME>\\OneDrive\\Documents\\Tesis\\MDPI_rebuild\\manuscript\\sections\\02_methods.tex"
+     ],
+     "source_kind": "Manuscript Methods"
+    },
+    "metric": {
+     "value": "Leaf-level lesion IoU (test, 95% bootstrap CI over leaves); severity MAE; grade QWK",
+     "source": "ms_res",
+     "quotes": [
+      "Leaf-level test performance of the published models. Means over leaves (rust: abaxial face; American leaf spot: mean of both faces) with 95\\% bootstrap CIs (leaves resampled)"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "<USER_HOME>\\OneDrive\\Documents\\Tesis\\MDPI_rebuild\\manuscript\\sections\\03a_results.tex"
+     ],
+     "source_kind": "Manuscript Results (Tables 2, 4, 5)"
+    },
+    "result": {
+     "value": "SegFormer-B5: IoU 0.767 [0.743, 0.791] rust (n = 21), 0.884 [0.868, 0.900] leaf spot (n = 55); matched UNet++, 3 seeds: 0.759 ± 0.015 and 0.878 ± 0.004",
+     "source": "ms_res",
+     "quotes": [
+      "Rust & SegFormer-B5 & 0.767 [0.743, 0.791] & 0.867 [0.851, 0.882] & 21",
+      "Leaf spot & SegFormer-B5 & 0.884 [0.868, 0.900] & 0.937 [0.927, 0.946] & 55"
+     ],
+     "note": "",
+     "verified": true,
+     "urls": [
+      "<USER_HOME>\\OneDrive\\Documents\\Tesis\\MDPI_rebuild\\manuscript\\sections\\03a_results.tex"
+     ],
+     "source_kind": "Manuscript Results (Tables 2, 4, 5)"
+    }
+   },
+   "extra_checks": [
+    [
+     "ms_main",
+     "three-seed mean $\\pm$ SD: rust 0.759 $\\pm$ 0.015; leaf spot 0.878 $\\pm$ 0.004"
+    ],
+    [
+     "seed",
+     "Mean IoU 0.759, SD 0.015, range 0.746–0.776."
+    ],
+    [
+     "seed",
+     "Mean IoU 0.878, SD 0.004, range 0.874–0.882."
+    ],
+    [
+     "ms_res",
+     "Rust & SegFormer-B5 & 0.99 [0.48, 1.61]"
+    ],
+    [
+     "ms_res",
+     "Leaf spot & SegFormer-B5 & 0.22 [0.15, 0.30]"
+    ],
+    [
+     "ms_res",
+     "Rust & SegFormer-B5 & 0.90 (19/21) [0.71, 0.97] & 0.88 [0.69, 1.00]"
+    ],
+    [
+     "paired",
+     "| American leaf spot | SegFormer-B5 | mask-derived (secondary) | 0.95 (52/55) [0.85, 0.98] | 0.95 [0.88, 1.00] |"
+    ],
+    [
+     "ms_methods",
+     "four evaluators (three plant pathologists with 25, 35, and 57 years of experience and an agronomist with 12 years at a coffee cooperative) independently graded 60 leaves, 30 per disease"
+    ]
+   ]
+  }
+ ],
+ "not_tabulated": [
+  {
+   "cite": "zhang2023lrt",
+   "why": "Grape leaf-disease transformer segmentation (the title, from Crossref, confirms crop and task). No abstract or full text could be opened: Crossref, OpenAlex and Semantic Scholar return no abstract, Europe PMC has no record, the article is closed access, and ScienceDirect blocks automated access. Every other cell would be n.r., so it is not tabulated.",
+   "url": "https://doi.org/10.1016/j.asoc.2023.110392"
+  },
+  {
+   "cite": "parraga2019rocole, krohling2019bracol, jepkoech2021jmuben",
+   "why": "Dataset descriptors; they report no deep-learning result to compare.",
+   "url": ""
+  },
+  {
+   "cite": "ref16 (Marin et al., 2021)",
+   "why": "UAV vegetation indices with decision-tree models, not deep-learning leaf segmentation.",
+   "url": "https://doi.org/10.1016/j.compag.2021.106476"
+  },
+  {
+   "cite": "lamari2008assess, pethybridge2015leafdoctor, olivoto2022pliman",
+   "why": "Classical colour-threshold tools, cited as the non-learning comparator class.",
+   "url": ""
+  },
+  {
+   "cite": "ref23, ref24, ref25",
+   "why": "generic plant-disease classification (ref23) and method references (transfer learning, MobileNetV2); not coffee-disease or leaf-severity segmentation studies (verifier 2)",
+   "url": ""
+  }
+ ],
+ "this_study_extra_numbers": {
+  "segformer_b5_leaf_iou": {
+   "rust": {
+    "mean": 0.767,
+    "ci95": [
+     0.743,
+     0.791
+    ],
+    "n_leaves": 21
+   },
+   "leaf_spot": {
+    "mean": 0.884,
+    "ci95": [
+     0.868,
+     0.9
+    ],
+    "n_leaves": 55
+   },
+   "source": "manuscript Table 2 (sections/03a_results.tex)"
+  },
+  "segformer_b5_mae_pp": {
+   "rust": {
+    "mean": 0.99,
+    "ci95": [
+     0.48,
+     1.61
+    ],
+    "n_leaves": 21
+   },
+   "leaf_spot": {
+    "mean": 0.22,
+    "ci95": [
+     0.15,
+     0.3
+    ],
+    "n_leaves": 55
+   },
+   "source": "manuscript Table 4"
+  },
+  "segformer_b5_qwk": {
+   "rust_mask_grade": {
+    "qwk": 0.88,
+    "ci95": [
+     0.69,
+     1.0
+    ],
+    "n_leaves": 21,
+    "source": "manuscript Table 5"
+   },
+   "leaf_spot_mask_grade": {
+    "qwk": 0.95,
+    "ci95": [
+     0.88,
+     1.0
+    ],
+    "n_leaves": 55,
+    "source": "results/paired/results.md (bootstrap seed 20260927)"
+   }
+  },
+  "matched_unetpp_leaf_iou_3seeds": {
+   "rust": {
+    "mean": 0.759,
+    "sd": 0.015,
+    "range": [
+     0.746,
+     0.776
+    ]
+   },
+   "leaf_spot": {
+    "mean": 0.878,
+    "sd": 0.004,
+    "range": [
+     0.874,
+     0.882
+    ]
+   },
+   "source": "pass3/seed_facts.md"
+  }
+ },
+ "verifier": {
+  "sources_reopened": [
+   "ref22 (full PDF)",
+   "ref27 (full PDF, 10 pages)",
+   "ref26 (Europe PMC abstract)",
+   "ref28 (Europe PMC + Embrapa Alice abstract)",
+   "ref29 (Crossref abstract)",
+   "yang2023ecasegformer (Crossref abstract)"
+  ],
+  "prior_study_quotes_rechecked": 58,
+  "prior_study_quotes_missing": 0,
+  "this_study_recomputed": {
+   "rust": {
+    "iou": 0.767,
+    "iou_ci": [
+     0.743,
+     0.791
+    ],
+    "mae": 0.99,
+    "mae_ci": [
+     0.48,
+     1.62
+    ],
+    "qwk": 0.878,
+    "qwk_ci": [
+     0.68,
+     1.0
+    ],
+    "grade_correct": "19/21",
+    "n": 21
+   },
+   "leaf_spot": {
+    "iou": 0.884,
+    "iou_ci": [
+     0.868,
+     0.9
+    ],
+    "mae": 0.22,
+    "mae_ci": [
+     0.15,
+     0.3
+    ],
+    "qwk_mask_grade": 0.95,
+    "qwk_ci": [
+     0.88,
+     1.0
+    ],
+    "grade_correct_mask": "52/55",
+    "n": 55
+   },
+   "bootstrap": "10,000 leaf resamples, seed 20260928, percentile CI; manuscript CIs (other seed) agree within 0.01 and are kept",
+   "matched_unetpp_iou_seeds": {
+    "rust": [
+     0.776,
+     0.755,
+     0.746
+    ],
+    "leaf_spot": [
+     0.874,
+     0.882,
+     0.878
+    ]
+   }
+  },
+  "expert_panel_rechecked": true,
+  "corrections": [
+   "V1: table_related.tex overfull ref28 imaging cell reworded; compiles cleanly in MDPI class",
+   "V1b: table_related.tex thousands separators; this-study cell adds (single run) and matched UNet++ 3-seed IoUs",
+   "V2: Introduction check for ref26 rewritten; abstract does not state that Mask R-CNN segments leaves",
+   "V3: ref27 full text now complete; no cell changes"
+  ]
+ },
+ "verifier2": {
+  "sources_reopened": [
+   "ref22 (full PDF, 9 pp.)",
+   "ref27 (full PDF, 10 pp.)",
+   "ref26 (Europe PMC abstract)",
+   "ref28 (Europe PMC abstract)",
+   "ref29 (Crossref abstract)",
+   "yang2023ecasegformer (Crossref abstract)"
+  ],
+  "cell_quotes_rechecked": 67,
+  "cell_quotes_missing": 0,
+  "this_study_recomputed": {
+   "roya": {
+    "n": 21,
+    "n_healthy_leaves_in_rows": 21,
+    "iou": 0.7673,
+    "iou_ci": [
+     0.743,
+     0.791
+    ],
+    "mae": 0.99,
+    "mae_ci": [
+     0.479,
+     1.62
+    ],
+    "bias": 0.99,
+    "grade_correct_vs_mask": "19/21",
+    "qwk_vs_mask": 0.878,
+    "qwk_ci_and_nan_resamples": [
+     [
+      0.684,
+      1.0
+     ],
+     0
+    ],
+    "ref_mask_grade_counts": [
+     1,
+     11,
+     9,
+     0
+    ]
+   },
+   "ojo": {
+    "n": 55,
+    "n_healthy_leaves_in_rows": 0,
+    "iou": 0.8845,
+    "iou_ci": [
+     0.868,
+     0.9
+    ],
+    "mae": 0.22,
+    "mae_ci": [
+     0.149,
+     0.298
+    ],
+    "bias": 0.164,
+    "grade_correct_vs_mask": "52/55",
+    "qwk_vs_mask": 0.95,
+    "qwk_ci_and_nan_resamples": [
+     [
+      0.881,
+      1.0
+     ],
+     0
+    ],
+    "ref_mask_grade_counts": [
+     6,
+     26,
+     21,
+     2
+    ]
+   },
+   "roya_unetpp_lrB_seeds": {
+    "runs": [
+     [
+      "pg26038-mb-roya-unetpp-lrB",
+      21,
+      0.7757
+     ],
+     [
+      "pg26038-mbs-roya-unetpp-lrB-seed1",
+      21,
+      0.7547
+     ],
+     [
+      "pg26038-mbs-roya-unetpp-lrB-seed2",
+      21,
+      0.7456
+     ]
+    ],
+    "mean": 0.759,
+    "sd": 0.015,
+    "range": [
+     0.7456,
+     0.7757
+    ]
+   },
+   "ojo_unetpp_lrB_seeds": {
+    "runs": [
+     [
+      "pg26038-mb-ojo-unetpp-lrB",
+      55,
+      0.8741
+     ],
+     [
+      "pg26038-mbs-ojo-unetpp-lrB-seed1",
+      55,
+      0.8825
+     ],
+     [
+      "pg26038-mbs-ojo-unetpp-lrB-seed2",
+      55,
+      0.8784
+     ]
+    ],
+    "mean": 0.878,
+    "sd": 0.004,
+    "range": [
+     0.8741,
+     0.8825
+    ]
+   }
+  },
+  "latex_compiled_in_mdpi_class": "no errors, no overfull boxes, no undefined citations",
+  "corrections": [
+   "W1: source-access bullet for ref27 made consistent with V3 (full text obtained)",
+   "W2: ref23-ref25 added to not_tabulated with reason"
+  ]
+ }
+}

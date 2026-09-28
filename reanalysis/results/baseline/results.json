@@ -1,0 +1,4438 @@
+{
+  "meta": {
+    "script": "<ROOT>\\reanalysis\\results\\baseline\\baseline.py",
+    "created": "2026-09-27 23:45",
+    "python": "3.13.15",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "input": "<ROOT>/reanalysis/out/per_image.csv",
+    "evaluation_space": "1024 x 1024 aspect-preserving letterbox, black padding; RGB bilinear, labels nearest (run_inference.py load())",
+    "leaf_rules": "rust: abaxial face only; American leaf spot: mean of the two faces (IoU = mean of face IoUs; severity = mean of face severities)",
+    "reference_grades": "rust: from reference severity with cut-points 0.5/5/20 %; leaf spot: annotator's visual grade (G1-G3)",
+    "predicted_grades": "predicted leaf severity with cut-points 0.5/5/20 % (G0-G3)",
+    "bootstrap": "10000 resamples of leaves, percentile 95% CI, numpy default_rng(seed=20260927) re-seeded per disease; one index matrix per disease shared by all methods (paired differences); undefined resamples dropped and counted",
+    "ccc": "Lin's concordance correlation coefficient with 1/n moments",
+    "qwk": "quadratic-weighted kappa, K = 4 (G0-G3)",
+    "loa": "Bland-Altman limits: bias +/- 1.96 SD (SD with n-1) of predicted minus reference severity (percentage points)",
+    "proportion_ci": "Wilson score, two-sided 95%",
+    "healthy_coverage": "21 healthy rust-pack TEST leaves are present locally (EARTH site); the paper used 54. The other 33 are not in the local pack. Healthy VALIDATION leaves: 21 (EARTH).",
+    "healthy_face_rules": {
+      "either_face": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+      "leaf_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)"
+    },
+    "healthy_flag_rules": {
+      "any_pixel": "any predicted lesion pixel (> 0 %; the paper's stated definition)",
+      "ge_0.5pct": "predicted severity >= 0.5 % (predicted grade G1 or higher)",
+      "ge_5pct": "predicted severity >= 5 % (false-positive rule used to select the rust CNNs)"
+    },
+    "baseline_leaf_mask": "reference leaf mask (letterbox label >= 1, i.e. alpha > 8), so the baseline's severity denominator is the exact reference leaf area; the networks segment the leaf themselves (their denominator is their predicted leaf)",
+    "baseline_postprocessing": "none (no smoothing, morphology or speck removal), matching the raw-argmax evaluation of the networks",
+    "tie_handling": "ri and exr global thresholds compared in exact integer arithmetic on the 8-bit letterboxed RGB (ri >= k/1000 <=> 1000(r-g) >= k(r+g+b); exr >= m/1000 <=> 200(7r-5g) >= m(r+g+b)); pixels exactly on the threshold count as lesion. a* compared in float64. Otsu thresholds are histogram bin centres compared in float64 (lesion = index > t).",
+    "otsu_rule": "per LEAF: one threshold from the pooled leaf pixels of the faces used by the evaluation (diseased leaves: rust abaxial, leaf spot both faces; healthy leaves, either-face rule: both faces). Per-face Otsu reported as a secondary variant.",
+    "indices": {
+      "ri": "redness index (r-g)/(r+g+b)",
+      "astar": "CIELAB a*",
+      "exr": "excess red 1.4r'-g'"
+    },
+    "grids": {
+      "ri": [
+        -0.3,
+        0.6,
+        0.0010000000000000009
+      ],
+      "astar": [
+        -40.0,
+        60.0,
+        0.10000000000000142
+      ],
+      "exr": [
+        -0.6,
+        1.2,
+        0.0020000000000000018
+      ]
+    },
+    "tuning_set": "validation DISEASED leaves only (21 rust, 55 leaf spot); leaf IoU is undefined on healthy leaves, which are used only to report specificity",
+    "selection": "per disease, the configuration with the highest validation mean leaf IoU; evaluated once on test",
+    "reference_rebuild_check": "388 images: rebuilt reference leaf and lesion pixel counts equal per_image.csv exactly",
+    "tie_diagnostics_selected_thresholds": {
+      "roya": {
+        "index": "exr",
+        "threshold": 0.12,
+        "images": 168,
+        "tie_pixels_total": 1791,
+        "tie_pixels_mean_per_image": 10.660714285714286,
+        "tie_pixels_mean_per_image_by_face": {
+          "abaxial": 10.392857142857142,
+          "adaxial": 10.928571428571429
+        },
+        "tie_pixels_classified_below_by_float64": 851,
+        "note": "pixels whose index equals the threshold exactly (leaf pixels of all validation and test images of the disease's pack); counted as lesion by the exact comparison"
+      },
+      "ojo": {
+        "index": "ri",
+        "threshold": 0.026,
+        "images": 220,
+        "tie_pixels_total": 1,
+        "tie_pixels_mean_per_image": 0.004545454545454545,
+        "tie_pixels_mean_per_image_by_face": {
+          "abaxial": 0.00909090909090909,
+          "adaxial": 0.0
+        },
+        "tie_pixels_classified_below_by_float64": 0,
+        "note": "pixels whose index equals the threshold exactly (leaf pixels of all validation and test images of the disease's pack); counted as lesion by the exact comparison"
+      }
+    },
+    "runtime_s": 171.5
+  },
+  "reproduction": {
+    "all_match": true,
+    "models": {
+      "roya/segformer": {
+        "n": 21,
+        "computed": {
+          "iou": 0.7672918095238095,
+          "mae": 0.9898295238095239,
+          "bias": 0.9895809523809524,
+          "qwk": 0.877906976744186,
+          "loa": [
+            -1.6848440184509745,
+            3.6640059232128794
+          ]
+        },
+        "published": {
+          "iou": 0.767,
+          "mae": 0.99,
+          "bias": 0.99,
+          "qwk": 0.88,
+          "loa": [
+            -1.68,
+            3.66
+          ]
+        },
+        "match": {
+          "iou": true,
+          "mae": true,
+          "bias": true,
+          "qwk": true,
+          "loa": true
+        }
+      },
+      "roya/unetpp": {
+        "n": 21,
+        "computed": {
+          "iou": 0.6465412857142857,
+          "mae": 1.7694414285714286,
+          "bias": 1.7486414285714285,
+          "qwk": 0.7878787878787878,
+          "loa": [
+            -2.6772502368719966,
+            6.174533094014853
+          ]
+        },
+        "published": {
+          "iou": 0.647,
+          "mae": 1.77,
+          "bias": 1.75,
+          "qwk": 0.79,
+          "loa": [
+            -2.68,
+            6.17
+          ]
+        },
+        "match": {
+          "iou": true,
+          "mae": true,
+          "bias": true,
+          "qwk": true,
+          "loa": true
+        }
+      },
+      "roya/deeplab": {
+        "n": 21,
+        "computed": {
+          "iou": 0.631615,
+          "mae": 1.4739338095238097,
+          "bias": 1.411487142857143,
+          "qwk": 0.877906976744186,
+          "loa": [
+            -3.0655848562083747,
+            5.888559141922661
+          ]
+        },
+        "published": {
+          "iou": 0.632,
+          "mae": 1.47,
+          "bias": 1.41,
+          "qwk": 0.88,
+          "loa": [
+            -3.07,
+            5.89
+          ]
+        },
+        "match": {
+          "iou": true,
+          "mae": true,
+          "bias": true,
+          "qwk": true,
+          "loa": true
+        }
+      },
+      "ojo/segformer": {
+        "n": 55,
+        "computed": {
+          "iou": 0.8844675727272727,
+          "mae": 0.21977445454545458,
+          "bias": 0.16408409090909098,
+          "qwk": 0.824654622741764,
+          "loa": [
+            -0.4662058076921059,
+            0.7943739895102879
+          ]
+        },
+        "published": {
+          "iou": 0.884,
+          "mae": 0.22,
+          "bias": 0.16,
+          "qwk": 0.82,
+          "loa": [
+            -0.47,
+            0.79
+          ]
+        },
+        "match": {
+          "iou": true,
+          "mae": true,
+          "bias": true,
+          "qwk": true,
+          "loa": true
+        }
+      },
+      "ojo/unetpp": {
+        "n": 55,
+        "computed": {
+          "iou": 0.8530089181818181,
+          "mae": 0.14516500000000007,
+          "bias": -0.026570454545454616,
+          "qwk": 0.8522072936660269,
+          "loa": [
+            -0.4957520479848896,
+            0.4426111388939804
+          ]
+        },
+        "published": {
+          "iou": 0.853,
+          "mae": 0.15,
+          "bias": -0.03,
+          "qwk": 0.85,
+          "loa": [
+            -0.5,
+            0.44
+          ]
+        },
+        "match": {
+          "iou": true,
+          "mae": true,
+          "bias": true,
+          "qwk": true,
+          "loa": true
+        }
+      },
+      "ojo/deeplab": {
+        "n": 55,
+        "computed": {
+          "iou": 0.8146661727272726,
+          "mae": 0.24675881818181838,
+          "bias": 0.07987590909090925,
+          "qwk": 0.8378776713338246,
+          "loa": [
+            -0.6603886255392087,
+            0.8201404437210272
+          ]
+        },
+        "published": {
+          "iou": 0.815,
+          "mae": 0.25,
+          "bias": 0.08,
+          "qwk": 0.84,
+          "loa": [
+            -0.66,
+            0.82
+          ]
+        },
+        "match": {
+          "iou": true,
+          "mae": true,
+          "bias": true,
+          "qwk": true,
+          "loa": true
+        }
+      }
+    },
+    "brief_item10_healthy_counts": {
+      "segformer": {
+        "any_pixel_either_face": 19,
+        "max_sev_either_face": 0.38201,
+        "brief": [
+          19,
+          0.38
+        ],
+        "match": true
+      },
+      "unetpp": {
+        "any_pixel_either_face": 19,
+        "max_sev_either_face": 0.26707,
+        "brief": [
+          19,
+          0.27
+        ],
+        "match": true
+      },
+      "deeplab": {
+        "any_pixel_either_face": 13,
+        "max_sev_either_face": 0.08992,
+        "brief": [
+          13,
+          0.09
+        ],
+        "match": true
+      }
+    }
+  },
+  "validation_configs": {
+    "roya": {
+      "n_val_diseased": 21,
+      "n_val_healthy": 21,
+      "configs": {
+        "ri_otsu": {
+          "index": "redness index (r-g)/(r+g+b)",
+          "rule": "otsu",
+          "threshold": null,
+          "val_iou": 0.26579238238733705,
+          "otsu_thr_median": -0.0610912758231963
+        },
+        "ri_global": {
+          "index": "redness index (r-g)/(r+g+b)",
+          "rule": "global",
+          "threshold": -0.021,
+          "val_iou": 0.5783666729420313,
+          "plateau_within_0_005_of_max": [
+            -0.023,
+            -0.018
+          ],
+          "healthy_val_flagged_ge_0_5pct": 21,
+          "healthy_val_flagged_ge_0_5pct_leaf_rule": 20
+        },
+        "astar_otsu": {
+          "index": "CIELAB a*",
+          "rule": "otsu",
+          "threshold": null,
+          "val_iou": 0.3164001981091694,
+          "otsu_thr_median": -6.08965379225874
+        },
+        "astar_global": {
+          "index": "CIELAB a*",
+          "rule": "global",
+          "threshold": -7.6,
+          "val_iou": 0.4737524407363451,
+          "plateau_within_0_005_of_max": [
+            -8.3,
+            -7.1
+          ],
+          "healthy_val_flagged_ge_0_5pct": 21,
+          "healthy_val_flagged_ge_0_5pct_leaf_rule": 21
+        },
+        "exr_otsu": {
+          "index": "excess red 1.4r'-g'",
+          "rule": "otsu",
+          "threshold": null,
+          "val_iou": 0.4120100703660564,
+          "otsu_thr_median": 0.13211513084007184
+        },
+        "exr_global": {
+          "index": "excess red 1.4r'-g'",
+          "rule": "global",
+          "threshold": 0.12,
+          "val_iou": 0.6087997417913446,
+          "plateau_within_0_005_of_max": [
+            0.118,
+            0.124
+          ],
+          "healthy_val_flagged_ge_0_5pct": 20,
+          "healthy_val_flagged_ge_0_5pct_leaf_rule": 18
+        }
+      },
+      "selected": "exr_global",
+      "otsu_per_face_secondary": {
+        "ri_otsu_face": {
+          "threshold": null,
+          "val_iou": 0.26579238238733705,
+          "otsu_thr_median": -0.0610912758231963
+        },
+        "astar_otsu_face": {
+          "threshold": null,
+          "val_iou": 0.3164001981091694,
+          "otsu_thr_median": -6.08965379225874
+        },
+        "exr_otsu_face": {
+          "threshold": null,
+          "val_iou": 0.4120100703660564,
+          "otsu_thr_median": 0.13211513084007184
+        }
+      },
+      "secondary_specificity_constrained": {
+        "rule": "global threshold maximizing validation mean leaf IoU subject to 0 of 21 healthy validation leaves at >= 0.5 % predicted severity on EITHER face (primary face rule)",
+        "candidates": {
+          "ri": {
+            "threshold": 0.005,
+            "val_iou": 0.5085404069086867,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.005
+          },
+          "astar": {
+            "threshold": 0.0,
+            "val_iou": 0.29214974586887915,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.0
+          },
+          "exr": {
+            "threshold": 0.154,
+            "val_iou": 0.515704531775677,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.154
+          }
+        },
+        "selected": "exr_global"
+      },
+      "secondary_specificity_constrained_leaf_rule": {
+        "rule": "same, with the paper's leaf rule for healthy leaves (rust: abaxial face; leaf spot: mean of faces)",
+        "candidates": {
+          "ri": {
+            "threshold": 0.005,
+            "val_iou": 0.5085404069086867,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.005
+          },
+          "astar": {
+            "threshold": 0.0,
+            "val_iou": 0.29214974586887915,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.0
+          },
+          "exr": {
+            "threshold": 0.154,
+            "val_iou": 0.515704531775677,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.154
+          }
+        },
+        "selected": "exr_global"
+      }
+    },
+    "ojo": {
+      "n_val_diseased": 55,
+      "n_val_healthy": 21,
+      "configs": {
+        "ri_otsu": {
+          "index": "redness index (r-g)/(r+g+b)",
+          "rule": "otsu",
+          "threshold": null,
+          "val_iou": 0.5522041898129901,
+          "otsu_thr_median": 0.011038070301128106
+        },
+        "ri_global": {
+          "index": "redness index (r-g)/(r+g+b)",
+          "rule": "global",
+          "threshold": 0.026,
+          "val_iou": 0.789418446122583,
+          "plateau_within_0_005_of_max": [
+            0.018,
+            0.032
+          ],
+          "healthy_val_flagged_ge_0_5pct": 0,
+          "healthy_val_flagged_ge_0_5pct_leaf_rule": 0
+        },
+        "astar_otsu": {
+          "index": "CIELAB a*",
+          "rule": "otsu",
+          "threshold": null,
+          "val_iou": 0.518648185720598,
+          "otsu_thr_median": -4.158186528645069
+        },
+        "astar_global": {
+          "index": "CIELAB a*",
+          "rule": "global",
+          "threshold": 0.0,
+          "val_iou": 0.7802466772992434,
+          "plateau_within_0_005_of_max": [
+            0.0,
+            1.0
+          ],
+          "healthy_val_flagged_ge_0_5pct": 0,
+          "healthy_val_flagged_ge_0_5pct_leaf_rule": 0
+        },
+        "exr_otsu": {
+          "index": "excess red 1.4r'-g'",
+          "rule": "otsu",
+          "threshold": null,
+          "val_iou": 0.5618763374141876,
+          "otsu_thr_median": 0.15871233258928572
+        },
+        "exr_global": {
+          "index": "excess red 1.4r'-g'",
+          "rule": "global",
+          "threshold": 0.176,
+          "val_iou": 0.7831945115667055,
+          "plateau_within_0_005_of_max": [
+            0.168,
+            0.184
+          ],
+          "healthy_val_flagged_ge_0_5pct": 0,
+          "healthy_val_flagged_ge_0_5pct_leaf_rule": 0
+        }
+      },
+      "selected": "ri_global",
+      "otsu_per_face_secondary": {
+        "ri_otsu_face": {
+          "threshold": null,
+          "val_iou": 0.6483626123785126,
+          "otsu_thr_median": 0.01453721788194444
+        },
+        "astar_otsu_face": {
+          "threshold": null,
+          "val_iou": 0.6156708936658867,
+          "otsu_thr_median": -2.44418533835571
+        },
+        "exr_otsu_face": {
+          "threshold": null,
+          "val_iou": 0.6554105645811549,
+          "otsu_thr_median": 0.16270696590964107
+        }
+      },
+      "secondary_specificity_constrained": {
+        "rule": "global threshold maximizing validation mean leaf IoU subject to 0 of 21 healthy validation leaves at >= 0.5 % predicted severity on EITHER face (primary face rule)",
+        "candidates": {
+          "ri": {
+            "threshold": 0.026,
+            "val_iou": 0.789418446122583,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.005
+          },
+          "astar": {
+            "threshold": 0.0,
+            "val_iou": 0.7802466772992434,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.0
+          },
+          "exr": {
+            "threshold": 0.176,
+            "val_iou": 0.7831945115667055,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.154
+          }
+        },
+        "selected": "ri_global"
+      },
+      "secondary_specificity_constrained_leaf_rule": {
+        "rule": "same, with the paper's leaf rule for healthy leaves (rust: abaxial face; leaf spot: mean of faces)",
+        "candidates": {
+          "ri": {
+            "threshold": 0.026,
+            "val_iou": 0.789418446122583,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.001
+          },
+          "astar": {
+            "threshold": 0.0,
+            "val_iou": 0.7802466772992434,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.0
+          },
+          "exr": {
+            "threshold": 0.176,
+            "val_iou": 0.7831945115667055,
+            "healthy_val_flagged_ge_0_5pct": 0,
+            "lowest_threshold_with_0_healthy_flagged": 0.146
+          }
+        },
+        "selected": "ri_global"
+      }
+    }
+  },
+  "network_validation_iou": {
+    "roya/segformer": 0.7757918095238097,
+    "roya/unetpp": 0.6707331904761905,
+    "roya/deeplab": 0.6525459523809525,
+    "ojo/segformer": 0.8588512181818182,
+    "ojo/unetpp": 0.8328082545454546,
+    "ojo/deeplab": 0.7903553272727271
+  },
+  "test": {
+    "roya": {
+      "n": 21,
+      "selected_config": {
+        "index": "exr",
+        "index_name": "excess red 1.4r'-g'",
+        "rule": "global",
+        "threshold": 0.12
+      },
+      "secondary_constrained_config": {
+        "index": "exr",
+        "index_name": "excess red 1.4r'-g'",
+        "rule": "global (specificity-constrained on validation, either-face rule)",
+        "threshold": 0.154,
+        "note": "secondary analysis; not the primary baseline"
+      },
+      "secondary_constrained_config_leaf_rule": {
+        "index": "exr",
+        "index_name": "excess red 1.4r'-g'",
+        "rule": "global (specificity-constrained on validation, paper's leaf rule)",
+        "threshold": 0.154,
+        "note": "secondary analysis; reported for comparison with the previous version"
+      },
+      "methods": {
+        "baseline": {
+          "n": 21,
+          "iou": 0.5999638492185593,
+          "iou_median": 0.6156228492773572,
+          "mae": 1.0213113733737456,
+          "rmse": 1.9827245514017902,
+          "bias": 0.17241932612580005,
+          "sd_diff": 2.023991510319459,
+          "loa": [
+            -3.794604034100339,
+            4.13944268635194
+          ],
+          "pearson_r": 0.9222515025156872,
+          "ccc": 0.9211436143113864,
+          "grade_acc": 0.9523809523809523,
+          "grade_correct": 20,
+          "qwk": 0.9268292682926829,
+          "ref_sev_mean": 5.474902556164681,
+          "pred_sev_mean": 5.6473218822904805,
+          "ci95": {
+            "iou": [
+              0.5536824674745089,
+              0.6450239239411489
+            ],
+            "mae": [
+              0.44450000313246263,
+              1.8473282547189103
+            ],
+            "rmse": [
+              0.6814102321427238,
+              3.172750121670333
+            ],
+            "bias": [
+              -0.5452923135000816,
+              1.1115459205416138
+            ],
+            "pearson_r": [
+              0.7972584432769578,
+              0.9940578201927508
+            ],
+            "ccc": [
+              0.7471145367420191,
+              0.9856029595049106
+            ],
+            "grade_acc": [
+              0.8571428571428571,
+              1.0
+            ],
+            "qwk": [
+              0.7096774193548387,
+              1.0
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7733063992587744,
+            0.9915440121901736
+          ]
+        },
+        "baseline_constrained": {
+          "n": 21,
+          "iou": 0.5176395084704265,
+          "iou_median": 0.5305197070108127,
+          "mae": 2.1154490734421447,
+          "rmse": 2.7768267193862877,
+          "bias": -2.1154490734421447,
+          "sd_diff": 1.8432102266233508,
+          "loa": [
+            -5.728141117623912,
+            1.4972429707396229
+          ],
+          "pearson_r": 0.9938748060772732,
+          "ccc": 0.8137013131715038,
+          "grade_acc": 0.7142857142857143,
+          "grade_correct": 15,
+          "qwk": 0.6358381502890174,
+          "ref_sev_mean": 5.474902556164681,
+          "pred_sev_mean": 3.359453482722535,
+          "ci95": {
+            "iou": [
+              0.4704710467023825,
+              0.5597056957291043
+            ],
+            "mae": [
+              1.4161136832934629,
+              2.9568151283027135
+            ],
+            "rmse": [
+              1.7353307267221045,
+              3.7404531614512537
+            ],
+            "bias": [
+              -2.9568151283027135,
+              -1.4161136832934629
+            ],
+            "pearson_r": [
+              0.9873232640041765,
+              0.9977948627978787
+            ],
+            "ccc": [
+              0.7337155906807946,
+              0.8538318101199431
+            ],
+            "grade_acc": [
+              0.5238095238095238,
+              0.9047619047619048
+            ],
+            "qwk": [
+              0.36363636363636354,
+              0.8541666666666666
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.5004361928391441,
+            0.8618613704787788
+          ]
+        },
+        "baseline_constrained_leaf_rule": {
+          "n": 21,
+          "iou": 0.5176395084704265,
+          "iou_median": 0.5305197070108127,
+          "mae": 2.1154490734421447,
+          "rmse": 2.7768267193862877,
+          "bias": -2.1154490734421447,
+          "sd_diff": 1.8432102266233508,
+          "loa": [
+            -5.728141117623912,
+            1.4972429707396229
+          ],
+          "pearson_r": 0.9938748060772732,
+          "ccc": 0.8137013131715038,
+          "grade_acc": 0.7142857142857143,
+          "grade_correct": 15,
+          "qwk": 0.6358381502890174,
+          "ref_sev_mean": 5.474902556164681,
+          "pred_sev_mean": 3.359453482722535,
+          "ci95": {
+            "iou": [
+              0.4704710467023825,
+              0.5597056957291043
+            ],
+            "mae": [
+              1.4161136832934629,
+              2.9568151283027135
+            ],
+            "rmse": [
+              1.7353307267221045,
+              3.7404531614512537
+            ],
+            "bias": [
+              -2.9568151283027135,
+              -1.4161136832934629
+            ],
+            "pearson_r": [
+              0.9873232640041765,
+              0.9977948627978787
+            ],
+            "ccc": [
+              0.7337155906807946,
+              0.8538318101199431
+            ],
+            "grade_acc": [
+              0.5238095238095238,
+              0.9047619047619048
+            ],
+            "qwk": [
+              0.36363636363636354,
+              0.8541666666666666
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.5004361928391441,
+            0.8618613704787788
+          ]
+        },
+        "segformer": {
+          "n": 21,
+          "iou": 0.7672918095238095,
+          "iou_median": 0.766538,
+          "mae": 0.9898295238095239,
+          "rmse": 1.659059158367147,
+          "bias": 0.9895809523809524,
+          "sd_diff": 1.3645025361387382,
+          "loa": [
+            -1.6848440184509745,
+            3.6640059232128794
+          ],
+          "pearson_r": 0.9937191787934496,
+          "ccc": 0.9581788878824765,
+          "grade_acc": 0.9047619047619048,
+          "grade_correct": 19,
+          "qwk": 0.877906976744186,
+          "ref_sev_mean": 5.474902857142857,
+          "pred_sev_mean": 6.46448380952381,
+          "ci95": {
+            "iou": [
+              0.7429316904761905,
+              0.7904686333333335
+            ],
+            "mae": [
+              0.4757374642857144,
+              1.603548416666667
+            ],
+            "rmse": [
+              0.7859808862639247,
+              2.3365033567002627
+            ],
+            "bias": [
+              0.4757374642857144,
+              1.602815130952381
+            ],
+            "pearson_r": [
+              0.9789245364026623,
+              0.9993065197540192
+            ],
+            "ccc": [
+              0.9095128224392666,
+              0.979449399142156
+            ],
+            "grade_acc": [
+              0.7619047619047619,
+              1.0
+            ],
+            "qwk": [
+              0.6842105263157895,
+              1.0
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7108586092608176,
+            0.9734812325619255
+          ]
+        },
+        "unetpp": {
+          "n": 21,
+          "iou": 0.6465412857142857,
+          "iou_median": 0.648018,
+          "mae": 1.7694414285714286,
+          "rmse": 2.813180862623897,
+          "bias": 1.7486414285714285,
+          "sd_diff": 2.258107992573176,
+          "loa": [
+            -2.6772502368719966,
+            6.174533094014853
+          ],
+          "pearson_r": 0.9793666074855203,
+          "ccc": 0.8968989095837021,
+          "grade_acc": 0.8095238095238095,
+          "grade_correct": 17,
+          "qwk": 0.7878787878787878,
+          "ref_sev_mean": 5.474902857142857,
+          "pred_sev_mean": 7.223544285714285,
+          "ci95": {
+            "iou": [
+              0.6068895642857143,
+              0.6843799142857143
+            ],
+            "mae": [
+              0.9190302738095236,
+              2.7627623809523816
+            ],
+            "rmse": [
+              1.6268783099227608,
+              3.7990762460425755
+            ],
+            "bias": [
+              0.8837318571428571,
+              2.7416547619047607
+            ],
+            "pearson_r": [
+              0.9516497184766126,
+              0.9969105821373605
+            ],
+            "ccc": [
+              0.786199364482197,
+              0.9488953520581266
+            ],
+            "grade_acc": [
+              0.6190476190476191,
+              0.9523809523809523
+            ],
+            "qwk": [
+              0.5663716814159292,
+              0.9440220472440941
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.5999943530979508,
+            0.9233243494723822
+          ]
+        },
+        "deeplab": {
+          "n": 21,
+          "iou": 0.631615,
+          "iou_median": 0.646213,
+          "mae": 1.4739338095238097,
+          "rmse": 2.6384652145960414,
+          "bias": 1.411487142857143,
+          "sd_diff": 2.284220407686489,
+          "loa": [
+            -3.0655848562083747,
+            5.888559141922661
+          ],
+          "pearson_r": 0.9539857414233295,
+          "ccc": 0.9000590459261653,
+          "grade_acc": 0.9047619047619048,
+          "grade_correct": 19,
+          "qwk": 0.877906976744186,
+          "ref_sev_mean": 5.474902857142857,
+          "pred_sev_mean": 6.8863900000000005,
+          "ci95": {
+            "iou": [
+              0.5904378369047619,
+              0.669127113095238
+            ],
+            "mae": [
+              0.6544834880952382,
+              2.483416214285714
+            ],
+            "rmse": [
+              1.1713895110517631,
+              3.8159265434209195
+            ],
+            "bias": [
+              0.5736365357142859,
+              2.4381148333333336
+            ],
+            "pearson_r": [
+              0.8766620007460939,
+              0.9954843308417041
+            ],
+            "ccc": [
+              0.730804802403708,
+              0.9766061946449421
+            ],
+            "grade_acc": [
+              0.7619047619047619,
+              1.0
+            ],
+            "qwk": [
+              0.6842105263157895,
+              1.0
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7108586092608176,
+            0.9734812325619255
+          ]
+        }
+      },
+      "paired_network_minus_baseline": {
+        "segformer": {
+          "iou": {
+            "diff": 0.1673279603052502,
+            "ci95": [
+              0.12731635111949385,
+              0.2064883992517071
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.03148184956422162,
+            "ci95": [
+              -0.840252038669683,
+              0.5937874446786179
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.04892229154849681,
+            "ci95": [
+              -0.2727272727272727,
+              0.19999999999999996
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "ccc": {
+            "diff": 0.037035273571090155,
+            "ci95": [
+              -0.04316829582490078,
+              0.20431857403171907
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "abs_bias": {
+            "diff": 0.8171616262551524,
+            "ci95": [
+              -0.2511656101178588,
+              1.385804838262417
+            ],
+            "ci_excludes_zero": false
+          },
+          "leaves_network_iou_higher": 21,
+          "leaves_baseline_iou_higher": 0
+        },
+        "unetpp": {
+          "iou": {
+            "diff": 0.04657743649572643,
+            "ci95": [
+              0.00731857738659366,
+              0.0848374960323442
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": 0.748130055197683,
+            "ci95": [
+              -0.011172089087935055,
+              1.6445324525992693
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.13895048041389502,
+            "ci95": [
+              -0.3846153846153846,
+              0.11217427074204567
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "ccc": {
+            "diff": -0.024244704727684252,
+            "ci95": [
+              -0.13194767061082294,
+              0.09186044087516859
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "abs_bias": {
+            "diff": 1.5762221024456284,
+            "ci95": [
+              0.475701056221172,
+              2.4213342578819366
+            ],
+            "ci_excludes_zero": true
+          },
+          "leaves_network_iou_higher": 12,
+          "leaves_baseline_iou_higher": 9
+        },
+        "deeplab": {
+          "iou": {
+            "diff": 0.03165115078144076,
+            "ci95": [
+              -0.001864934722738612,
+              0.06558830908649381
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "mae": {
+            "diff": 0.45262243615006414,
+            "ci95": [
+              -0.1273063026187269,
+              1.2217122641862195
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.04892229154849681,
+            "ci95": [
+              -0.2727272727272727,
+              0.19999999999999996
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "ccc": {
+            "diff": -0.021084568385221103,
+            "ci95": [
+              -0.09873152327532488,
+              0.023145033205371254
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "abs_bias": {
+            "diff": 1.239067816731343,
+            "ci95": [
+              0.24565096380853504,
+              1.9399042538411857
+            ],
+            "ci_excludes_zero": true
+          },
+          "leaves_network_iou_higher": 12,
+          "leaves_baseline_iou_higher": 9
+        }
+      },
+      "paired_network_minus_baseline_constrained": {
+        "segformer": {
+          "iou": {
+            "diff": 0.24965230105338299,
+            "ci95": [
+              0.20510871323392438,
+              0.2924083822167666
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -1.1256195496326207,
+            "ci95": [
+              -1.6055969524846243,
+              -0.664068672256567
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "qwk": {
+            "diff": 0.2420688264551687,
+            "ci95": [
+              -0.027279433681073082,
+              0.5571851119208744
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          }
+        },
+        "unetpp": {
+          "iou": {
+            "diff": 0.1289017772438592,
+            "ci95": [
+              0.07307293839225358,
+              0.18266127057746828
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.3460076448707161,
+            "ci95": [
+              -0.9974984146755775,
+              0.39066825961630786
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": 0.1520406375897705,
+            "ci95": [
+              -0.13700277745107303,
+              0.46590909090909083
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          }
+        },
+        "deeplab": {
+          "iou": {
+            "diff": 0.11397549152957354,
+            "ci95": [
+              0.05849934774389298,
+              0.16724734810067807
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.641515263918335,
+            "ci95": [
+              -1.570427733804319,
+              0.36587223840545335
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": 0.2420688264551687,
+            "ci95": [
+              -0.027279433681073082,
+              0.5571851119208744
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          }
+        }
+      },
+      "by_reference_grade": {
+        "G0": {
+          "n": 1,
+          "baseline": 0.47837150127226463,
+          "baseline_constrained": 0.4520547945205479,
+          "baseline_constrained_leaf_rule": 0.4520547945205479,
+          "segformer": 0.745042,
+          "unetpp": 0.714286,
+          "deeplab": 0.589443,
+          "baseline_mae": 0.027465776197291014,
+          "baseline_constrained_mae": 0.19948826922242943,
+          "baseline_constrained_leaf_rule_mae": 0.19948826922242943,
+          "segformer_mae": 0.07727,
+          "unetpp_mae": 0.004390000000000005,
+          "deeplab_mae": 0.029480000000000006
+        },
+        "G1": {
+          "n": 11,
+          "baseline": 0.5682247690229535,
+          "baseline_constrained": 0.4688736145951735,
+          "baseline_constrained_leaf_rule": 0.4688736145951735,
+          "segformer": 0.7763725454545455,
+          "unetpp": 0.635623,
+          "deeplab": 0.6248522727272726,
+          "baseline_mae": 0.3174484054876232,
+          "baseline_constrained_mae": 1.0390911635147309,
+          "baseline_constrained_leaf_rule_mae": 1.0390911635147309,
+          "segformer_mae": 0.164920909090909,
+          "unetpp_mae": 0.4285318181818182,
+          "deeplab_mae": 0.39623181818181813
+        },
+        "G2": {
+          "n": 9,
+          "baseline": 0.6522663192294438,
+          "baseline_constrained": 0.5845294580901665,
+          "baseline_constrained_leaf_rule": 0.5845294580901665,
+          "segformer": 0.7586653333333334,
+          "unetpp": 0.6523586666666666,
+          "deeplab": 0.6445663333333334,
+          "baseline_mae": 1.9920156226986125,
+          "baseline_constrained_mae": 3.6438821638222856,
+          "baseline_constrained_leaf_rule_mae": 3.6438821638222856,
+          "segformer_mae": 2.099446666666667,
+          "unetpp_mae": 3.6044477777777777,
+          "deeplab_mae": 2.95162
+        }
+      },
+      "baseline_confusion_rows_ref_cols_pred_G0_G3": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          11,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "ojo": {
+      "n": 55,
+      "selected_config": {
+        "index": "ri",
+        "index_name": "redness index (r-g)/(r+g+b)",
+        "rule": "global",
+        "threshold": 0.026
+      },
+      "secondary_constrained_config": {
+        "index": "ri",
+        "index_name": "redness index (r-g)/(r+g+b)",
+        "rule": "global (specificity-constrained on validation, either-face rule)",
+        "threshold": 0.026,
+        "note": "secondary analysis; not the primary baseline"
+      },
+      "secondary_constrained_config_leaf_rule": {
+        "index": "ri",
+        "index_name": "redness index (r-g)/(r+g+b)",
+        "rule": "global (specificity-constrained on validation, paper's leaf rule)",
+        "threshold": 0.026,
+        "note": "secondary analysis; reported for comparison with the previous version"
+      },
+      "methods": {
+        "baseline": {
+          "n": 55,
+          "iou": 0.8071385703924722,
+          "iou_median": 0.8384213172545754,
+          "mae": 0.22970126448429776,
+          "rmse": 0.404027697180574,
+          "bias": -0.10746431988356867,
+          "sd_diff": 0.39306344324056547,
+          "loa": [
+            -0.877868668635077,
+            0.6629400288679397
+          ],
+          "pearson_r": 0.9974146600691007,
+          "ccc": 0.9971985546923215,
+          "grade_acc": 0.8727272727272727,
+          "grade_correct": 48,
+          "qwk": 0.8522072936660269,
+          "ref_sev_mean": 5.322426149921264,
+          "pred_sev_mean": 5.214961830037693,
+          "ci95": {
+            "iou": [
+              0.7767303055688521,
+              0.8357778518401291
+            ],
+            "mae": [
+              0.15253313842459248,
+              0.3245423002278716
+            ],
+            "rmse": [
+              0.22305575959143167,
+              0.5722533337718676
+            ],
+            "bias": [
+              -0.2156373488241888,
+              -0.013859059218815702
+            ],
+            "pearson_r": [
+              0.9928965274956958,
+              0.9993495705369724
+            ],
+            "ccc": [
+              0.99155572287652,
+              0.9992226657464778
+            ],
+            "grade_acc": [
+              0.7818181818181819,
+              0.9454545454545454
+            ],
+            "qwk": [
+              0.7524752475247525,
+              0.9390975160645096
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7598297234409093,
+            0.9369578957263536
+          ]
+        },
+        "baseline_constrained": {
+          "n": 55,
+          "iou": 0.8071385703924722,
+          "iou_median": 0.8384213172545754,
+          "mae": 0.22970126448429776,
+          "rmse": 0.404027697180574,
+          "bias": -0.10746431988356867,
+          "sd_diff": 0.39306344324056547,
+          "loa": [
+            -0.877868668635077,
+            0.6629400288679397
+          ],
+          "pearson_r": 0.9974146600691007,
+          "ccc": 0.9971985546923215,
+          "grade_acc": 0.8727272727272727,
+          "grade_correct": 48,
+          "qwk": 0.8522072936660269,
+          "ref_sev_mean": 5.322426149921264,
+          "pred_sev_mean": 5.214961830037693,
+          "ci95": {
+            "iou": [
+              0.7767303055688521,
+              0.8357778518401291
+            ],
+            "mae": [
+              0.15253313842459248,
+              0.3245423002278716
+            ],
+            "rmse": [
+              0.22305575959143167,
+              0.5722533337718676
+            ],
+            "bias": [
+              -0.2156373488241888,
+              -0.013859059218815702
+            ],
+            "pearson_r": [
+              0.9928965274956958,
+              0.9993495705369724
+            ],
+            "ccc": [
+              0.99155572287652,
+              0.9992226657464778
+            ],
+            "grade_acc": [
+              0.7818181818181819,
+              0.9454545454545454
+            ],
+            "qwk": [
+              0.7524752475247525,
+              0.9390975160645096
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7598297234409093,
+            0.9369578957263536
+          ]
+        },
+        "baseline_constrained_leaf_rule": {
+          "n": 55,
+          "iou": 0.8071385703924722,
+          "iou_median": 0.8384213172545754,
+          "mae": 0.22970126448429776,
+          "rmse": 0.404027697180574,
+          "bias": -0.10746431988356867,
+          "sd_diff": 0.39306344324056547,
+          "loa": [
+            -0.877868668635077,
+            0.6629400288679397
+          ],
+          "pearson_r": 0.9974146600691007,
+          "ccc": 0.9971985546923215,
+          "grade_acc": 0.8727272727272727,
+          "grade_correct": 48,
+          "qwk": 0.8522072936660269,
+          "ref_sev_mean": 5.322426149921264,
+          "pred_sev_mean": 5.214961830037693,
+          "ci95": {
+            "iou": [
+              0.7767303055688521,
+              0.8357778518401291
+            ],
+            "mae": [
+              0.15253313842459248,
+              0.3245423002278716
+            ],
+            "rmse": [
+              0.22305575959143167,
+              0.5722533337718676
+            ],
+            "bias": [
+              -0.2156373488241888,
+              -0.013859059218815702
+            ],
+            "pearson_r": [
+              0.9928965274956958,
+              0.9993495705369724
+            ],
+            "ccc": [
+              0.99155572287652,
+              0.9992226657464778
+            ],
+            "grade_acc": [
+              0.7818181818181819,
+              0.9454545454545454
+            ],
+            "qwk": [
+              0.7524752475247525,
+              0.9390975160645096
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7598297234409093,
+            0.9369578957263536
+          ]
+        },
+        "segformer": {
+          "n": 55,
+          "iou": 0.8844675727272727,
+          "iou_median": 0.9038225,
+          "mae": 0.21977445454545458,
+          "rmse": 0.3584059329961186,
+          "bias": 0.16408409090909098,
+          "sd_diff": 0.3215764788781617,
+          "loa": [
+            -0.4662058076921059,
+            0.7943739895102879
+          ],
+          "pearson_r": 0.99932059413741,
+          "ccc": 0.9978815287892309,
+          "grade_acc": 0.8363636363636363,
+          "grade_correct": 46,
+          "qwk": 0.824654622741764,
+          "ref_sev_mean": 5.322426727272727,
+          "pred_sev_mean": 5.486510818181817,
+          "ci95": {
+            "iou": [
+              0.8682501345454543,
+              0.8997069465909091
+            ],
+            "mae": [
+              0.15100032500000005,
+              0.2988322931818181
+            ],
+            "rmse": [
+              0.2412538541199732,
+              0.46506737250009483
+            ],
+            "bias": [
+              0.08415909090909095,
+              0.2528429249999999
+            ],
+            "pearson_r": [
+              0.9979425500049728,
+              0.9998681908708874
+            ],
+            "ccc": [
+              0.9957956561492669,
+              0.9986536766107613
+            ],
+            "grade_acc": [
+              0.7272727272727273,
+              0.9272727272727272
+            ],
+            "qwk": [
+              0.7249979773462784,
+              0.9119450528338137
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7173625426094283,
+            0.9114457966390772
+          ]
+        },
+        "unetpp": {
+          "n": 55,
+          "iou": 0.8530089181818181,
+          "iou_median": 0.8797595,
+          "mae": 0.14516500000000007,
+          "rmse": 0.2386757960907337,
+          "bias": -0.026570454545454616,
+          "sd_diff": 0.23937836399971174,
+          "loa": [
+            -0.4957520479848896,
+            0.4426111388939804
+          ],
+          "pearson_r": 0.9991338053849508,
+          "ccc": 0.9990295693564281,
+          "grade_acc": 0.8727272727272727,
+          "grade_correct": 48,
+          "qwk": 0.8522072936660269,
+          "ref_sev_mean": 5.322426727272727,
+          "pred_sev_mean": 5.295856272727274,
+          "ci95": {
+            "iou": [
+              0.8300185843181818,
+              0.8743592436363636
+            ],
+            "mae": [
+              0.10144357500000001,
+              0.19965086363636367
+            ],
+            "rmse": [
+              0.14269758395078294,
+              0.33825895036542486
+            ],
+            "bias": [
+              -0.09189994772727274,
+              0.032474922727272794
+            ],
+            "pearson_r": [
+              0.9976197947420994,
+              0.9997814643203679
+            ],
+            "ccc": [
+              0.9973541167843994,
+              0.9996062588548063
+            ],
+            "grade_acc": [
+              0.7818181818181819,
+              0.9454545454545454
+            ],
+            "qwk": [
+              0.7524752475247525,
+              0.9390975160645096
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7598297234409093,
+            0.9369578957263536
+          ]
+        },
+        "deeplab": {
+          "n": 55,
+          "iou": 0.8146661727272726,
+          "iou_median": 0.8504925,
+          "mae": 0.24675881818181838,
+          "rmse": 0.38266602830726276,
+          "bias": 0.07987590909090925,
+          "sd_diff": 0.37768598705618267,
+          "loa": [
+            -0.6603886255392087,
+            0.8201404437210272
+          ],
+          "pearson_r": 0.9984949509493429,
+          "ccc": 0.9975735581341022,
+          "grade_acc": 0.8545454545454545,
+          "grade_correct": 47,
+          "qwk": 0.8378776713338246,
+          "ref_sev_mean": 5.322426727272727,
+          "pred_sev_mean": 5.402302636363636,
+          "ci95": {
+            "iou": [
+              0.7901752184090909,
+              0.8374071845454545
+            ],
+            "mae": [
+              0.17529004545454552,
+              0.3285034931818185
+            ],
+            "rmse": [
+              0.260018940850179,
+              0.4978822945124271
+            ],
+            "bias": [
+              -0.015756038636363615,
+              0.17892031363636365
+            ],
+            "pearson_r": [
+              0.9960401383683002,
+              0.9996004685842564
+            ],
+            "ccc": [
+              0.9957007677369154,
+              0.9985271719117235
+            ],
+            "grade_acc": [
+              0.7636363636363637,
+              0.9454545454545454
+            ],
+            "qwk": [
+              0.7385103011093503,
+              0.9260752688172043
+            ]
+          },
+          "boot_dropped": {},
+          "grade_acc_wilson95": [
+            0.7383908706854773,
+            0.9244071085224069
+          ]
+        }
+      },
+      "paired_network_minus_baseline": {
+        "segformer": {
+          "iou": {
+            "diff": 0.07732900233480056,
+            "ci95": [
+              0.06228499191855112,
+              0.0935868822543163
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.009926809938843179,
+            "ci95": [
+              -0.09075907375216756,
+              0.0666714777291722
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.027552670924262834,
+            "ci95": [
+              -0.07409174669000942,
+              0.0
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "ccc": {
+            "diff": 0.0006829740969093168,
+            "ci95": [
+              -0.0008888654356041942,
+              0.005136470071372141
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "abs_bias": {
+            "diff": 0.05661977102552232,
+            "ci95": [
+              -0.0870459402620921,
+              0.18943128692882003
+            ],
+            "ci_excludes_zero": false
+          },
+          "leaves_network_iou_higher": 55,
+          "leaves_baseline_iou_higher": 0
+        },
+        "unetpp": {
+          "iou": {
+            "diff": 0.045870347789345955,
+            "ci95": [
+              0.036012662032829115,
+              0.056353502777439675
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.08453626448429769,
+            "ci95": [
+              -0.14368398385516457,
+              -0.03323114761415555
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "qwk": {
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "ccc": {
+            "diff": 0.0018310146641065117,
+            "ci95": [
+              0.0003418343621393455,
+              0.005945986405627011
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "abs_bias": {
+            "diff": -0.08089386533811405,
+            "ci95": [
+              -0.14691881020318337,
+              0.006154959654611352
+            ],
+            "ci_excludes_zero": false
+          },
+          "leaves_network_iou_higher": 53,
+          "leaves_baseline_iou_higher": 2
+        },
+        "deeplab": {
+          "iou": {
+            "diff": 0.007527602334800432,
+            "ci95": [
+              -0.0016405690607483368,
+              0.01743204623699428
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "mae": {
+            "diff": 0.017057553697520628,
+            "ci95": [
+              -0.05124619596690695,
+              0.08728320049606281
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.014329622332202252,
+            "ci95": [
+              -0.05037453228756762,
+              0.0
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "ccc": {
+            "diff": 0.0003750034417806525,
+            "ci95": [
+              -0.0011752294370478533,
+              0.004302184550753516
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "abs_bias": {
+            "diff": -0.027588410792659418,
+            "ci95": [
+              -0.19384495638869154,
+              0.1450080950422512
+            ],
+            "ci_excludes_zero": false
+          },
+          "leaves_network_iou_higher": 24,
+          "leaves_baseline_iou_higher": 31
+        }
+      },
+      "paired_network_minus_baseline_constrained": {
+        "segformer": {
+          "iou": {
+            "diff": 0.07732900233480056,
+            "ci95": [
+              0.06228499191855112,
+              0.0935868822543163
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.009926809938843179,
+            "ci95": [
+              -0.09075907375216756,
+              0.0666714777291722
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.027552670924262834,
+            "ci95": [
+              -0.07409174669000942,
+              0.0
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          }
+        },
+        "unetpp": {
+          "iou": {
+            "diff": 0.045870347789345955,
+            "ci95": [
+              0.036012662032829115,
+              0.056353502777439675
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "mae": {
+            "diff": -0.08453626448429769,
+            "ci95": [
+              -0.14368398385516457,
+              -0.03323114761415555
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": true
+          },
+          "qwk": {
+            "diff": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          }
+        },
+        "deeplab": {
+          "iou": {
+            "diff": 0.007527602334800432,
+            "ci95": [
+              -0.0016405690607483368,
+              0.01743204623699428
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "mae": {
+            "diff": 0.017057553697520628,
+            "ci95": [
+              -0.05124619596690695,
+              0.08728320049606281
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          },
+          "qwk": {
+            "diff": -0.014329622332202252,
+            "ci95": [
+              -0.05037453228756762,
+              0.0
+            ],
+            "dropped": 0,
+            "ci_excludes_zero": false
+          }
+        }
+      },
+      "by_reference_grade": {
+        "G1": {
+          "n": 30,
+          "baseline": 0.752630341931688,
+          "baseline_constrained": 0.752630341931688,
+          "baseline_constrained_leaf_rule": 0.752630341931688,
+          "segformer": 0.8580407166666666,
+          "unetpp": 0.8138773999999999,
+          "deeplab": 0.7755594166666665,
+          "baseline_mae": 0.13747458153895817,
+          "baseline_constrained_mae": 0.13747458153895817,
+          "baseline_constrained_leaf_rule_mae": 0.13747458153895817,
+          "segformer_mae": 0.06813366666666663,
+          "unetpp_mae": 0.08954516666666665,
+          "deeplab_mae": 0.11566366666666669
+        },
+        "G2": {
+          "n": 23,
+          "baseline": 0.8671287783725047,
+          "baseline_constrained": 0.8671287783725047,
+          "baseline_constrained_leaf_rule": 0.8671287783725047,
+          "segformer": 0.9129737391304348,
+          "unetpp": 0.8958051521739129,
+          "deeplab": 0.8574296956521738,
+          "baseline_mae": 0.334579402420411,
+          "baseline_constrained_mae": 0.334579402420411,
+          "baseline_constrained_leaf_rule_mae": 0.334579402420411,
+          "segformer_mae": 0.3489663043478263,
+          "unetpp_mae": 0.18487847826086984,
+          "deeplab_mae": 0.3374004347826089
+        },
+        "G3": {
+          "n": 2,
+          "baseline": 0.9348746055338548,
+          "baseline_constrained": 0.9348746055338548,
+          "baseline_constrained_leaf_rule": 0.9348746055338548,
+          "segformer": 0.9530495,
+          "unetpp": 0.9478249999999999,
+          "deeplab": 0.9094869999999999,
+          "baseline_mae": 0.407002922399089,
+          "baseline_constrained_mae": 0.407002922399089,
+          "baseline_constrained_leaf_rule_mae": 0.407002922399089,
+          "segformer_mae": 1.00868,
+          "unetpp_mae": 0.5227574999999991,
+          "deeplab_mae": 1.1708075000000022
+        }
+      },
+      "baseline_confusion_rows_ref_cols_pred_G0_G3": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          6,
+          24,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          22,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2
+        ]
+      ]
+    }
+  },
+  "baseline_validation_metrics": {
+    "roya": {
+      "n": 21,
+      "iou": 0.6087997417913446,
+      "iou_median": 0.5998460354118553,
+      "mae": 0.376150032632774,
+      "rmse": 0.5266403132107271,
+      "bias": -0.12822847208895835,
+      "sd_diff": 0.5234050557327902,
+      "loa": [
+        -1.1541023813252271,
+        0.8976454371473104
+      ],
+      "pearson_r": 0.9625665772106055,
+      "ccc": 0.9593936947672829,
+      "grade_acc": 1.0,
+      "grade_correct": 21,
+      "qwk": 1.0,
+      "ref_sev_mean": 3.3451669121504066,
+      "pred_sev_mean": 3.216938440061448
+    },
+    "ojo": {
+      "n": 55,
+      "iou": 0.7894184461225829,
+      "iou_median": 0.8402669771819485,
+      "mae": 0.4147804535451916,
+      "rmse": 1.0648395354555373,
+      "bias": -0.05404605995499923,
+      "sd_diff": 1.0732688410747775,
+      "loa": [
+        -2.157652988461563,
+        2.0495608685515645
+      ],
+      "pearson_r": 0.9961435251731602,
+      "ccc": 0.990879370417595,
+      "grade_acc": 0.8909090909090909,
+      "grade_correct": 49,
+      "qwk": 0.8677884615384616,
+      "ref_sev_mean": 5.8921143052520115,
+      "pred_sev_mean": 5.838068245297013
+    }
+  },
+  "specificity": {
+    "face_rules": {
+      "either_face": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+      "leaf_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)"
+    },
+    "flag_rules": {
+      "any_pixel": "any predicted lesion pixel (> 0 %; the paper's stated definition)",
+      "ge_0.5pct": "predicted severity >= 0.5 % (predicted grade G1 or higher)",
+      "ge_5pct": "predicted severity >= 5 % (false-positive rule used to select the rust CNNs)"
+    },
+    "test": {
+      "n": 21,
+      "split": "test",
+      "methods": {
+        "roya/baseline": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 1.172792509678778,
+            "pred_sev_mean": 1.3806446435210062,
+            "pred_sev_max": 4.907718120805369,
+            "pred_sev_min": 0.6084889643463497,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 0,
+              "G1": 21,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.962425630746715,
+            "pred_sev_mean": 1.0305570907132198,
+            "pred_sev_max": 2.343543188153039,
+            "pred_sev_min": 0.4835446785414714,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 20,
+              "n": 21,
+              "fp_rate": 0.9523809523809523,
+              "fp_rate_wilson95": [
+                0.7733063992587744,
+                0.9915440121901736
+              ],
+              "specificity": 0.04761904761904767
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 1,
+              "G1": 20,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/baseline_constrained": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.17121369709576767,
+            "pred_sev_mean": 0.18490752914599934,
+            "pred_sev_max": 0.4778643513193916,
+            "pred_sev_min": 0.07711799052550403,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.1250861100032631,
+            "pred_sev_mean": 0.15584682316137644,
+            "pred_sev_max": 0.4778643513193916,
+            "pred_sev_min": 0.07601140171025654,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/baseline_constrained_leaf_rule": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.17121369709576767,
+            "pred_sev_mean": 0.18490752914599934,
+            "pred_sev_max": 0.4778643513193916,
+            "pred_sev_min": 0.07711799052550403,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.1250861100032631,
+            "pred_sev_mean": 0.15584682316137644,
+            "pred_sev_max": 0.4778643513193916,
+            "pred_sev_min": 0.07601140171025654,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/segformer": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.14344,
+            "pred_sev_mean": 0.15727666666666665,
+            "pred_sev_max": 0.38201,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 19,
+              "n": 21,
+              "fp_rate": 0.9047619047619048,
+              "fp_rate_wilson95": [
+                0.7108586092608176,
+                0.9734812325619255
+              ],
+              "specificity": 0.09523809523809523
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.08504,
+            "pred_sev_mean": 0.12120428571428572,
+            "pred_sev_max": 0.35537,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 17,
+              "n": 21,
+              "fp_rate": 0.8095238095238095,
+              "fp_rate_wilson95": [
+                0.5999943530979508,
+                0.9233243494723822
+              ],
+              "specificity": 0.19047619047619047
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/unetpp": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.01107,
+            "pred_sev_mean": 0.05057666666666666,
+            "pred_sev_max": 0.26707,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 19,
+              "n": 21,
+              "fp_rate": 0.9047619047619048,
+              "fp_rate_wilson95": [
+                0.7108586092608176,
+                0.9734812325619255
+              ],
+              "specificity": 0.09523809523809523
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.0075,
+            "pred_sev_mean": 0.030901428571428576,
+            "pred_sev_max": 0.15517,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 15,
+              "n": 21,
+              "fp_rate": 0.7142857142857143,
+              "fp_rate_wilson95": [
+                0.5004361928391441,
+                0.8618613704787788
+              ],
+              "specificity": 0.2857142857142857
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/deeplab": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.01638,
+            "pred_sev_mean": 0.025838095238095236,
+            "pred_sev_max": 0.08992,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 13,
+              "n": 21,
+              "fp_rate": 0.6190476190476191,
+              "fp_rate_wilson95": [
+                0.4087865377511576,
+                0.7924898863143551
+              ],
+              "specificity": 0.38095238095238093
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.0,
+            "pred_sev_mean": 0.011097142857142858,
+            "pred_sev_max": 0.08548,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 7,
+              "n": 21,
+              "fp_rate": 0.3333333333333333,
+              "fp_rate_wilson95": [
+                0.1719475260508348,
+                0.5462654802574476
+              ],
+              "specificity": 0.6666666666666667
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/baseline": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.11848151528251437,
+            "pred_sev_mean": 0.14853418123917775,
+            "pred_sev_max": 0.3255957105599922,
+            "pred_sev_min": 0.0691057317696075,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.10884472595872258,
+            "pred_sev_mean": 0.12188350084284434,
+            "pred_sev_max": 0.2334422671557364,
+            "pred_sev_min": 0.06319936367471952,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/baseline_constrained": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.11848151528251437,
+            "pred_sev_mean": 0.14853418123917775,
+            "pred_sev_max": 0.3255957105599922,
+            "pred_sev_min": 0.0691057317696075,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.10884472595872258,
+            "pred_sev_mean": 0.12188350084284434,
+            "pred_sev_max": 0.2334422671557364,
+            "pred_sev_min": 0.06319936367471952,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/baseline_constrained_leaf_rule": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.11848151528251437,
+            "pred_sev_mean": 0.14853418123917775,
+            "pred_sev_max": 0.3255957105599922,
+            "pred_sev_min": 0.0691057317696075,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.10884472595872258,
+            "pred_sev_mean": 0.12188350084284434,
+            "pred_sev_max": 0.2334422671557364,
+            "pred_sev_min": 0.06319936367471952,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/segformer": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.06186,
+            "pred_sev_mean": 0.07345952380952381,
+            "pred_sev_max": 0.22575,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 19,
+              "n": 21,
+              "fp_rate": 0.9047619047619048,
+              "fp_rate_wilson95": [
+                0.7108586092608176,
+                0.9734812325619255
+              ],
+              "specificity": 0.09523809523809523
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.03093,
+            "pred_sev_mean": 0.04750642857142857,
+            "pred_sev_max": 0.21778,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 19,
+              "n": 21,
+              "fp_rate": 0.9047619047619048,
+              "fp_rate_wilson95": [
+                0.7108586092608176,
+                0.9734812325619255
+              ],
+              "specificity": 0.09523809523809523
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/unetpp": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.10385,
+            "pred_sev_mean": 0.13963095238095238,
+            "pred_sev_max": 0.54331,
+            "pred_sev_min": 0.02831,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 1,
+              "n": 21,
+              "fp_rate": 0.047619047619047616,
+              "fp_rate_wilson95": [
+                0.008455987809826385,
+                0.22669360074122563
+              ],
+              "specificity": 0.9523809523809523
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 20,
+              "G1": 1,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.07137,
+            "pred_sev_mean": 0.10653761904761906,
+            "pred_sev_max": 0.41161499999999995,
+            "pred_sev_min": 0.02157,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/deeplab": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.10139,
+            "pred_sev_mean": 0.14603428571428573,
+            "pred_sev_max": 0.40882,
+            "pred_sev_min": 0.01643,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.07021,
+            "pred_sev_mean": 0.1068547619047619,
+            "pred_sev_max": 0.35968500000000003,
+            "pred_sev_min": 0.014360000000000001,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        }
+      },
+      "baseline_flagged_pixel_location": {
+        "roya": {
+          "both_faces": {
+            "faces": "abaxial and adaxial",
+            "flagged_px": 35913,
+            "flagged_px_in_margin_band": 23343,
+            "share_in_margin_band": 0.6499874697184863,
+            "margin_band_share_of_leaf_area": 0.04586300343849099,
+            "margin_band_px": 3
+          },
+          "leaf_rule_faces": {
+            "faces": "abaxial",
+            "flagged_px": 16823,
+            "flagged_px_in_margin_band": 9684,
+            "share_in_margin_band": 0.5756404921833205,
+            "margin_band_share_of_leaf_area": 0.04592265196030921,
+            "margin_band_px": 3
+          }
+        },
+        "ojo": {
+          "both_faces": {
+            "faces": "abaxial and adaxial",
+            "flagged_px": 3902,
+            "flagged_px_in_margin_band": 3294,
+            "share_in_margin_band": 0.8441824705279344,
+            "margin_band_share_of_leaf_area": 0.04586300343849099,
+            "margin_band_px": 3
+          },
+          "leaf_rule_faces": {
+            "faces": "abaxial and adaxial",
+            "flagged_px": 3902,
+            "flagged_px_in_margin_band": 3294,
+            "share_in_margin_band": 0.8441824705279344,
+            "margin_band_share_of_leaf_area": 0.04586300343849099,
+            "margin_band_px": 3
+          }
+        }
+      }
+    },
+    "val": {
+      "n": 21,
+      "split": "val",
+      "methods": {
+        "roya/baseline": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.9069479403891486,
+            "pred_sev_mean": 1.518001157290528,
+            "pred_sev_max": 6.2685228342024955,
+            "pred_sev_min": 0.47415150715483556,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 20,
+              "n": 21,
+              "fp_rate": 0.9523809523809523,
+              "fp_rate_wilson95": [
+                0.7733063992587744,
+                0.9915440121901736
+              ],
+              "specificity": 0.04761904761904767
+            },
+            "ge_5pct": {
+              "flagged": 1,
+              "n": 21,
+              "fp_rate": 0.047619047619047616,
+              "fp_rate_wilson95": [
+                0.008455987809826385,
+                0.22669360074122563
+              ],
+              "specificity": 0.9523809523809523
+            },
+            "predicted_grades": {
+              "G0": 1,
+              "G1": 19,
+              "G2": 1,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.9069479403891486,
+            "pred_sev_mean": 1.08599227533491,
+            "pred_sev_max": 3.8356575198680463,
+            "pred_sev_min": 0.3700836303927991,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 18,
+              "n": 21,
+              "fp_rate": 0.8571428571428571,
+              "fp_rate_wilson95": [
+                0.6536393971937906,
+                0.9501898750027473
+              ],
+              "specificity": 0.1428571428571429
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 3,
+              "G1": 18,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/baseline_constrained": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.1392422688894796,
+            "pred_sev_mean": 0.1555585463780658,
+            "pred_sev_max": 0.45184185535062726,
+            "pred_sev_min": 0.08368200836820083,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.11700870682436075,
+            "pred_sev_mean": 0.14676150593216156,
+            "pred_sev_max": 0.45184185535062726,
+            "pred_sev_min": 0.0696046835370621,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/baseline_constrained_leaf_rule": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.1392422688894796,
+            "pred_sev_mean": 0.1555585463780658,
+            "pred_sev_max": 0.45184185535062726,
+            "pred_sev_min": 0.08368200836820083,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.11700870682436075,
+            "pred_sev_mean": 0.14676150593216156,
+            "pred_sev_max": 0.45184185535062726,
+            "pred_sev_min": 0.0696046835370621,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/segformer": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.16311,
+            "pred_sev_mean": 0.15568571428571432,
+            "pred_sev_max": 0.39215,
+            "pred_sev_min": 0.004,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.16311,
+            "pred_sev_mean": 0.1483504761904762,
+            "pred_sev_max": 0.39215,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 19,
+              "n": 21,
+              "fp_rate": 0.9047619047619048,
+              "fp_rate_wilson95": [
+                0.7108586092608176,
+                0.9734812325619255
+              ],
+              "specificity": 0.09523809523809523
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/unetpp": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.03699,
+            "pred_sev_mean": 0.06254000000000001,
+            "pred_sev_max": 0.49724,
+            "pred_sev_min": 0.00111,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.01634,
+            "pred_sev_mean": 0.03644619047619048,
+            "pred_sev_max": 0.146,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 20,
+              "n": 21,
+              "fp_rate": 0.9523809523809523,
+              "fp_rate_wilson95": [
+                0.7733063992587744,
+                0.9915440121901736
+              ],
+              "specificity": 0.04761904761904767
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "roya/deeplab": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.00967,
+            "pred_sev_mean": 0.018444285714285715,
+            "pred_sev_max": 0.05751,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 14,
+              "n": 21,
+              "fp_rate": 0.6666666666666666,
+              "fp_rate_wilson95": [
+                0.45373451974255247,
+                0.8280524739491653
+              ],
+              "specificity": 0.33333333333333337
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.00967,
+            "pred_sev_mean": 0.017974761904761903,
+            "pred_sev_max": 0.05751,
+            "pred_sev_min": 0.0,
+            "any_pixel": {
+              "flagged": 13,
+              "n": 21,
+              "fp_rate": 0.6190476190476191,
+              "fp_rate_wilson95": [
+                0.4087865377511576,
+                0.7924898863143551
+              ],
+              "specificity": 0.38095238095238093
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/baseline": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.10276305610401007,
+            "pred_sev_mean": 0.11463674884775048,
+            "pred_sev_max": 0.21722649871705155,
+            "pred_sev_min": 0.06656523392925066,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.09072654917102373,
+            "pred_sev_mean": 0.10114359884899385,
+            "pred_sev_max": 0.18864864745528304,
+            "pred_sev_min": 0.06141053702412304,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/baseline_constrained": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.10276305610401007,
+            "pred_sev_mean": 0.11463674884775048,
+            "pred_sev_max": 0.21722649871705155,
+            "pred_sev_min": 0.06656523392925066,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.09072654917102373,
+            "pred_sev_mean": 0.10114359884899385,
+            "pred_sev_max": 0.18864864745528304,
+            "pred_sev_min": 0.06141053702412304,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/baseline_constrained_leaf_rule": {
+          "either_face": {
+            "face_rule": "PRIMARY (revision_brief.md item 10): flagged when either face meets the criterion; leaf value = maximum over the two faces",
+            "pred_sev_median": 0.10276305610401007,
+            "pred_sev_mean": 0.11463674884775048,
+            "pred_sev_max": 0.21722649871705155,
+            "pred_sev_min": 0.06656523392925066,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          },
+          "leaf_rule": {
+            "face_rule": "paper's diseased-leaf rule of the detector's disease (rust: abaxial face only; leaf spot: mean of the two faces)",
+            "pred_sev_median": 0.09072654917102373,
+            "pred_sev_mean": 0.10114359884899385,
+            "pred_sev_max": 0.18864864745528304,
+            "pred_sev_min": 0.06141053702412304,
+            "any_pixel": {
+              "flagged": 21,
+              "n": 21,
+              "fp_rate": 1.0,
+              "fp_rate_wilson95": [
+                0.8453609810751531,
+                1.0
+              ],
+              "specificity": 0.0
+            },
+            "ge_0.5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "ge_5pct": {
+              "flagged": 0,
+              "n": 21,
+              "fp_rate": 0.0,
+              "fp_rate_wilson95": [
+                0.0,
+                0.15463901892484694
+              ],
+              "specificity": 1.0
+            },
+            "predicted_grades": {
+              "G0": 21,
+              "G1": 0,
+              "G2": 0,
+              "G3": 0
+            }
+          }
+        },
+        "ojo/segformer": "not available: no network predictions for these leaves in per_image.csv (inference not re-run)",
+        "ojo/unetpp": "not available: no network predictions for these leaves in per_image.csv (inference not re-run)",
+        "ojo/deeplab": "not available: no network predictions for these leaves in per_image.csv (inference not re-run)"
+      },
+      "baseline_flagged_pixel_location": {
+        "roya": {
+          "both_faces": {
+            "faces": "abaxial and adaxial",
+            "flagged_px": 43459,
+            "flagged_px_in_margin_band": 23232,
+            "share_in_margin_band": 0.5345728157573805,
+            "margin_band_share_of_leaf_area": 0.042969994240690666,
+            "margin_band_px": 3
+          },
+          "leaf_rule_faces": {
+            "faces": "abaxial",
+            "flagged_px": 19798,
+            "flagged_px_in_margin_band": 9428,
+            "share_in_margin_band": 0.47620971815334884,
+            "margin_band_share_of_leaf_area": 0.043144733894040194,
+            "margin_band_px": 3
+          }
+        },
+        "ojo": {
+          "both_faces": {
+            "faces": "abaxial and adaxial",
+            "flagged_px": 3630,
+            "flagged_px_in_margin_band": 3231,
+            "share_in_margin_band": 0.8900826446280992,
+            "margin_band_share_of_leaf_area": 0.042969994240690666,
+            "margin_band_px": 3
+          },
+          "leaf_rule_faces": {
+            "faces": "abaxial and adaxial",
+            "flagged_px": 3630,
+            "flagged_px_in_margin_band": 3231,
+            "share_in_margin_band": 0.8900826446280992,
+            "margin_band_share_of_leaf_area": 0.042969994240690666,
+            "margin_band_px": 3
+          }
+        }
+      }
+    }
+  },
+  "sensitivity_all_configs_on_test": {
+    "note": "Reported for transparency only; selection used validation alone and the primary comparison is the selected configuration. Healthy columns: either-face rule (primary) and paper's leaf rule.",
+    "results": {
+      "roya/ri_otsu": {
+        "val_iou": 0.26579238238733705,
+        "threshold": null,
+        "test_iou": 0.35022235235652016,
+        "test_mae": 31.838947516119852,
+        "test_bias": 29.9374106770906,
+        "test_ccc": -0.0993590818932317,
+        "test_qwk": -0.29019607843137263,
+        "test_grade_acc": 0.42857142857142855,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 83.22189566495224,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 66.30319598236912
+      },
+      "roya/ri_global": {
+        "val_iou": 0.5783666729420313,
+        "threshold": -0.021,
+        "test_iou": 0.5791807006953269,
+        "test_mae": 0.8932836728179806,
+        "test_bias": -0.12328464703072431,
+        "test_ccc": 0.9548058400046271,
+        "test_qwk": 0.9268292682926829,
+        "test_grade_acc": 0.9523809523809523,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 1.3958349613190593,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 0.9222101569016257
+      },
+      "roya/ri_otsu_face": {
+        "val_iou": 0.26579238238733705,
+        "threshold": null,
+        "test_iou": 0.35022235235652016,
+        "test_mae": 31.838947516119852,
+        "test_bias": 29.9374106770906,
+        "test_ccc": -0.0993590818932317,
+        "test_qwk": -0.29019607843137263,
+        "test_grade_acc": 0.42857142857142855,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 69.58041025367442,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 66.30319598236912
+      },
+      "roya/astar_otsu": {
+        "val_iou": 0.3164001981091694,
+        "threshold": null,
+        "test_iou": 0.3522297185823446,
+        "test_mae": 21.92849144814407,
+        "test_bias": 18.970896557283066,
+        "test_ccc": -0.12272503134261203,
+        "test_qwk": -0.251655629139073,
+        "test_grade_acc": 0.5238095238095238,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 87.81781261013309,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 38.26664035131001
+      },
+      "roya/astar_global": {
+        "val_iou": 0.4737524407363451,
+        "threshold": -7.6,
+        "test_iou": 0.4866027224073963,
+        "test_mae": 1.112051592764317,
+        "test_bias": -0.3567322997324138,
+        "test_ccc": 0.9317036647324608,
+        "test_qwk": 0.5882352941176471,
+        "test_grade_acc": 0.7619047619047619,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 57.149856417654505,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 2.018051105727905
+      },
+      "roya/astar_otsu_face": {
+        "val_iou": 0.3164001981091694,
+        "threshold": null,
+        "test_iou": 0.3522297185823446,
+        "test_mae": 21.92849144814407,
+        "test_bias": 18.970896557283066,
+        "test_ccc": -0.12272503134261203,
+        "test_qwk": -0.251655629139073,
+        "test_grade_acc": 0.5238095238095238,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 60.526393408775846,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 38.26664035131001
+      },
+      "roya/exr_otsu": {
+        "val_iou": 0.4120100703660564,
+        "threshold": null,
+        "test_iou": 0.43348381971375055,
+        "test_mae": 23.10270357084031,
+        "test_bias": 20.79217452774313,
+        "test_ccc": -0.11112124451545155,
+        "test_qwk": -0.20689655172413812,
+        "test_grade_acc": 0.5714285714285714,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 88.13069948524993,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 72.76175188455062
+      },
+      "roya/exr_global": {
+        "val_iou": 0.6087997417913446,
+        "threshold": 0.12,
+        "test_iou": 0.5999638492185593,
+        "test_mae": 1.0213113733737456,
+        "test_bias": 0.17241932612580005,
+        "test_ccc": 0.9211436143113864,
+        "test_qwk": 0.9268292682926829,
+        "test_grade_acc": 0.9523809523809523,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 1.172792509678778,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 20,
+        "healthy_test_pred_sev_median_leaf_rule": 0.962425630746715
+      },
+      "roya/exr_otsu_face": {
+        "val_iou": 0.4120100703660564,
+        "threshold": null,
+        "test_iou": 0.43348381971375055,
+        "test_mae": 23.10270357084031,
+        "test_bias": 20.79217452774313,
+        "test_ccc": -0.11112124451545155,
+        "test_qwk": -0.20689655172413812,
+        "test_grade_acc": 0.5714285714285714,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 72.76175188455062,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 72.76175188455062
+      },
+      "ojo/ri_otsu": {
+        "val_iou": 0.5522041898129901,
+        "threshold": null,
+        "test_iou": 0.6226151556222674,
+        "test_mae": 14.850814693189204,
+        "test_bias": 14.714219769687729,
+        "test_ccc": -0.10210300139373642,
+        "test_qwk": 0.07601211787386408,
+        "test_grade_acc": 0.7090909090909091,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 83.22189566495224,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 64.46949915154013
+      },
+      "ojo/ri_global": {
+        "val_iou": 0.789418446122583,
+        "threshold": 0.026,
+        "test_iou": 0.8071385703924722,
+        "test_mae": 0.22970126448429776,
+        "test_bias": -0.10746431988356867,
+        "test_ccc": 0.9971985546923215,
+        "test_qwk": 0.8522072936660269,
+        "test_grade_acc": 0.8727272727272727,
+        "healthy_test_flagged_ge_0_5pct": 0,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 0.11848151528251437,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 0,
+        "healthy_test_pred_sev_median_leaf_rule": 0.10884472595872258
+      },
+      "ojo/ri_otsu_face": {
+        "val_iou": 0.6483626123785126,
+        "threshold": null,
+        "test_iou": 0.6502603550866358,
+        "test_mae": 12.114819658092566,
+        "test_bias": 11.955690066201369,
+        "test_ccc": -0.11076560378340876,
+        "test_qwk": 0.031370390753990285,
+        "test_grade_acc": 0.6545454545454545,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 69.58041025367442,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 60.99218253231247
+      },
+      "ojo/astar_otsu": {
+        "val_iou": 0.518648185720598,
+        "threshold": null,
+        "test_iou": 0.5427674049207428,
+        "test_mae": 18.830958708405433,
+        "test_bias": 18.763749687813817,
+        "test_ccc": -0.12653162662797132,
+        "test_qwk": -0.12988734261100054,
+        "test_grade_acc": 0.5636363636363636,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 87.81781261013309,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 47.12386052169021
+      },
+      "ojo/astar_global": {
+        "val_iou": 0.7802466772992434,
+        "threshold": 0.0,
+        "test_iou": 0.7951935662606076,
+        "test_mae": 0.2809042427146506,
+        "test_bias": -0.24077281212237847,
+        "test_ccc": 0.995738132534529,
+        "test_qwk": 0.8378776713338246,
+        "test_grade_acc": 0.8545454545454545,
+        "healthy_test_flagged_ge_0_5pct": 0,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 0.20575296108291033,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 0,
+        "healthy_test_pred_sev_median_leaf_rule": 0.17866039327403507
+      },
+      "ojo/astar_otsu_face": {
+        "val_iou": 0.6156708936658867,
+        "threshold": null,
+        "test_iou": 0.6121213046275111,
+        "test_mae": 14.400996729611565,
+        "test_bias": 14.33914941747888,
+        "test_ccc": -0.11890625195491679,
+        "test_qwk": -0.024509803921568762,
+        "test_grade_acc": 0.6545454545454545,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 60.526393408775846,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 52.4904382876087
+      },
+      "ojo/exr_otsu": {
+        "val_iou": 0.5618763374141876,
+        "threshold": null,
+        "test_iou": 0.6590812167633945,
+        "test_mae": 12.083471829484216,
+        "test_bias": 11.965000297133015,
+        "test_ccc": -0.08014224296697106,
+        "test_qwk": 0.182094081942337,
+        "test_grade_acc": 0.7636363636363637,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 88.13069948524993,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 66.53153739869555
+      },
+      "ojo/exr_global": {
+        "val_iou": 0.7831945115667055,
+        "threshold": 0.176,
+        "test_iou": 0.8010155944587002,
+        "test_mae": 0.23153752964499472,
+        "test_bias": -0.0785607910350518,
+        "test_ccc": 0.9975193329062677,
+        "test_qwk": 0.8522072936660269,
+        "test_grade_acc": 0.8727272727272727,
+        "healthy_test_flagged_ge_0_5pct": 0,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 0.11370558375634518,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 0,
+        "healthy_test_pred_sev_median_leaf_rule": 0.10644258684809936
+      },
+      "ojo/exr_otsu_face": {
+        "val_iou": 0.6554105645811549,
+        "threshold": null,
+        "test_iou": 0.6800300485571843,
+        "test_mae": 9.408551250766077,
+        "test_bias": 9.23830899516512,
+        "test_ccc": -0.08167958259583133,
+        "test_qwk": 0.12852112676056338,
+        "test_grade_acc": 0.7272727272727273,
+        "healthy_test_flagged_ge_0_5pct": 21,
+        "healthy_test_flagged_any_pixel": 21,
+        "healthy_test_pred_sev_median": 72.76175188455062,
+        "healthy_test_flagged_ge_0_5pct_leaf_rule": 21,
+        "healthy_test_pred_sev_median_leaf_rule": 61.283815503386776
+      }
+    }
+  },
+  "posthoc_margin_excluded": {
+    "note": "POST HOC (added after seeing where the primary baseline's healthy-leaf false positives fell); secondary only",
+    "band_definition": "reference leaf minus its binary erosion (3x3 cross, scipy default) by 3 or 12 letterbox px; lesion pixels predicted inside the band are removed; severity denominator unchanged",
+    "results": {
+      "roya/margin3px": {
+        "band_px": 3,
+        "index": "exr",
+        "index_name": "excess red 1.4r'-g'",
+        "threshold": 0.116,
+        "val_iou": 0.6621018676315463,
+        "val_candidates": {
+          "ri": {
+            "threshold": -0.026,
+            "val_iou": 0.6597021537929193
+          },
+          "astar": {
+            "threshold": -8.2,
+            "val_iou": 0.5742414838862239
+          },
+          "exr": {
+            "threshold": 0.116,
+            "val_iou": 0.6621018676315463
+          }
+        },
+        "test": {
+          "iou": 0.6328552409865617,
+          "iou_ci95": [
+            0.5899237680767595,
+            0.6698932601602742
+          ],
+          "mae": 1.0364546571557938,
+          "mae_ci95": [
+            0.4084215946427009,
+            2.00309421302946
+          ],
+          "bias": 0.10388445803384398,
+          "ccc": 0.9041908598077237,
+          "grade_acc": 0.9047619047619048,
+          "qwk": 0.8703703703703703
+        },
+        "healthy_test": {
+          "n": 21,
+          "flagged_ge_0_5pct": 15,
+          "flagged_any_pixel": 21,
+          "pred_sev_median": 0.6110916637495625,
+          "pred_sev_max": 5.018672872916215,
+          "flagged_ge_0_5pct_leaf_rule": 14,
+          "flagged_any_pixel_leaf_rule": 21
+        },
+        "healthy_val": {
+          "n": 21,
+          "flagged_ge_0_5pct": 13,
+          "flagged_any_pixel": 21,
+          "pred_sev_median": 0.5948215535339398,
+          "pred_sev_max": 6.229828248806184,
+          "flagged_ge_0_5pct_leaf_rule": 13,
+          "flagged_any_pixel_leaf_rule": 21
+        }
+      },
+      "roya/margin12px": {
+        "band_px": 12,
+        "index": "exr",
+        "index_name": "excess red 1.4r'-g'",
+        "threshold": 0.116,
+        "val_iou": 0.5780257140367983,
+        "val_candidates": {
+          "ri": {
+            "threshold": -0.027,
+            "val_iou": 0.5763922387333531
+          },
+          "astar": {
+            "threshold": -8.3,
+            "val_iou": 0.5183423865095026
+          },
+          "exr": {
+            "threshold": 0.116,
+            "val_iou": 0.5780257140367983
+          }
+        },
+        "test": {
+          "iou": 0.5466926724344143,
+          "iou_ci95": [
+            0.5002716116597867,
+            0.590110596070185
+          ],
+          "mae": 1.4006411410025772,
+          "mae_ci95": [
+            0.7327314554614918,
+            2.2654358930418876
+          ],
+          "bias": -0.6239654607171611,
+          "ccc": 0.8857349058437123,
+          "grade_acc": 0.8571428571428571,
+          "qwk": 0.8025078369905956
+        },
+        "healthy_test": {
+          "n": 21,
+          "flagged_ge_0_5pct": 11,
+          "flagged_any_pixel": 21,
+          "pred_sev_median": 0.5017090550953015,
+          "pred_sev_max": 4.33264775925525,
+          "flagged_ge_0_5pct_leaf_rule": 10,
+          "flagged_any_pixel_leaf_rule": 21
+        },
+        "healthy_val": {
+          "n": 21,
+          "flagged_ge_0_5pct": 11,
+          "flagged_any_pixel": 21,
+          "pred_sev_median": 0.5047434412031249,
+          "pred_sev_max": 5.922909832821802,
+          "flagged_ge_0_5pct_leaf_rule": 11,
+          "flagged_any_pixel_leaf_rule": 21
+        }
+      },
+      "ojo/margin3px": {
+        "band_px": 3,
+        "index": "astar",
+        "index_name": "CIELAB a*",
+        "threshold": -1.4,
+        "val_iou": 0.789254654938974,
+        "val_candidates": {
+          "ri": {
+            "threshold": 0.024,
+            "val_iou": 0.7818135474296705
+          },
+          "astar": {
+            "threshold": -1.4,
+            "val_iou": 0.789254654938974
+          },
+          "exr": {
+            "threshold": 0.174,
+            "val_iou": 0.7746359160913591
+          }
+        },
+        "test": {
+          "iou": 0.79093146870363,
+          "iou_ci95": [
+            0.7507059942966049,
+            0.8272313649035398
+          ],
+          "mae": 0.32152367874428106,
+          "mae_ci95": [
+            0.22867358013245298,
+            0.4246342219340966
+          ],
+          "bias": -0.2571158736947487,
+          "ccc": 0.9956341704885863,
+          "grade_acc": 0.8727272727272727,
+          "qwk": 0.8522072936660269
+        },
+        "healthy_test": {
+          "n": 21,
+          "flagged_ge_0_5pct": 0,
+          "flagged_any_pixel": 21,
+          "pred_sev_median": 0.06209408092369141,
+          "pred_sev_max": 0.4925308508335137,
+          "flagged_ge_0_5pct_leaf_rule": 0,
+          "flagged_any_pixel_leaf_rule": 21
+        },
+        "healthy_val": {
+          "n": 21,
+          "flagged_ge_0_5pct": 0,
+          "flagged_any_pixel": 21,
+          "pred_sev_median": 0.02968207202849479,
+          "pred_sev_max": 0.4379523528946188,
+          "flagged_ge_0_5pct_leaf_rule": 0,
+          "flagged_any_pixel_leaf_rule": 21
+        }
+      },
+      "ojo/margin12px": {
+        "band_px": 12,
+        "index": "astar",
+        "index_name": "CIELAB a*",
+        "threshold": -1.4,
+        "val_iou": 0.7227370193483883,
+        "val_candidates": {
+          "ri": {
+            "threshold": 0.023,
+            "val_iou": 0.7159728958783927
+          },
+          "astar": {
+            "threshold": -1.4,
+            "val_iou": 0.7227370193483883
+          },
+          "exr": {
+            "threshold": 0.174,
+            "val_iou": 0.709921431310724
+          }
+        },
+        "test": {
+          "iou": 0.7330941631873632,
+          "iou_ci95": [
+            0.691785391222772,
+            0.7705569953313898
+          ],
+          "mae": 0.8777889044916813,
+          "mae_ci95": [
+            0.59104718871583,
+            1.2195765983499938
+          ],
+          "bias": -0.8419550469414648,
+          "ccc": 0.9545146146014751,
+          "grade_acc": 0.7818181818181819,
+          "qwk": 0.7349397590361446
+        },
+        "healthy_test": {
+          "n": 21,
+          "flagged_ge_0_5pct": 0,
+          "flagged_any_pixel": 14,
+          "pred_sev_median": 0.004885038754640787,
+          "pred_sev_max": 0.3775167785234899,
+          "flagged_ge_0_5pct_leaf_rule": 0,
+          "flagged_any_pixel_leaf_rule": 14
+        },
+        "healthy_val": {
+          "n": 21,
+          "flagged_ge_0_5pct": 0,
+          "flagged_any_pixel": 20,
+          "pred_sev_median": 0.004124646827115428,
+          "pred_sev_max": 0.33242166545013235,
+          "flagged_ge_0_5pct_leaf_rule": 0,
+          "flagged_any_pixel_leaf_rule": 20
+        }
+      }
+    }
+  }
+}

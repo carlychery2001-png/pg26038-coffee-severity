@@ -1,0 +1,197 @@
+{
+  "source": "Published counts from the manuscript (54 healthy test leaves per disease); no re-inference.",
+  "false_positive_definition": "healthy leaf with any predicted lesion pixel",
+  "interval_method": "Wilson score interval, two-sided 95%, no continuity correction",
+  "z": 1.959963984540054,
+  "rule_of_three_upper_bound": {
+    "value": 0.05555555555555555,
+    "pct_1dp": 5.6,
+    "applies_to": "models with 0/54 false positives (approximate one-sided 95% upper bound, 3/n)",
+    "vs_wilson_note": "For 0/54 the two-sided 95% Wilson upper limit is 6.6%, which is effectively a one-sided 97.5% bound; the rule of three (5.6%) is an approximate one-sided 95% bound, so it is lower. The dotted line in the figure applies only to the 0/54 models, not to the 1/54 rows it crosses."
+  },
+  "drawing_note": "Interval bars are drawn with butt line caps so their ends coincide exactly with the Wilson bounds.",
+  "coverage_note": "Only 21 of the 54 healthy rust-test leaves are present on the local computer; this figure uses the published counts for all 54 and was not recomputed locally.",
+  "clopper_pearson_note": "Exact (Clopper-Pearson) intervals are included only as a cross-check; the figure shows Wilson intervals.",
+  "results": [
+    {
+      "disease": "rust",
+      "species": "Hemileia vastatrix",
+      "model": "SegFormer-B5",
+      "false_positives": 0,
+      "n_healthy": 54,
+      "fp_rate": 0.0,
+      "fp_rate_pct_1dp": 0.0,
+      "specificity": 1.0,
+      "wilson95_fp_rate": [
+        0.0,
+        0.0664135880908964
+      ],
+      "wilson95_fp_rate_pct_1dp": [
+        0.0,
+        6.6
+      ],
+      "wilson95_specificity": [
+        0.9335864119091036,
+        1.0
+      ],
+      "wilson95_specificity_pct_1dp": [
+        93.4,
+        100.0
+      ],
+      "clopper_pearson95_fp_rate_pct_1dp_crosscheck": [
+        0.0,
+        6.6
+      ]
+    },
+    {
+      "disease": "rust",
+      "species": "Hemileia vastatrix",
+      "model": "UNet++",
+      "false_positives": 1,
+      "n_healthy": 54,
+      "fp_rate": 0.018518518518518517,
+      "fp_rate_pct_1dp": 1.9,
+      "specificity": 0.9814814814814815,
+      "wilson95_fp_rate": [
+        0.003276487718229061,
+        0.09771437488781931
+      ],
+      "wilson95_fp_rate_pct_1dp": [
+        0.3,
+        9.8
+      ],
+      "wilson95_specificity": [
+        0.9022856251121807,
+        0.9967235122817709
+      ],
+      "wilson95_specificity_pct_1dp": [
+        90.2,
+        99.7
+      ],
+      "clopper_pearson95_fp_rate_pct_1dp_crosscheck": [
+        0.0,
+        9.9
+      ]
+    },
+    {
+      "disease": "rust",
+      "species": "Hemileia vastatrix",
+      "model": "DeepLabV3+",
+      "false_positives": 0,
+      "n_healthy": 54,
+      "fp_rate": 0.0,
+      "fp_rate_pct_1dp": 0.0,
+      "specificity": 1.0,
+      "wilson95_fp_rate": [
+        0.0,
+        0.0664135880908964
+      ],
+      "wilson95_fp_rate_pct_1dp": [
+        0.0,
+        6.6
+      ],
+      "wilson95_specificity": [
+        0.9335864119091036,
+        1.0
+      ],
+      "wilson95_specificity_pct_1dp": [
+        93.4,
+        100.0
+      ],
+      "clopper_pearson95_fp_rate_pct_1dp_crosscheck": [
+        0.0,
+        6.6
+      ]
+    },
+    {
+      "disease": "leaf_spot",
+      "species": "Mycena citricolor",
+      "model": "SegFormer-B5",
+      "false_positives": 0,
+      "n_healthy": 54,
+      "fp_rate": 0.0,
+      "fp_rate_pct_1dp": 0.0,
+      "specificity": 1.0,
+      "wilson95_fp_rate": [
+        0.0,
+        0.0664135880908964
+      ],
+      "wilson95_fp_rate_pct_1dp": [
+        0.0,
+        6.6
+      ],
+      "wilson95_specificity": [
+        0.9335864119091036,
+        1.0
+      ],
+      "wilson95_specificity_pct_1dp": [
+        93.4,
+        100.0
+      ],
+      "clopper_pearson95_fp_rate_pct_1dp_crosscheck": [
+        0.0,
+        6.6
+      ]
+    },
+    {
+      "disease": "leaf_spot",
+      "species": "Mycena citricolor",
+      "model": "UNet++",
+      "false_positives": 0,
+      "n_healthy": 54,
+      "fp_rate": 0.0,
+      "fp_rate_pct_1dp": 0.0,
+      "specificity": 1.0,
+      "wilson95_fp_rate": [
+        0.0,
+        0.0664135880908964
+      ],
+      "wilson95_fp_rate_pct_1dp": [
+        0.0,
+        6.6
+      ],
+      "wilson95_specificity": [
+        0.9335864119091036,
+        1.0
+      ],
+      "wilson95_specificity_pct_1dp": [
+        93.4,
+        100.0
+      ],
+      "clopper_pearson95_fp_rate_pct_1dp_crosscheck": [
+        0.0,
+        6.6
+      ]
+    },
+    {
+      "disease": "leaf_spot",
+      "species": "Mycena citricolor",
+      "model": "DeepLabV3+",
+      "false_positives": 1,
+      "n_healthy": 54,
+      "fp_rate": 0.018518518518518517,
+      "fp_rate_pct_1dp": 1.9,
+      "specificity": 0.9814814814814815,
+      "wilson95_fp_rate": [
+        0.003276487718229061,
+        0.09771437488781931
+      ],
+      "wilson95_fp_rate_pct_1dp": [
+        0.3,
+        9.8
+      ],
+      "wilson95_specificity": [
+        0.9022856251121807,
+        0.9967235122817709
+      ],
+      "wilson95_specificity_pct_1dp": [
+        90.2,
+        99.7
+      ],
+      "clopper_pearson95_fp_rate_pct_1dp_crosscheck": [
+        0.0,
+        9.9
+      ]
+    }
+  ]
+}

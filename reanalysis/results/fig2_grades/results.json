@@ -1,0 +1,940 @@
+{
+  "figure": "Figure 2, grade exemplars (rebuilt)",
+  "outputs": {
+    "pdf": "<ROOT>/reanalysis/results/fig2_grades/figure2.pdf",
+    "png": "<ROOT>/reanalysis/results/fig2_grades/figure2.png",
+    "script": "<ROOT>/reanalysis/results/fig2_grades/make_figure2.py"
+  },
+  "size_cm": [
+    16.0,
+    14.84
+  ],
+  "png_dpi": 600,
+  "definitions": {
+    "leaf": "alpha > 8",
+    "lesion": "mask > 127 AND leaf",
+    "severity": "100 * lesion px / leaf px on the displayed face, pack images/masks at native resolution (no letterbox)",
+    "grade_bands": "G0 <0.5%, G1 0.5 to <5%, G2 5 to <20%, G3 >=20%",
+    "band_middle_rule": "arithmetic middle for closed bands (G1 2.75%, G2 12.5%); for the open G3 band, the median of the pack's >=20% abaxial faces",
+    "outline": "reference lesion boundary (mask > 127 AND leaf), vector contour at the 0.5 level of the binary mask in the pack pixel frame, magenta #FF00FF, 0.45 pt",
+    "display": "leaves composited on white via alpha; each leaf scaled individually to a common height (no common physical scale; scan resolution is not recorded in the packs)",
+    "print_ppi": "embedded leaf-crop height in px / printed leaf height in inches (PDF embeds the crop at native resolution; the 600 dpi PNG resamples it)",
+    "split_policy": "exemplars restricted to the train and val splits; the test split is withheld pending peer review (manuscript sections/06_backmatter.tex, data availability statement)",
+    "end_zones": "top and bottom 8% of the leaf's vertical extent (petiole end at the top, apex at the bottom in both packs); used to screen out faces whose mask marks petiole-end or apex necrosis",
+    "margin_touching_share": "share of lesion area in 8-connected lesion components that come within 3 px of the leaf edge",
+    "selection_rule": "per cell, faces in the band (leaf spot: annotator grade equal to the band) ranked by distance of the abaxial severity to the band target; the nearest train/val face without end-zone mask and with typical lesions on visual inspection was chosen; every face nearer the target (any split) is listed with the reason it was passed over (selection_context, status field)"
+  },
+  "faces": "abaxial for all eight cells (leaf spot: the adaxial face was not clearly more representative for any chosen leaf)",
+  "g0_source_note": "Both G0 cells are healthy control leaves from the rust pack (EARTH, Guacimo healthy set, the same site as American leaf spot); labelled 'healthy control leaf' in the figure. The leaf-spot pack contains no healthy leaves, and its <0.5% faces all carry annotator grade G1.",
+  "cells": [
+    {
+      "row": "rust",
+      "grade": "G0",
+      "column_header": "G0 — healthy or trace, <0.5%",
+      "file": "20260612_Healthy_051__abaxial.png",
+      "leaf_id": "20260612_Healthy_051",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-roya-real-pack",
+      "image": "<ROOT>/datasets/pg26038-roya-real-pack/images/20260612_Healthy_051__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-roya-real-pack/masks/20260612_Healthy_051__abaxial.png",
+      "pack_label": "healthy",
+      "split": "val",
+      "healthy_control": true,
+      "leaf_px": 83632,
+      "lesion_px": 0,
+      "severity_pct": 0.0,
+      "severity_printed": "0.0%",
+      "other_face_file": "20260612_Healthy_051__adaxial.png",
+      "other_face_severity_pct": 0.0,
+      "leaf_mean_severity_pct": 0.0,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.0,
+      "n_lesion_components": 0,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-ojo-lesions/images/20260612_Healthy_051__abaxial.png",
+        "display_size_px": [
+          1583,
+          2048
+        ],
+        "pack_size_px": [
+          791,
+          1024
+        ],
+        "check_lanczos_down_leaf_rgb_mean_abs_diff": 0.245,
+        "check_alpha_gt8_agreement": 0.999991,
+        "embedded_crop_px": [
+          455,
+          1264
+        ],
+        "print_size_cm": [
+          1.742,
+          4.85
+        ],
+        "print_ppi": 662.0
+      },
+      "rationale": "Healthy control leaf (EARTH healthy set, stored in the rust pack); symmetric, no marks."
+    },
+    {
+      "row": "rust",
+      "grade": "G1",
+      "column_header": "G1 — mild, 0.5 to <5%",
+      "file": "20260819_Hvastatrix_GX_130__abaxial.png",
+      "leaf_id": "20260819_Hvastatrix_GX_130",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-roya-real-pack",
+      "image": "<ROOT>/datasets/pg26038-roya-real-pack/images/20260819_Hvastatrix_GX_130__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-roya-real-pack/masks/20260819_Hvastatrix_GX_130__abaxial.png",
+      "pack_label": "roya",
+      "split": "train",
+      "healthy_control": false,
+      "leaf_px": 49871,
+      "lesion_px": 1349,
+      "severity_pct": 2.705,
+      "severity_printed": "2.7%",
+      "other_face_file": "20260819_Hvastatrix_GX_130__adaxial.png",
+      "other_face_severity_pct": 2.8138,
+      "leaf_mean_severity_pct": 2.7594,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.1764,
+      "n_lesion_components": 11,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-sam2-roya/images/20260819_Hvastatrix_GX_130__abaxial.png",
+        "display_size_px": [
+          1583,
+          2048
+        ],
+        "pack_size_px": [
+          791,
+          1024
+        ],
+        "check_lanczos_down_leaf_rgb_mean_abs_diff": 0.276,
+        "check_alpha_gt8_agreement": 0.999968,
+        "embedded_crop_px": [
+          401,
+          840
+        ],
+        "print_size_cm": [
+          2.31,
+          4.85
+        ],
+        "print_ppi": 439.9
+      },
+      "rationale": "Third-nearest rust abaxial face to the arithmetic band middle (2.75%); 0.045 percentage points (pp) away. The two nearer faces are listed in passed_over: GX_030 (2.77%) has lesion mask in both end zones; GX_129 (2.73%, 0.024 pp away, no end-zone mask) was passed over on appearance only, because its pustules are concentrated along the right margin. GX_130 has discrete sporulating pustules spread over the lamina, 18% of lesion area in pustules touching the margin, no mask pixels in either end zone. Both GX_129 and GX_130 print as 2.7%. Adaxial face also G1 (2.81%)."
+    },
+    {
+      "row": "rust",
+      "grade": "G2",
+      "column_header": "G2 — moderate, 5 to <20%",
+      "file": "20260819_Hvastatrix_GX_114__abaxial.png",
+      "leaf_id": "20260819_Hvastatrix_GX_114",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-roya-real-pack",
+      "image": "<ROOT>/datasets/pg26038-roya-real-pack/images/20260819_Hvastatrix_GX_114__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-roya-real-pack/masks/20260819_Hvastatrix_GX_114__abaxial.png",
+      "pack_label": "roya",
+      "split": "train",
+      "healthy_control": false,
+      "leaf_px": 33151,
+      "lesion_px": 4109,
+      "severity_pct": 12.3948,
+      "severity_printed": "12.4%",
+      "other_face_file": "20260819_Hvastatrix_GX_114__adaxial.png",
+      "other_face_severity_pct": 4.7565,
+      "leaf_mean_severity_pct": 8.5756,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 22,
+      "end_zone_share_of_lesion_area": 0.0054,
+      "margin_touching_share_of_lesion_area": 0.1458,
+      "n_lesion_components": 16,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-sam2-roya/images/20260819_Hvastatrix_GX_114__abaxial.png",
+        "display_size_px": [
+          1583,
+          2048
+        ],
+        "pack_size_px": [
+          791,
+          1024
+        ],
+        "check_lanczos_down_leaf_rgb_mean_abs_diff": 0.297,
+        "check_alpha_gt8_agreement": 0.999964,
+        "embedded_crop_px": [
+          325,
+          750
+        ],
+        "print_size_cm": [
+          2.095,
+          4.85
+        ],
+        "print_ppi": 392.8
+      },
+      "rationale": "Nearest rust abaxial face (any split) to the arithmetic band middle (12.5%); typical sporulating pustules, 15% of lesion area in pustules touching the margin. Petiole-end zone unmarked; 22 lesion px (0.5% of lesion area) fall in the apex zone, the lower edge of a pustule at the base of the acumen (the acumen itself is unmarked). The left margin has a natural fold. Visually cleaner alternative further from the middle: GX_136 (9.56%). Rust grades use the abaxial face only (adaxial 4.76%)."
+    },
+    {
+      "row": "rust",
+      "grade": "G3",
+      "column_header": "G3 — severe, ≥20%",
+      "file": "20260819_Hvastatrix_GX_119__abaxial.png",
+      "leaf_id": "20260819_Hvastatrix_GX_119",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-roya-real-pack",
+      "image": "<ROOT>/datasets/pg26038-roya-real-pack/images/20260819_Hvastatrix_GX_119__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-roya-real-pack/masks/20260819_Hvastatrix_GX_119__abaxial.png",
+      "pack_label": "roya",
+      "split": "train",
+      "healthy_control": false,
+      "leaf_px": 25815,
+      "lesion_px": 6043,
+      "severity_pct": 23.4089,
+      "severity_printed": "23.4%",
+      "other_face_file": "20260819_Hvastatrix_GX_119__adaxial.png",
+      "other_face_severity_pct": 15.0775,
+      "leaf_mean_severity_pct": 19.2432,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.6174,
+      "n_lesion_components": 15,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-sam2-roya/images/20260819_Hvastatrix_GX_119__abaxial.png",
+        "display_size_px": [
+          1583,
+          2048
+        ],
+        "pack_size_px": [
+          791,
+          1024
+        ],
+        "check_lanczos_down_leaf_rgb_mean_abs_diff": 0.331,
+        "check_alpha_gt8_agreement": 0.999978,
+        "embedded_crop_px": [
+          263,
+          636
+        ],
+        "print_size_cm": [
+          1.998,
+          4.85
+        ],
+        "print_ppi": 333.1
+      },
+      "rationale": "Only two rust leaves reach >=20% on the abaxial face (GX_072 21.73%, GX_119 23.41%), equidistant from their median; GX_119 has typical coalescing sporulating lesions and no mask pixels in either end zone, but 62% of its lesion area is in lesions touching the margin. GX_072 has a damaged, deeply lobed margin and mask in both end zones."
+    },
+    {
+      "row": "leafspot",
+      "grade": "G0",
+      "column_header": "G0 — healthy or trace, <0.5%",
+      "file": "20260615_Healthy_117__abaxial.png",
+      "leaf_id": "20260615_Healthy_117",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-roya-real-pack",
+      "image": "<ROOT>/datasets/pg26038-roya-real-pack/images/20260615_Healthy_117__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-roya-real-pack/masks/20260615_Healthy_117__abaxial.png",
+      "pack_label": "healthy",
+      "split": "val",
+      "healthy_control": true,
+      "leaf_px": 90883,
+      "lesion_px": 0,
+      "severity_pct": 0.0,
+      "severity_printed": "0.0%",
+      "other_face_file": "20260615_Healthy_117__adaxial.png",
+      "other_face_severity_pct": 0.0,
+      "leaf_mean_severity_pct": 0.0,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.0,
+      "n_lesion_components": 0,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-ojo-lesions/images/20260615_Healthy_117__abaxial.png",
+        "display_size_px": [
+          1583,
+          2048
+        ],
+        "pack_size_px": [
+          791,
+          1024
+        ],
+        "check_lanczos_down_leaf_rgb_mean_abs_diff": 0.248,
+        "check_alpha_gt8_agreement": 0.999989,
+        "embedded_crop_px": [
+          483,
+          1264
+        ],
+        "print_size_cm": [
+          1.849,
+          4.85
+        ],
+        "print_ppi": 662.0
+      },
+      "rationale": "Healthy control leaf from the rust pack (EARTH healthy set, the leaf-spot collection site); the leaf-spot pack has no healthy leaves. Leaf-spot-pack faces with <0.5% exist (22 abaxial faces) but every one carries the annotator's visual grade G1, so none was used as a G0 exemplar."
+    },
+    {
+      "row": "leafspot",
+      "grade": "G1",
+      "column_header": "G1 — mild, 0.5 to <5%",
+      "file": "20260621_Mcitricolor_GX_008__abaxial.png",
+      "leaf_id": "20260621_Mcitricolor_GX_008",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-ojo-real-pack",
+      "image": "<ROOT>/datasets/pg26038-ojo-real-pack/images/20260621_Mcitricolor_GX_008__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-ojo-real-pack/masks/20260621_Mcitricolor_GX_008__abaxial.png",
+      "pack_label": "G1",
+      "split": "train",
+      "healthy_control": false,
+      "leaf_px": 257420,
+      "lesion_px": 6730,
+      "severity_pct": 2.6144,
+      "severity_printed": "2.6%",
+      "other_face_file": "20260621_Mcitricolor_GX_008__adaxial.png",
+      "other_face_severity_pct": 3.0571,
+      "leaf_mean_severity_pct": 2.8357,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.0,
+      "n_lesion_components": 4,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-ojo-real-pack/images/20260621_Mcitricolor_GX_008__abaxial.png",
+        "display_px_per_pack_px": 1.0,
+        "embedded_crop_px": [
+          411,
+          1092
+        ],
+        "print_size_cm": [
+          1.825,
+          4.85
+        ],
+        "print_ppi": 571.9
+      },
+      "rationale": "Train split; 0.136 pp from the band middle (2.75%). All four nearer faces are listed in passed_over (three have lesion mask at the petiole end, one has a single lesion). Two lesions on the lamina, away from the margin, tip and petiole end: an upper subcircular eyespot with a reddish-brown halo beside the midrib (with two small mask specks on the midrib next to it) and a lower lesion formed by two coalesced spots. No lesion area touches the margin; no mask pixels in either end zone. Replaces 20260628 GX_017 (3.12%, test split, withheld). Annotator grade G1; adaxial 3.06%."
+    },
+    {
+      "row": "leafspot",
+      "grade": "G2",
+      "column_header": "G2 — moderate, 5 to <20%",
+      "file": "20260628_Mcitricolor_GX_014__abaxial.png",
+      "leaf_id": "20260628_Mcitricolor_GX_014",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-ojo-real-pack",
+      "image": "<ROOT>/datasets/pg26038-ojo-real-pack/images/20260628_Mcitricolor_GX_014__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-ojo-real-pack/masks/20260628_Mcitricolor_GX_014__abaxial.png",
+      "pack_label": "G2",
+      "split": "train",
+      "healthy_control": false,
+      "leaf_px": 300506,
+      "lesion_px": 38194,
+      "severity_pct": 12.7099,
+      "severity_printed": "12.7%",
+      "other_face_file": "20260628_Mcitricolor_GX_014__adaxial.png",
+      "other_face_severity_pct": 10.5814,
+      "leaf_mean_severity_pct": 11.6456,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.0383,
+      "n_lesion_components": 18,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-ojo-real-pack/images/20260628_Mcitricolor_GX_014__abaxial.png",
+        "display_px_per_pack_px": 1.0,
+        "embedded_crop_px": [
+          418,
+          1220
+        ],
+        "print_size_cm": [
+          1.662,
+          4.85
+        ],
+        "print_ppi": 638.9
+      },
+      "rationale": "Train split; 0.21 pp from the band middle (12.5%), the nearest face after the four listed in passed_over (three with petiole-end mask, one with irregular marginal lesions). 18 mask components, mostly subcircular eyespots scattered over the lamina, some with very dark centres, plus a few thin masked streaks along the midrib and one lateral vein. 3.8% of lesion area in lesions touching the margin; no mask pixels in either end zone. Replaces 20260628 GX_094 (13.20%, 0.70 pp from the middle, 15% of lesion area touching the margin, paler leaf). Annotator grade G2; adaxial 10.58%."
+    },
+    {
+      "row": "leafspot",
+      "grade": "G3",
+      "column_header": "G3 — severe, ≥20%",
+      "file": "20260628_Mcitricolor_GX_130__abaxial.png",
+      "leaf_id": "20260628_Mcitricolor_GX_130",
+      "face": "abaxial",
+      "source_pack": "<ROOT>/datasets/pg26038-ojo-real-pack",
+      "image": "<ROOT>/datasets/pg26038-ojo-real-pack/images/20260628_Mcitricolor_GX_130__abaxial.png",
+      "mask": "<ROOT>/datasets/pg26038-ojo-real-pack/masks/20260628_Mcitricolor_GX_130__abaxial.png",
+      "pack_label": "G3",
+      "split": "train",
+      "healthy_control": false,
+      "leaf_px": 184072,
+      "lesion_px": 43070,
+      "severity_pct": 23.3985,
+      "severity_printed": "23.4%",
+      "other_face_file": "20260628_Mcitricolor_GX_130__adaxial.png",
+      "other_face_severity_pct": 22.5434,
+      "leaf_mean_severity_pct": 22.9709,
+      "petiole_end_zone_lesion_px": 0,
+      "apex_zone_lesion_px": 0,
+      "end_zone_share_of_lesion_area": 0.0,
+      "margin_touching_share_of_lesion_area": 0.4717,
+      "n_lesion_components": 6,
+      "display": {
+        "display_file": "<ROOT>/datasets/pg26038-ojo-real-pack/images/20260628_Mcitricolor_GX_130__abaxial.png",
+        "display_px_per_pack_px": 1.0,
+        "embedded_crop_px": [
+          330,
+          913
+        ],
+        "print_size_cm": [
+          1.753,
+          4.85
+        ],
+        "print_ppi": 478.1
+      },
+      "rationale": "Train split; nearest train/val face to the G3 target (26.3%, median of the pack's >=20% abaxial faces) with no lesion mask in either end zone, 2.9 pp below it. The six nearer faces are listed in passed_over: four train faces with tip, petiole-end or margin necrosis (95-100% of lesion area touching the margin for three of them), and two test faces that are withheld. Four large irregular lesions on the mid-lamina, formed by coalescing spots, plus two small ones. These are blotches rather than discrete subcircular eyespots; no train/val G3 face near the target shows discrete eyespots without tip or margin necrosis. 47% of lesion area is in lesions touching the leaf margin (the left lesion, the upper-right lesion and a small right-margin spot); the petiole end and the apex are unmarked. Farther alternatives inspected: GX_053 (22.98%, train; chlorotic, senescent-looking, petiole-end mask) and GX_076 (22.49%, val; the most eyespot-like, but a large lesion covers the apex and 76% of lesion area touches the margin). Replaces 20260628 GX_031 (27.33%, test split, withheld; necrotic masked acumen, petiole-end dot, 70% of lesion area touching the margin). Annotator grade G3; adaxial 22.54%."
+    }
+  ],
+  "selection_context": {
+    "rust_G1": {
+      "target_pct": 2.75,
+      "n_faces_in_band_all_splits": 93,
+      "n_faces_in_band_train_val": 82,
+      "chosen_rank_all_splits": 3,
+      "candidates": [
+        {
+          "file": "20260819_Hvastatrix_GX_030__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 2.769,
+          "distance_to_target_pp": 0.019,
+          "petiole_end_zone_lesion_px": 35,
+          "apex_zone_lesion_px": 159,
+          "end_zone_share_of_lesion_area": 0.1022,
+          "margin_touching_share_of_lesion_area": 0.6972,
+          "n_lesion_components": 14,
+          "status": "passed over: Lesion mask in both end zones (35 px petiole end, 159 px apex; 10% of lesion area) and 70% of lesion area in pustules touching the margin."
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_129__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 2.726,
+          "distance_to_target_pp": 0.024,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.3412,
+          "n_lesion_components": 16,
+          "status": "passed over: No end-zone mask and 0.02 pp nearer than GX_130 (both print as 2.7%). Passed over on appearance: pustules are concentrated along the right margin, two of them coalescing against the edge (34% of lesion area touching the margin vs 18% for GX_130)."
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_130__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 2.705,
+          "distance_to_target_pp": 0.045,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.1764,
+          "n_lesion_components": 11,
+          "status": "chosen"
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_054__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 2.835,
+          "distance_to_target_pp": 0.085,
+          "petiole_end_zone_lesion_px": 60,
+          "apex_zone_lesion_px": 70,
+          "end_zone_share_of_lesion_area": 0.0609,
+          "margin_touching_share_of_lesion_area": 0.1589,
+          "n_lesion_components": 24,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_093__abaxial.png",
+          "split": "val",
+          "label": "roya",
+          "severity_pct": 2.85,
+          "distance_to_target_pp": 0.1,
+          "petiole_end_zone_lesion_px": 67,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0459,
+          "margin_touching_share_of_lesion_area": 0.0898,
+          "n_lesion_components": 8,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_109__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 2.633,
+          "distance_to_target_pp": 0.117,
+          "petiole_end_zone_lesion_px": 75,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0363,
+          "margin_touching_share_of_lesion_area": 0.1879,
+          "n_lesion_components": 33,
+          "status": "farther from the target than the chosen face"
+        }
+      ]
+    },
+    "rust_G2": {
+      "target_pct": 12.5,
+      "n_faces_in_band_all_splits": 45,
+      "n_faces_in_band_train_val": 36,
+      "chosen_rank_all_splits": 1,
+      "candidates": [
+        {
+          "file": "20260819_Hvastatrix_GX_114__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 12.395,
+          "distance_to_target_pp": 0.105,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 22,
+          "end_zone_share_of_lesion_area": 0.0054,
+          "margin_touching_share_of_lesion_area": 0.1458,
+          "n_lesion_components": 16,
+          "status": "chosen"
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_018__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 12.347,
+          "distance_to_target_pp": 0.153,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 108,
+          "end_zone_share_of_lesion_area": 0.0101,
+          "margin_touching_share_of_lesion_area": 0.8859,
+          "n_lesion_components": 19,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_008__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 13.57,
+          "distance_to_target_pp": 1.07,
+          "petiole_end_zone_lesion_px": 96,
+          "apex_zone_lesion_px": 161,
+          "end_zone_share_of_lesion_area": 0.0383,
+          "margin_touching_share_of_lesion_area": 0.5507,
+          "n_lesion_components": 17,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_134__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 11.407,
+          "distance_to_target_pp": 1.093,
+          "petiole_end_zone_lesion_px": 99,
+          "apex_zone_lesion_px": 54,
+          "end_zone_share_of_lesion_area": 0.0399,
+          "margin_touching_share_of_lesion_area": 0.611,
+          "n_lesion_components": 10,
+          "status": "farther from the target than the chosen face"
+        }
+      ]
+    },
+    "rust_G3": {
+      "target_pct": 22.57,
+      "n_faces_in_band_all_splits": 2,
+      "n_faces_in_band_train_val": 2,
+      "chosen_rank_all_splits": 2,
+      "candidates": [
+        {
+          "file": "20260819_Hvastatrix_GX_072__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 21.728,
+          "distance_to_target_pp": 0.84,
+          "petiole_end_zone_lesion_px": 49,
+          "apex_zone_lesion_px": 581,
+          "end_zone_share_of_lesion_area": 0.0996,
+          "margin_touching_share_of_lesion_area": 0.6414,
+          "n_lesion_components": 24,
+          "status": "passed over: Equidistant from the target (median of the two >=20% faces). Damaged, deeply lobed margin; lesion mask in both end zones (49 + 581 px, 10% of lesion area); 64% of lesion area touching the margin."
+        },
+        {
+          "file": "20260819_Hvastatrix_GX_119__abaxial.png",
+          "split": "train",
+          "label": "roya",
+          "severity_pct": 23.409,
+          "distance_to_target_pp": 0.84,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.6174,
+          "n_lesion_components": 15,
+          "status": "chosen"
+        }
+      ]
+    },
+    "leafspot_G1": {
+      "target_pct": 2.75,
+      "n_faces_in_band_all_splits": 177,
+      "n_faces_in_band_train_val": 152,
+      "chosen_rank_all_splits": 5,
+      "candidates": [
+        {
+          "file": "20260621_Mcitricolor_GX_158__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.733,
+          "distance_to_target_pp": 0.017,
+          "petiole_end_zone_lesion_px": 458,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0895,
+          "margin_touching_share_of_lesion_area": 0.317,
+          "n_lesion_components": 9,
+          "status": "passed over: Masked cut petiole end (458 px in the petiole-end zone, 9% of lesion area); 32% of lesion area touching the margin."
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_160__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.731,
+          "distance_to_target_pp": 0.019,
+          "petiole_end_zone_lesion_px": 256,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0205,
+          "margin_touching_share_of_lesion_area": 0.1784,
+          "n_lesion_components": 17,
+          "status": "passed over: Masked petiole end (256 px) and a long masked streak along the upper midrib."
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_240__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.82,
+          "distance_to_target_pp": 0.07,
+          "petiole_end_zone_lesion_px": 297,
+          "apex_zone_lesion_px": 95,
+          "end_zone_share_of_lesion_area": 0.0448,
+          "margin_touching_share_of_lesion_area": 0.0339,
+          "n_lesion_components": 8,
+          "status": "passed over: Lesion mask at the petiole end (297 px) and the apex (95 px)."
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_221__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.64,
+          "distance_to_target_pp": 0.11,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.0,
+          "n_lesion_components": 1,
+          "status": "passed over: Only one lesion (two coalesced spots forming a single mask component)."
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_008__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.614,
+          "distance_to_target_pp": 0.136,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.0,
+          "n_lesion_components": 4,
+          "status": "chosen"
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_129__abaxial.png",
+          "split": "val",
+          "label": "G1",
+          "severity_pct": 2.611,
+          "distance_to_target_pp": 0.139,
+          "petiole_end_zone_lesion_px": 183,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0208,
+          "margin_touching_share_of_lesion_area": 0.0208,
+          "n_lesion_components": 19,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_219__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.906,
+          "distance_to_target_pp": 0.156,
+          "petiole_end_zone_lesion_px": 734,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.1536,
+          "margin_touching_share_of_lesion_area": 0.1536,
+          "n_lesion_components": 5,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_140__abaxial.png",
+          "split": "train",
+          "label": "G1",
+          "severity_pct": 2.578,
+          "distance_to_target_pp": 0.172,
+          "petiole_end_zone_lesion_px": 156,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0221,
+          "margin_touching_share_of_lesion_area": 0.0221,
+          "n_lesion_components": 4,
+          "status": "farther from the target than the chosen face"
+        }
+      ]
+    },
+    "leafspot_G2": {
+      "target_pct": 12.5,
+      "n_faces_in_band_all_splits": 151,
+      "n_faces_in_band_train_val": 128,
+      "chosen_rank_all_splits": 5,
+      "candidates": [
+        {
+          "file": "20260628_Mcitricolor_GX_120__abaxial.png",
+          "split": "train",
+          "label": "G2",
+          "severity_pct": 12.492,
+          "distance_to_target_pp": 0.008,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.6346,
+          "n_lesion_components": 16,
+          "status": "passed over: No end-zone mask, but irregular lesions, 64% of lesion area touching the margin, and dark streaking along the veins over the lamina."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_126__abaxial.png",
+          "split": "val",
+          "label": "G2",
+          "severity_pct": 12.442,
+          "distance_to_target_pp": 0.058,
+          "petiole_end_zone_lesion_px": 293,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.009,
+          "margin_touching_share_of_lesion_area": 0.1927,
+          "n_lesion_components": 12,
+          "status": "passed over: Val split. Masked petiole end (293 px in the petiole-end zone)."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_119__abaxial.png",
+          "split": "train",
+          "label": "G2",
+          "severity_pct": 12.598,
+          "distance_to_target_pp": 0.098,
+          "petiole_end_zone_lesion_px": 725,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0165,
+          "margin_touching_share_of_lesion_area": 0.2744,
+          "n_lesion_components": 21,
+          "status": "passed over: Masked petiole end (725 px); irregular lesions, one reaching the base of the acumen; vein streaking."
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_009__abaxial.png",
+          "split": "val",
+          "label": "G2",
+          "severity_pct": 12.376,
+          "distance_to_target_pp": 0.124,
+          "petiole_end_zone_lesion_px": 751,
+          "apex_zone_lesion_px": 4967,
+          "end_zone_share_of_lesion_area": 0.1757,
+          "margin_touching_share_of_lesion_area": 0.3312,
+          "n_lesion_components": 6,
+          "status": "passed over: Val split. Masked petiole end (751 px) and a large necrotic lesion covering the apex (4967 px in the apex zone; 18% of lesion area in the end zones)."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_014__abaxial.png",
+          "split": "train",
+          "label": "G2",
+          "severity_pct": 12.71,
+          "distance_to_target_pp": 0.21,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.0383,
+          "n_lesion_components": 18,
+          "status": "chosen"
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_031__abaxial.png",
+          "split": "train",
+          "label": "G2",
+          "severity_pct": 12.831,
+          "distance_to_target_pp": 0.331,
+          "petiole_end_zone_lesion_px": 405,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0091,
+          "margin_touching_share_of_lesion_area": 0.6116,
+          "n_lesion_components": 13,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260621_Mcitricolor_GX_235__abaxial.png",
+          "split": "val",
+          "label": "G2",
+          "severity_pct": 12.986,
+          "distance_to_target_pp": 0.486,
+          "petiole_end_zone_lesion_px": 944,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0444,
+          "margin_touching_share_of_lesion_area": 0.8947,
+          "n_lesion_components": 9,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_083__abaxial.png",
+          "split": "train",
+          "label": "G2",
+          "severity_pct": 13.057,
+          "distance_to_target_pp": 0.557,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.4217,
+          "n_lesion_components": 9,
+          "status": "farther from the target than the chosen face"
+        }
+      ]
+    },
+    "leafspot_G3": {
+      "target_pct": 26.28,
+      "n_faces_in_band_all_splits": 12,
+      "n_faces_in_band_train_val": 10,
+      "chosen_rank_all_splits": 7,
+      "candidates": [
+        {
+          "file": "20260628_Mcitricolor_GX_095__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 26.281,
+          "distance_to_target_pp": 0.0,
+          "petiole_end_zone_lesion_px": 800,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0126,
+          "margin_touching_share_of_lesion_area": 0.7839,
+          "n_lesion_components": 14,
+          "status": "passed over: Necrosis running along the midrib to the petiole end (800 px in the petiole-end zone); 78% of lesion area touching the margin."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_033__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 26.381,
+          "distance_to_target_pp": 0.1,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 1241,
+          "end_zone_share_of_lesion_area": 0.0167,
+          "margin_touching_share_of_lesion_area": 0.9957,
+          "n_lesion_components": 8,
+          "status": "passed over: Hole through the lamina; lesions along both margins (99.6% of lesion area touching the margin); 1241 px in the apex zone."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_031__abaxial.png",
+          "split": "test",
+          "label": "G3",
+          "severity_pct": 27.332,
+          "distance_to_target_pp": 1.051,
+          "petiole_end_zone_lesion_px": 207,
+          "apex_zone_lesion_px": 3017,
+          "end_zone_share_of_lesion_area": 0.0461,
+          "margin_touching_share_of_lesion_area": 0.6962,
+          "n_lesion_components": 8,
+          "status": "passed over: Test split (withheld); previously used here. Necrotic masked acumen (3017 px apex zone) and a masked dot at the petiole end (207 px); irregular blotches, 70% of lesion area touching the margin."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_079__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 25.121,
+          "distance_to_target_pp": 1.16,
+          "petiole_end_zone_lesion_px": 410,
+          "apex_zone_lesion_px": 2640,
+          "end_zone_share_of_lesion_area": 0.0569,
+          "margin_touching_share_of_lesion_area": 0.9866,
+          "n_lesion_components": 7,
+          "status": "passed over: Marginal necrosis along the whole left margin down to the apex (99% of lesion area touching the margin; 2640 px apex, 410 px petiole end)."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_088__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 27.728,
+          "distance_to_target_pp": 1.447,
+          "petiole_end_zone_lesion_px": 341,
+          "apex_zone_lesion_px": 1944,
+          "end_zone_share_of_lesion_area": 0.04,
+          "margin_touching_share_of_lesion_area": 0.9513,
+          "n_lesion_components": 8,
+          "status": "passed over: Marginal necrosis along both margins down to the apex (95% of lesion area touching the margin; 1944 px apex, 341 px petiole end)."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_064__abaxial.png",
+          "split": "test",
+          "label": "G3",
+          "severity_pct": 23.532,
+          "distance_to_target_pp": 2.749,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 1174,
+          "end_zone_share_of_lesion_area": 0.033,
+          "margin_touching_share_of_lesion_area": 1.0,
+          "n_lesion_components": 2,
+          "status": "passed over: Test split (withheld). A large lesion covers the acumen (1174 px apex zone); 100% of lesion area touching the margin."
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_130__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 23.398,
+          "distance_to_target_pp": 2.882,
+          "petiole_end_zone_lesion_px": 0,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0,
+          "margin_touching_share_of_lesion_area": 0.4717,
+          "n_lesion_components": 6,
+          "status": "chosen"
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_053__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 22.978,
+          "distance_to_target_pp": 3.303,
+          "petiole_end_zone_lesion_px": 306,
+          "apex_zone_lesion_px": 0,
+          "end_zone_share_of_lesion_area": 0.0044,
+          "margin_touching_share_of_lesion_area": 0.1632,
+          "n_lesion_components": 26,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_076__abaxial.png",
+          "split": "val",
+          "label": "G3",
+          "severity_pct": 22.486,
+          "distance_to_target_pp": 3.795,
+          "petiole_end_zone_lesion_px": 185,
+          "apex_zone_lesion_px": 2490,
+          "end_zone_share_of_lesion_area": 0.1087,
+          "margin_touching_share_of_lesion_area": 0.7635,
+          "n_lesion_components": 11,
+          "status": "farther from the target than the chosen face"
+        },
+        {
+          "file": "20260628_Mcitricolor_GX_097__abaxial.png",
+          "split": "train",
+          "label": "G3",
+          "severity_pct": 45.528,
+          "distance_to_target_pp": 19.247,
+          "petiole_end_zone_lesion_px": 225,
+          "apex_zone_lesion_px": 3188,
+          "end_zone_share_of_lesion_area": 0.0163,
+          "margin_touching_share_of_lesion_area": 0.8635,
+          "n_lesion_components": 25,
+          "status": "farther from the target than the chosen face"
+        }
+      ]
+    }
+  }
+}
